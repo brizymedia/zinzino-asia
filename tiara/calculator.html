@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>진지노 내 예상 수익</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#2A1A3E;
+  --plum:#3D2462;
+  --plum-deep:#2B1747;
+  --violet:#6B4FA0;
+  --lav:#EDE6F7;
+  --gold:#C6A55C;
+  --gold-deep:#A98938;
+  --rose:#D6336C;
+  --ivory:#F7F2E9;
+  --paper:#FFFDF8;
+  --line:#E5DCCB;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Noto Sans KR',-apple-system,'Malgun Gothic',sans-serif;
+  background:var(--ivory);
+  color:var(--ink);
+  line-height:1.6;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(107,79,160,.10), transparent),
+    repeating-linear-gradient(0deg, transparent 0 2px, rgba(61,36,98,.012) 2px 4px);
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px 80px}
+
+/* ── HERO ─────────────────────────── */
+header{
+  background:linear-gradient(150deg, var(--plum-deep) 0%, var(--plum) 55%, #4E3080 100%);
+  color:#fff;
+  padding:64px 20px 130px;
+  position:relative;
+  overflow:hidden;
+}
+header::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(circle 480px at 85% 20%, rgba(198,165,92,.22), transparent 70%),
+    radial-gradient(circle 300px at 8% 90%, rgba(214,51,108,.15), transparent 70%);
+}
+header .inner{max-width:1080px;margin:0 auto;position:relative}
+.brand{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:13px;letter-spacing:.35em;font-weight:700;color:var(--gold);
+  border:1px solid rgba(198,165,92,.45);padding:7px 16px;border-radius:999px;
+  margin-bottom:26px;text-transform:uppercase;
+}
+.brand::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold)}
+h1{
+  font-family:'Noto Serif KR',serif;font-weight:900;
+  font-size:clamp(34px,5.2vw,54px);line-height:1.22;letter-spacing:-.01em;
+}
+h1 em{font-style:normal;color:var(--gold)}
+.sub{margin-top:16px;font-size:16px;color:#CBBFE3;max-width:600px}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
+.hero-tags span{
+  font-size:12.5px;font-weight:500;color:#E4DBF3;background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);padding:5px 12px;border-radius:999px;
+}
+
+/* ── PANELS ───────────────────────── */
+.panel{
+  background:var(--paper);border:1px solid var(--line);border-radius:18px;
+  box-shadow:0 20px 45px -28px rgba(43,23,71,.35);
+  padding:34px 36px;
+}
+.panel + .panel{margin-top:26px}
+.panel h2{
+  font-family:'Noto Serif KR',serif;font-size:21px;font-weight:700;color:var(--plum);
+  display:flex;align-items:center;gap:12px;margin-bottom:6px;
+}
+.panel h2 .no{
+  font-family:'Noto Sans KR';font-size:12px;font-weight:900;color:var(--gold-deep);
+  border:1.5px solid var(--gold);border-radius:50%;width:26px;height:26px;
+  display:inline-flex;align-items:center;justify-content:center;flex:none;
+}
+.panel .h2sub{font-size:13px;color:#9A8FB5;margin-bottom:20px}
+
+/* input panel floats over hero */
+#inputPanel{margin-top:-72px;position:relative;z-index:2}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:26px 34px}
+@media(max-width:760px){.controls{grid-template-columns:1fr}}
+label.fl{display:block;font-size:13px;font-weight:700;color:var(--violet);letter-spacing:.06em;margin-bottom:9px}
+label.fl small{font-weight:500;color:#9A8FB5;letter-spacing:0}
+input[type=text]{
+  width:100%;padding:13px 16px;font-size:17px;font-weight:700;color:var(--ink);
+  border:1.5px solid var(--line);border-radius:12px;background:#fff;outline:none;
+  font-family:inherit;transition:.2s;
+}
+input[type=text]:focus{border-color:var(--violet);box-shadow:0 0 0 4px rgba(107,79,160,.12)}
+.cnt-row{display:flex;align-items:center;gap:14px}
+.cnt-num{
+  font-family:'Noto Serif KR',serif;font-size:38px;font-weight:900;color:var(--plum);
+  min-width:82px;text-align:center;line-height:1;
+}
+.cnt-num small{font-size:14px;font-weight:700;color:var(--violet)}
+.stepper{display:flex;flex-direction:column;gap:6px}
+.stepper button{
+  width:32px;height:28px;border:1.5px solid var(--line);background:#fff;border-radius:9px;
+  font-size:15px;font-weight:900;color:var(--plum);cursor:pointer;transition:.15s;
+}
+.stepper button:hover{background:var(--lav);border-color:var(--violet)}
+.slider-box{flex:1}
+input[type=range]{width:100%;accent-color:var(--plum);height:30px;cursor:pointer}
+.range-scale{display:flex;justify-content:space-between;font-size:11px;color:#9A8FB5;font-weight:500}
+.kit-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:560px){.kit-opts{grid-template-columns:1fr}}
+.kit-opt{
+  border:1.5px solid var(--line);border-radius:13px;background:#fff;padding:12px 14px;
+  cursor:pointer;transition:.18s;text-align:left;font-family:inherit;
+}
+.kit-opt .kn{font-size:14.5px;font-weight:900;color:var(--ink)}
+.kit-opt .kp{font-size:12px;color:#8B7FA8;margin-top:2px}
+.kit-opt.on{border-color:var(--gold);background:#FBF3E2;box-shadow:0 0 0 3px rgba(198,165,92,.18)}
+.kit-opt.on .kn{color:var(--gold-deep)}
+.sum-line{
+  grid-column:1/-1;background:var(--lav);border-radius:12px;padding:11px 18px;
+  font-size:14px;color:var(--plum);font-weight:500;
+}
+.sum-line b{color:var(--rose)}
+
+/* ── RESULT ───────────────────────── */
+.result-head{
+  display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px 26px;
+  border-bottom:1px dashed var(--line);padding-bottom:22px;margin-bottom:22px;
+}
+.rank-badge{
+  display:inline-flex;flex-direction:column;gap:2px;
+  background:linear-gradient(140deg,var(--plum-deep),var(--violet));
+  color:#fff;border-radius:14px;padding:14px 22px;min-width:170px;
+  box-shadow:0 12px 24px -12px rgba(43,23,71,.55);
+}
+.rank-badge .t{font-size:11.5px;letter-spacing:.22em;color:var(--gold);font-weight:700}
+.rank-badge .r{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:900;line-height:1.2}
+.headline{flex:1;min-width:240px}
+.headline .who{font-size:15px;font-weight:700;color:var(--violet)}
+.headline .amt{
+  font-family:'Noto Serif KR',serif;font-weight:900;color:var(--ink);
+  font-size:clamp(30px,4.4vw,42px);line-height:1.15;
+}
+.headline .amt b{color:var(--rose)}
+.headline .cap{font-size:12.5px;color:#8B7FA8}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+@media(max-width:700px){.kpis{grid-template-columns:1fr}}
+.kpi{
+  border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:#fff;
+  position:relative;overflow:hidden;
+}
+.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px}
+.kpi.k1::before{background:var(--gold)}
+.kpi.k2::before{background:var(--plum)}
+.kpi.k3::before{background:var(--rose)}
+.kpi .l{font-size:12.5px;font-weight:700;color:#8B7FA8}
+.kpi .v{font-size:23px;font-weight:900;color:var(--ink)}
+.kpi .n{font-size:11.5px;color:#A79BC2}
+
+.progress{
+  background:var(--lav);border-radius:12px;padding:13px 18px;font-size:14px;
+  color:var(--plum);font-weight:500;margin-bottom:26px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+}
+.progress .bar{flex:1;height:8px;background:#fff;border-radius:99px;overflow:hidden;min-width:80px}
+.progress .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--violet),var(--rose));border-radius:99px;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+
+/* breakdown */
+.bd-title{font-size:14px;font-weight:900;color:var(--plum);letter-spacing:.06em;margin-bottom:12px}
+table.bd{width:100%;border-collapse:collapse;font-size:14.5px}
+table.bd th{
+  text-align:left;font-size:12px;color:#8B7FA8;font-weight:700;letter-spacing:.08em;
+  border-bottom:1.5px solid var(--line);padding:8px 10px;
+}
+table.bd td{border-bottom:1px solid #F0EADC;padding:10px;vertical-align:top}
+table.bd td.amt{text-align:right;font-weight:900;white-space:nowrap;font-variant-numeric:tabular-nums}
+table.bd tr:last-child td{border-bottom:none}
+table.bd tr.off td{opacity:.45}
+table.bd tr.off td.amt{text-decoration:line-through;font-weight:500}
+.chip{
+  display:inline-block;font-size:11px;font-weight:700;border-radius:6px;padding:2px 8px;margin-left:8px;vertical-align:1px;
+}
+.chip.one{background:#F6EAD3;color:var(--gold-deep)}
+.chip.rec{background:var(--lav);color:var(--violet)}
+.chip.no{background:#F3E3E8;color:var(--rose)}
+.bd-note{font-size:12px;color:#9A8FB5;margin-top:2px}
+.total-row{
+  margin-top:16px;background:linear-gradient(135deg,var(--plum-deep),var(--plum));
+  color:#fff;border-radius:14px;padding:16px 22px;display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:8px;
+}
+.total-row .lb{font-size:14px;font-weight:700;color:#CBBFE3}
+.total-row .tv{font-family:'Noto Serif KR',serif;font-size:28px;font-weight:900;color:var(--gold)}
+.perks{margin-top:18px;display:grid;gap:8px}
+.perks div{
+  font-size:13.5px;color:#5C4A80;background:#FBF8F1;border:1px dashed var(--line);
+  border-radius:10px;padding:9px 14px;
+}
+.perks div::before{content:"🎁 ";}
+.conds{margin-top:14px;font-size:12.5px;color:#9A8FB5;line-height:1.75}
+.conds b{color:var(--violet)}
+
+/* ── CHART ────────────────────────── */
+.chart-scroll{overflow-x:auto}
+#chart,#flowChart{width:100%;min-width:640px;display:block}
+.legend{display:flex;gap:22px;font-size:13px;font-weight:500;color:#5C4A80;margin-bottom:14px;flex-wrap:wrap}
+.legend i{display:inline-block;width:13px;height:13px;border-radius:4px;margin-right:7px;vertical-align:-1.5px}
+
+/* ── TABLES ───────────────────────── */
+.tbl-scroll{overflow-x:auto}
+table.cmp{width:100%;border-collapse:collapse;font-size:14px;min-width:640px}
+table.cmp thead th{
+  background:var(--plum);color:#fff;font-weight:700;font-size:13px;padding:11px 12px;
+  letter-spacing:.05em;white-space:nowrap;
+}
+table.cmp thead th:first-child{border-radius:10px 0 0 0}
+table.cmp thead th:last-child{border-radius:0 10px 0 0}
+table.cmp td{
+  padding:11px 12px;border-bottom:1px solid #F0EADC;text-align:center;
+  font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+table.cmp td.num{text-align:right;font-weight:500}
+table.cmp td.total{font-weight:900;color:var(--plum)}
+table.cmp td.ev{text-align:left;font-size:12.5px;color:#5C4A80;white-space:normal}
+table.cmp tr.hl td{background:#FBF3E2;border-top:1.5px solid var(--gold);border-bottom:1.5px solid var(--gold)}
+table.cmp tr.hl td:first-child{border-left:1.5px solid var(--gold);border-radius:8px 0 0 8px}
+table.cmp tr.hl td:last-child{border-right:1.5px solid var(--gold);border-radius:0 8px 8px 0}
+.rk{display:inline-block;font-size:12px;font-weight:900;border-radius:6px;padding:3px 10px;color:#fff}
+
+/* ── ASSUMPTIONS ──────────────────── */
+.assump{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:18px}
+.assump div{
+  background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 16px;
+  font-size:13.5px;color:#5C4A80;
+}
+.assump b{color:var(--plum);display:block;font-size:12.5px;letter-spacing:.05em;margin-bottom:3px}
+.disclaimer{
+  font-size:12.5px;color:#8B7FA8;background:var(--lav);border-radius:12px;padding:15px 20px;line-height:1.8;
+}
+footer{
+  text-align:center;padding:36px 0 0;color:#A79BC2;font-size:12.5px;
+}
+footer .z{font-family:'Noto Serif KR',serif;font-weight:900;letter-spacing:.3em;color:var(--plum);font-size:15px}
+
+/* entry animation */
+.panel,.result-head,.kpi{animation:rise .6s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+#inputPanel{animation-delay:.05s}
+</style>
+<style>
+.homelink{position:fixed;top:16px;left:16px;z-index:50;display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.92);border:1.5px solid #E5DCCB;border-radius:999px;padding:8px 16px;
+  font-size:13.5px;font-weight:900;color:var(--plum);text-decoration:none;box-shadow:0 6px 16px -8px rgba(43,23,71,.4);backdrop-filter:blur(6px)}
+.homelink:hover{background:#fff;border-color:var(--violet)}
+</style>
+</head>
+<body>
+
+<a class="homelink" href="index.html">← 홈으로</a>
+
+<header>
+  <div class="inner">
+    <div class="brand">Zinzino Zenith Group</div>
+    <h1>진지노 <em>내 예상 수익</em></h1>
+    <p class="sub">직추천·후원 파트너 수와 시작 팩을 입력하면, 진지노 보상플랜(2026년 한국 론칭 기준 사업설명자료)에 따라 예상 직급 · 보너스 · 월별 수익 흐름을 표와 그래프로 보여드립니다.</p>
+    <div class="hero-tags">
+      <span>패스트 스타트</span><span>팀 커미션 (2:1 바이너리)</span><span>직급 달성 보너스</span><span>고객 유치 보너스</span><span>멘토 매칭 보너스</span><span>커스터머 캐쉬백</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- 1. 입력 -->
+  <section class="panel" id="inputPanel">
+    <h2><span class="no">1</span>기본 정보 입력</h2>
+    <div class="h2sub">직추천 = 내가 직접 추천한 파트너 · 후원 = 내 산하(직추천 파트너 아래)에 배치되는 파트너</div>
+    <div class="controls">
+      <div>
+        <label class="fl" for="name">이름</label>
+        <input type="text" id="name" placeholder="예: 홍길동" value="">
+      </div>
+      <div>
+        <label class="fl">시작 팩 <small>(나와 소개 파트너 모두 동일 팩으로 시작 가정)</small></label>
+        <div class="kit-opts" id="kitOpts">
+          <button class="kit-opt" data-kit="basic"><div class="kn">베이직 팩</div><div class="kp">63만원 · 30(ECB 60)크레딧</div></button>
+          <button class="kit-opt" data-kit="adv"><div class="kn">어드밴스드 팩</div><div class="kp">140만원 · 90(ECB 180)크레딧</div></button>
+          <button class="kit-opt on" data-kit="ult"><div class="kn">얼티밋 팩</div><div class="kp">200만원 · 150(ECB 300)크레딧</div></button>
+        </div>
+      </div>
+      <div>
+        <label class="fl" for="dcnt">직추천 파트너 수</label>
+        <div class="cnt-row">
+          <div class="stepper"><button id="dUp">+</button><button id="dDown">−</button></div>
+          <div class="cnt-num"><span id="dNum">2</span><small> 명</small></div>
+          <div class="slider-box">
+            <input type="range" id="dcnt" min="0" max="20" step="1" value="2">
+            <div class="range-scale"><span>0</span><span>5</span><span>10</span><span>15</span><span>20</span></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <label class="fl" for="scnt">후원 파트너 수 <small>(산하 배치)</small></label>
+        <div class="cnt-row">
+          <div class="stepper"><button id="sUp">+</button><button id="sDown">−</button></div>
+          <div class="cnt-num"><span id="sNum">0</span><small> 명</small></div>
+          <div class="slider-box">
+            <input type="range" id="scnt" min="0" max="30" step="1" value="0">
+            <div class="range-scale"><span>0</span><span>10</span><span>20</span><span>30</span></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <label class="fl" for="gen">산하 복제 확장 <small>(산하 전원이 각자 새 파트너를 만드는 세대 수 — 디렉터 이상 도달 경로)</small></label>
+        <div class="cnt-row">
+          <div class="stepper"><button id="gUp">+</button><button id="gDown">−</button></div>
+          <div class="cnt-num"><span id="gNum">0</span><small> 세대</small></div>
+          <div class="slider-box">
+            <input type="range" id="gen" min="0" max="5" step="1" value="0">
+            <div class="range-scale"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <label class="fl">세대당 1인 평균 복제 인원</label>
+        <div class="kit-opts" id="repOpts">
+          <button class="kit-opt on" data-rep="1"><div class="kn">1명</div><div class="kp">보수적</div></button>
+          <button class="kit-opt" data-rep="2"><div class="kn">2명</div><div class="kp">표준 (좌/우 복제)</div></button>
+          <button class="kit-opt" data-rep="3"><div class="kn">3명</div><div class="kp">적극적</div></button>
+        </div>
+      </div>
+      <div class="sum-line" id="sumLine"></div>
+    </div>
+  </section>
+
+  <!-- 2. 결과 -->
+  <section class="panel">
+    <h2><span class="no">2</span>예상 결과</h2>
+    <div class="h2sub"></div>
+    <div class="result-head">
+      <div class="rank-badge">
+        <span class="t">예상 직급</span>
+        <span class="r" id="rankName">브론즈</span>
+      </div>
+      <div class="headline">
+        <div class="who" id="whoLine"></div>
+        <div class="amt">총 <b id="totalAmt">-</b> 원</div>
+        <div class="cap">직급 첫 달성 시 누적 보너스 (사업설명자료 예시 시나리오 기준)</div>
+      </div>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi k1"><div class="l">일회성 보너스</div><div class="v" id="oneAmt">-</div><div class="n">패스트 스타트 · 직급 달성(분할) · 고객 유치</div></div>
+      <div class="kpi k2"><div class="l">매월 반복 가능 보너스</div><div class="v" id="recAmt">-</div><div class="n">팀 커미션 · 캐쉬백 · 멘토 매칭 등 (볼륨 유지 시)</div></div>
+      <div class="kpi k3"><div class="l">받는 제품 가치 (정가 기준)</div><div class="v" id="prodVal">-</div><div class="n" id="prodNote">시작 팩 + 커스터머 제품</div></div>
+    </div>
+
+    <div class="progress" id="progress">
+      <span id="progText"></span>
+      <div class="bar"><i id="progBar" style="width:50%"></i></div>
+    </div>
+
+    <div class="bd-title">보너스 상세 내역</div>
+    <table class="bd">
+      <thead><tr><th>항목</th><th style="text-align:right">금액</th></tr></thead>
+      <tbody id="bdBody"></tbody>
+    </table>
+    <div class="total-row">
+      <span class="lb" id="totalLabel"></span>
+      <span class="tv" id="totalAmt2"></span>
+    </div>
+    <div class="perks" id="perks"></div>
+    <div class="conds" id="conds"></div>
+  </section>
+
+  <!-- 3. 바이너리 구조도 -->
+  <section class="panel">
+    <h2><span class="no">3</span>예상 바이너리 조직 구조도</h2>
+    <div class="h2sub">직추천 파트너는 좌/우 레그에 번갈아 배치, 후원 파트너는 직추천 라인 아래에 배치된다고 가정한 구조입니다. (팀 커미션은 좌/우 2:1 균형 크레딧 기준)</div>
+    <div class="legend">
+      <span><i style="background:#D6336C"></i>나 (본인)</span>
+      <span><i style="background:linear-gradient(140deg,#2B1747,#6B4FA0)"></i>직추천 파트너</span>
+      <span><i style="background:linear-gradient(140deg,#C6A55C,#E2C889)"></i>후원 파트너</span>
+      <span><i style="background:#fff;border:1.5px solid #B8A88F"></i>커스터머</span>
+    </div>
+    <div class="chart-scroll"><svg id="treeChart" viewBox="0 0 960 560" role="img" aria-label="예상 바이너리 조직 구조도"></svg></div>
+  </section>
+
+  <!-- 4. 월별 흐름 -->
+  <section class="panel">
+    <h2><span class="no">4</span>월별 예상 수익 흐름 (1~12개월차)</h2>
+    <div class="h2sub">패스트 스타트 120일(4개월) 안에 조직을 완성하고 이후 볼륨을 유지한다고 가정한 시나리오입니다.</div>
+    <div class="legend">
+      <span><i style="background:linear-gradient(140deg,#2B1747,#6B4FA0)"></i>월 예상 수익</span>
+      <span><i style="background:#D6336C;width:13px;height:3px;border-radius:2px;vertical-align:3px"></i>누적 수익</span>
+    </div>
+    <div class="chart-scroll"><svg id="flowChart" viewBox="0 0 960 380" role="img" aria-label="월별 예상 수익 흐름"></svg></div>
+    <div class="tbl-scroll" style="margin-top:18px">
+      <table class="cmp">
+        <thead><tr><th>월차</th><th style="text-align:left">주요 이벤트</th><th>월 예상 수익</th><th>누적 수익</th></tr></thead>
+        <tbody id="flowBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 4. 마일스톤 그래프 -->
+  <section class="panel">
+    <h2><span class="no">5</span>소개자 수별 예상 수익 그래프</h2>
+    <div class="h2sub">얼티밋 팩 · 전원 직추천 기준 마일스톤 (막대를 클릭하면 해당 인원으로 설정됩니다)</div>
+    <div class="legend">
+      <span><i style="background:linear-gradient(140deg,#2B1747,#6B4FA0)"></i>일회성 보너스</span>
+      <span><i style="background:linear-gradient(140deg,#C6A55C,#E2C889)"></i>매월 반복 가능 보너스</span>
+      <span><i style="background:#D6336C;width:13px;height:3px;border-radius:2px;vertical-align:3px"></i>총 보너스 추이</span>
+    </div>
+    <div class="chart-scroll"><svg id="chart" viewBox="0 0 960 400" role="img" aria-label="소개자 수별 예상 수익 그래프"></svg></div>
+  </section>
+
+  <!-- 5. 비교표 -->
+  <section class="panel">
+    <h2><span class="no">6</span>소개자 수별 비교표 <span style="font-size:13px;color:#9A8FB5;font-weight:400">(얼티밋 팩 · 전원 직추천 기준)</span></h2>
+    <div class="tbl-scroll">
+      <table class="cmp">
+        <thead><tr>
+          <th>소개자 수</th><th>예상 직급</th><th>일회성 보너스</th><th>매월 반복 가능</th><th>총 보너스 (첫 달성 시)</th>
+        </tr></thead>
+        <tbody id="cmpBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 7. 상위 직급 로드맵 -->
+  <section class="panel">
+    <h2><span class="no">7</span>다이아몬드 이상 상위 직급 로드맵</h2>
+    <div class="h2sub">직급 보너스는 ① 좌/우 크레딧 실적 ② 커스터머 수 ③ 추천계보 내 직급자 — 3가지 방법으로 각각 달성할 때마다 지급됩니다 (직급별 최대 3회). 디렉터부터는 10,000크레딧 초과 실적에 대한 실적 커미션(1~4%)이 추가됩니다.</div>
+    <div class="tbl-scroll">
+      <table class="cmp">
+        <thead><tr>
+          <th>직급</th><th>균형 크레딧</th><th>또는 커스터머 수</th><th>직급 보너스 (분할)</th><th>실적 커미션</th><th>페이포인트 주간 한도</th><th>글로벌 월 평균 수당*</th>
+        </tr></thead>
+        <tbody>
+          <tr><td><span class="rk" style="background:#D6336C">다이아몬드</span></td><td class="num">12,000</td><td class="num">1,500명</td><td class="num">225만원 (5개월)</td><td>—</td><td class="num">1,500 PP</td><td class="num total">658만원</td></tr>
+          <tr><td><span class="rk" style="background:#B04070">디렉터</span></td><td class="num">24,000</td><td class="num">3,000명</td><td class="num">375만원 (5개월)</td><td>1%</td><td class="num">1,000 PP</td><td class="num total">1,152만원</td></tr>
+          <tr><td><span class="rk" style="background:#963A7E">크라운</span></td><td class="num">48,000</td><td class="num">6,000명</td><td class="num">600만원 (10개월)</td><td>1.5%</td><td class="num">2,000 PP</td><td class="num total">1,976만원</td></tr>
+          <tr><td><span class="rk" style="background:#7E338B">로열 크라운</span></td><td class="num">80,000</td><td class="num">10,000명</td><td class="num">900만원 (10개월)</td><td>1.75%</td><td class="num">3,000 PP</td><td class="num total">2,635만원</td></tr>
+          <tr><td><span class="rk" style="background:#652D85">블랙 크라운</span></td><td class="num">130,000</td><td class="num">15,000명</td><td class="num">1,200만원 (10개월)</td><td>2%</td><td class="num">5,000 PP</td><td class="num total">3,290만원</td></tr>
+          <tr><td><span class="rk" style="background:#513095">앰버서더</span></td><td class="num">150,000</td><td class="num">20,000명</td><td class="num">1,500만원 (10개월)</td><td>2.25%</td><td class="num">8,000 PP</td><td class="num total">3,950만원</td></tr>
+          <tr><td><span class="rk" style="background:#3F339E">로열 앰버서더</span></td><td class="num">200,000</td><td class="num">25,000명</td><td class="num">1,875만원 (10개월)</td><td>2.5%</td><td class="num">10,000 PP</td><td class="num total">4,600만원</td></tr>
+          <tr><td><span class="rk" style="background:#33307F">블랙 앰버서더</span></td><td class="num">250,000</td><td class="num">30,000명</td><td class="num">2,250만원 (10개월)</td><td>2.75%</td><td class="num">12,000 PP</td><td class="num total">5,270만원</td></tr>
+          <tr><td><span class="rk" style="background:#A98938">프레지던트</span></td><td class="num">300,000</td><td class="num">35,000명</td><td class="num">6,000만원 (10개월)</td><td>3%</td><td class="num">14,000 PP</td><td class="num total">8,200만원</td></tr>
+          <tr><td><span class="rk" style="background:#C6A55C">엘리트 프레지던트</span></td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td>3.5%</td><td class="num">16,000 PP</td><td class="num total">1억 3,000만원</td></tr>
+          <tr><td><span class="rk" style="background:#8B7FA8">글로벌 P / 1스타 / 2스타</span></td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td>4%</td><td class="num">20,000 / 30,000 / 40,000 PP</td><td class="num">10년 부 창출 프로그램 + 주식</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="conds" style="margin-top:12px">
+      * 글로벌 월 평균 수당 : 진지노 글로벌 직급자 월 평균(사업설명자료, 환율 반올림 기준) — 개인 성과에 따라 크게 다를 수 있습니다.<br>
+      * 균형 크레딧/커스터머 수는 다이아몬드 이후 산하 조직이 스스로 복제·확장되면서 만들어지는 볼륨으로, 파트너 몇 명 소개만으로 도달하는 수치가 아닙니다.
+      본 계산기의 소개자 수 시뮬레이션(최대 50명)으로는 다이아몬드까지 표시되며, 그 이후는 이 로드맵을 참고하세요.
+    </div>
+  </section>
+
+  <!-- 8. 가정 -->
+  <section class="panel">
+    <h2><span class="no">8</span>계산 가정 &amp; 유의사항</h2>
+    <div class="assump">
+      <div><b>기본 단위</b>1 PP(페이포인트) = 1,500원 · 밸런스오일 1병 = 4크레딧 ≈ 9만원</div>
+      <div><b>본인 시작 조건</b>본인도 선택한 시작 팩 구매 + 본인 커스터머 5병(45만원) 유지 (이그제큐티브부터는 13병·117만원) · 팩 병수 : 베이직 7병 / 어드밴스드 17병 / 얼티밋 25병</div>
+      <div><b>파트너 가정</b>모든 파트너는 선택한 팩 구매 + 커스터머 5병 유지 · 좌/우 균형 배치 · ECB(120일 크레딧 2배) 적용 · 단, 직급 카드 보너스 금액은 본인 얼티밋 시나리오 기준</div>
+      <div><b>직추천 vs 후원</b>팀 커미션·직급·고객 유치 보너스는 <u>직추천이 좌/우 각 1명(총 2명) 이상</u>일 때(인컴센터 활성화) 직추천+후원 <u>전체 볼륨</u> 기준으로 발생 · 패스트 스타트 2단계와 멘토 매칭 단계는 <u>직추천 수</u> 기준</div>
+      <div><b>팀 커미션</b>좌/우 균형 크레딧의 10%(~2,500크레딧) / 15%(3,000크레딧~) · 월 최고 900만원</div>
+      <div><b>멘토 매칭</b>직추천 2/4/6/8/10명 → 1~5단계(산하 팀 커미션의 5~25%), 12명 이상 → 6~10단계(2대 이하 10%씩 추가) · 본인 팀 커미션 초과 불가</div>
+      <div><b>캐쉬 보너스</b>본인 커스터머 매출의 10%(Q/X팀) ~ 20%(A팀 이상) 캐쉬백</div>
+      <div><b>패스트 스타트</b>1단계 100PP(30일) · 2단계 400PP(60일, 얼티밋 2명 직추천) · 3단계 600PP(90일, 하위 4명 키트 포인트 6점: 얼티밋3·어드밴2·베이직1, 2단계 선행 필요) · 4단계 150PP(120일, X팀) — 3단계 외에는 순서 무관</div>
+      <div><b>지급 주기·한도</b>팀 커미션·매칭·실적 커미션은 주별 계산 — 인컴센터당 팀 커미션 주간 최대 1,500PP(약 225만원, 월 900만원 수준) · 10,000크레딧 초과분은 디렉터 이상 실적 커미션(1~4%) 대상</div>
+      <div><b>산하 복제 확장</b>산하 전원이 세대마다 평균 1~3명씩 새 파트너를 만든다고 가정한 조직 성장 시뮬레이션 — 총 조직 크레딧이 24,000 이상이면 디렉터 이상 직급으로 판정되고, 이 구간의 월 반복 수익은 <u>진지노 글로벌 직급자 월 평균 수당</u>으로 추정</div>
+    </div>
+    <div class="disclaimer">
+      ⚠️ 본 계산기는 <b>Zinzino Zenith Group 사업설명자료(2026.07 기준)</b>의 직급별 예시 시나리오를 재구성한 <b>교육·설명용 시뮬레이션</b>입니다.
+      실제 수익은 조직 구성, 좌/우 균형, 커스터머 유지율, 달성 기간, 파트너별 실적, 회사 정책 변경 등에 따라 크게 달라질 수 있으며, 특정 수익을 보장하지 않습니다.
+      직급 달성 보너스는 4~5개월 분할 지급되고, 패스트 스타트 보너스는 가입 후 30~120일 내 단계 달성 시에만 지급됩니다.
+      베이직/어드밴스드 팩 파트너는 패스트 스타트 2·3단계 조건(얼티밋 팩)에 포함되지 않습니다.
+      멘토 매칭 보너스는 산하 조직의 실제 팀 커미션에 따라 달라지는 <b>추정치</b>입니다.
+    </div>
+  </section>
+
+  <footer>
+    <div class="z">ZINZINO</div>
+    성공하는 진지노 비즈니스를 응원합니다 · 진지노로 성공하기 프로젝트
+  </footer>
+</div>
+
+<script>
+"use strict";
+/* ═══════════════════════════════════════════════════════════
+   진지노 보상플랜 시뮬레이션 (Zenith Group 사업설명자료 2026.07 기준)
+   1PP = 1,500원 · 1병 = 4크레딧 · ECB = 120일 크레딧 2배
+═══════════════════════════════════════════════════════════ */
+const PP = 1500;
+const WON = n => Math.round(n).toLocaleString('ko-KR') + '원';
+
+/* 파트너 팩: P = 파트너 1명의 레그 기여 크레딧 (팩 ECB크레딧 + 커스터머 5병×4크레딧×2배) */
+const KITS = {
+  basic:{ key:'basic', label:'베이직 팩',   price:'63만원',  P:100, bottles:7  },
+  adv:  { key:'adv',   label:'어드밴스드 팩', price:'140만원', P:220, bottles:17 },
+  ult:  { key:'ult',   label:'얼티밋 팩',   price:'200만원', P:340, bottles:25 },
+};
+const RETAIL = 127800;   /* 밸런스오일 1병 정가 */
+
+/* 직급 정의 (직급 카드 기준) — e : 얼티밋 환산 파트너 수 기준 마일스톤 */
+const RANKS = [
+  { e:2,  name:'브론즈',      color:'#B08D57', credit:'375 (좌/우 188씩)',
+    tcPP:50,   rankPP:50,   split:4, cabPP:50,  cabLb:'미니 50PP',
+    cash:38500, cashLb:'본인 커스터머 5병 캐쉬백', zphone:false, zcar:false, prod:'383만원',
+    cond:'<b>브론즈 달성조건</b> : 균형 크레딧 375(좌/우 188씩) · PCP 4(커스터머 5병 유지) · 본인 얼티밋 키트+커스터머(45만원) · 패스트 스타트 1·2단계' },
+  { e:4,  name:'실버',        color:'#96A5B8', credit:'750 (좌/우 375씩)',
+    tcPP:100,  rankPP:150,  split:4, cabPP:200, cabLb:'미니+스몰 200PP',
+    cash:38500, cashLb:'본인 커스터머 5병 캐쉬백', zphone:false, zcar:false, prod:'383만원',
+    cond:'<b>실버 달성조건</b> : 균형 크레딧 750(좌/우 375씩) · PCP 4 · 본인 얼티밋 키트+커스터머 · 패스트 스타트 1·2단계' },
+  { e:6,  name:'골드',        color:'#C6A55C', credit:'1,500 (좌/우 750씩)',
+    tcPP:150,  rankPP:350,  split:4, cabPP:200, cabLb:'미니+스몰 200PP',
+    cash:38500, cashLb:'본인 커스터머 5병 캐쉬백', zphone:false, zcar:false, prod:'383만원',
+    cond:'<b>골드 달성조건</b> : 균형 크레딧 1,500(좌/우 750씩) · PCP 4 · 본인 얼티밋 키트+커스터머 · 패스트 스타트 1·2단계' },
+  { e:8,  name:'이그제큐티브', color:'#6B4FA0', credit:'3,000 (좌/우 1,500씩)',
+    tcPP:450,  rankPP:750,  split:4, cabPP:400, cabLb:'미니+스몰+미디엄 400PP',
+    cash:100100, cashLb:'X팀 커스터머 13병(117만원) 캐쉬백', zphone:true, zcar:false, prod:'486만원',
+    cond:'<b>이그제큐티브 달성조건</b> : 균형 크레딧 3,000(좌/우 1,500씩) · PCP 10(커스터머 13병 유지) · 본인 얼티밋 키트+커스터머(117만원) · 패스트 스타트 1~4단계' },
+  { e:10, name:'플래티넘',    color:'#4E3080', credit:'6,000 (좌/우 3,000씩)',
+    tcPP:900,  rankPP:1550, split:4, cabPP:400, cabLb:'미니+스몰+미디엄 400PP',
+    cash:100100, cashLb:'X팀 커스터머 13병 캐쉬백', zphone:true, zcar:false, prod:'486만원',
+    cond:'<b>플래티넘 달성조건</b> : 균형 크레딧 6,000(좌/우 3,000씩) · PCP 10 · 본인 얼티밋 키트+커스터머 · 패스트 스타트 1~4단계' },
+  { e:12, name:'다이아몬드',  color:'#D6336C', credit:'12,000 (좌/우 6,000씩)',
+    tcPP:1500, rankPP:3050, split:5, cabPP:600, cabLb:'미니+스몰+미디엄+라지 600PP',
+    cash:100100, cashLb:'X팀 커스터머 13병 캐쉬백', zphone:true, zcar:true, prod:'486만원',
+    cond:'<b>다이아몬드 달성조건</b> : 균형 크레딧 12,000(좌/우 6,000씩) · PCP 10 · 본인 얼티밋 키트+커스터머 · 패스트 스타트 1~4단계' },
+];
+
+/* 멘토 매칭: 직추천 수 → 단계, 1대 지급 비율(%) */
+const MATCH_STAGES = [[2,1,5],[4,2,10],[6,3,15],[8,4,20],[10,5,25],[12,6,25],[14,7,25],[15,8,25],[18,9,25],[20,10,25]];
+
+/* 다이아몬드 이상 상위 직급 (공식 보상플랜 문서 기준)
+   c: 균형 크레딧 조건 · cust: 대체 커스터머 수 조건 · cumPP: 브론즈부터 누적 직급 보너스
+   avg: 진지노 글로벌 직급자 월 평균 수당 · cabCap: 고객 유치 보너스 직급 한도(PP) */
+const UPPER = [
+  { c:24000,  cust:3000,  name:'디렉터',        color:'#B04070', rankPP:2500,  cumPP:5550,  split:5,  avg:11520000, cabCap:1500 },
+  { c:48000,  cust:6000,  name:'크라운',        color:'#963A7E', rankPP:4000,  cumPP:9550,  split:10, avg:19760000, cabCap:3000 },
+  { c:80000,  cust:10000, name:'로열 크라운',   color:'#7E338B', rankPP:6000,  cumPP:15550, split:10, avg:26350000, cabCap:3000 },
+  { c:130000, cust:15000, name:'블랙 크라운',   color:'#652D85', rankPP:8000,  cumPP:23550, split:10, avg:32900000, cabCap:3000 },
+  { c:150000, cust:20000, name:'앰버서더',      color:'#513095', rankPP:10000, cumPP:33550, split:10, avg:39500000, cabCap:4500 },
+  { c:200000, cust:25000, name:'로열 앰버서더', color:'#3F339E', rankPP:12500, cumPP:46050, split:10, avg:46000000, cabCap:4500 },
+  { c:250000, cust:30000, name:'블랙 앰버서더', color:'#33307F', rankPP:15000, cumPP:61050, split:10, avg:52700000, cabCap:4500 },
+  { c:300000, cust:35000, name:'프레지던트',    color:'#A98938', rankPP:40000, cumPP:101050, split:10, avg:82000000, cabCap:6000 },
+];
+/* 고객 유치 보너스: 좌/우 각 크레딧 → 합계 PP (미니~5XL) */
+const CAB_TIERS = [[200,50],[500,200],[1500,400],[3500,600],[7500,1000],[15000,1500],[35000,3000],[75000,4500],[150000,6000]];
+
+/* 팀 커미션 표: 균형 크레딧 → PP (10% ~2,500 / 15% 3,000~ / 월 최고 6,000PP=900만원) */
+function tcTablePP(c){
+  if(c < 500) return 0;
+  if(c < 3000) return Math.floor(c/500)*50;
+  return Math.min(6000, Math.floor(c/1000)*150);
+}
+
+/* ── 시나리오 계산 ──────────────────────────────
+   D = 직추천 수, S = 후원 수, kit = 파트너 팩
+   G = 복제 세대 수, RR = 세대당 1인 복제 인원 */
+function build(D, S, kitKey, G = 0, RR = 1){
+  const kit = KITS[kitKey];
+  const T = D + S;
+  /* 복제 확장 포함 총 조직: T × (1 + RR + RR² + … + RR^G) */
+  const mult = RR === 1 ? (G + 1) : (Math.pow(RR, G + 1) - 1) / (RR - 1);
+  const totalOrg = Math.round(T * mult);
+  const B = totalOrg * kit.P + 40;        // 총 조직 크레딧 (내 커스터머 포함)
+  const E = totalOrg * kit.P / 340;       // 얼티밋 환산 파트너 수
+  let rank = null, rankIdx = -1;
+  RANKS.forEach((r,i)=>{ if(E >= r.e){ rank = r; rankIdx = i; } });
+  /* 디렉터 이상: 총 조직 크레딧 기준 */
+  let upper = null;
+  UPPER.forEach((u,i)=>{ if(B >= u.c){ upper = u; rankIdx = 6 + i; } });
+  if(upper) rank = RANKS[5]; /* 카드 기반 하위 계산은 다이아몬드 값으로 유지 */
+  /* 인컴센터 활성화: 직추천이 좌/우 각 1명(총 2명) 이상 있어야
+     팀 커미션·직급·고객 유치 보너스 발생 (직추천은 좌/우 번갈아 배치 가정) */
+  const activated = D >= 2;
+  if(!activated){ rank = null; rankIdx = -1; upper = null; }
+  const isExec = rankIdx >= 3, isDia = rankIdx >= 5;
+
+  /* 패스트 스타트
+     2단계: 얼티밋 키트 2명 직추천 (좌/우 1명씩)
+     3단계: 하위 4명의 키트 포인트 합 6점 이상 (얼티밋 3점·어드밴스드 2점·베이직 1점) */
+  const KIT_PTS = { basic:1, adv:2, ult:3 };
+  const fs1 = 100*PP;
+  const fs2 = (kitKey==='ult' && D >= 2) ? 400*PP : 0;
+  const fs3 = (T >= 6 && fs2 > 0 && KIT_PTS[kitKey]*4 >= 6) ? 600*PP : 0;
+  const fs4 = isExec ? 150*PP : 0;   /* 4단계는 X팀(커스터머 10건·50크레딧) 조건 — 순서 무관 */
+
+  /* ── 멘토 매칭 (세대별 모델) ──────────────────────────
+     단계(직추천 수)에 따라 1대는 5~25%, 6단계부터는 아래 세대마다 10%씩 추가.
+     조직을 세대별로 전개(직추천 → 후원 → 복제 G세대)한 뒤,
+     각 세대 구성원이 자기 산하로 버는 팀 커미션을 합산해 매칭을 계산한다.
+     본인 팀 커미션을 초과할 수 없음(공식 규정). */
+  let stage = 0, stagePct = 0;
+  for(const [d,st,pct] of MATCH_STAGES){ if(D >= d){ stage = st; stagePct = pct; } }
+
+  /* 세대별 인원: 1세대=직추천, 2세대=후원, 이후 복제 G세대 */
+  const gens = [];
+  if(D > 0){
+    gens.push(D);
+    if(S > 0) gens.push(S);
+    let last = gens[gens.length - 1];
+    for(let k = 0; k < G; k++){ last = Math.round(last * RR); gens.push(last); }
+  }
+  /* 각 세대의 팀 커미션 합계 — 한 사람의 산하 = 아래 세대 인원 ÷ 해당 세대 인원 */
+  const genTC = gens.map((cnt, k) => {
+    const below = gens.slice(k + 1).reduce((a, b) => a + b, 0);
+    const perPerson = cnt > 0 ? below / cnt : 0;
+    return cnt * tcTablePP(perPerson * kit.P + 40) * PP;
+  });
+
+  const myTC = rank ? rank.tcPP * PP : 0;
+  let matching = 0;
+  if(rank && stage > 0){
+    matching = (genTC[0] || 0) * stagePct / 100;          // 1대
+    const deeper = Math.max(0, stage - 5);                 // 6단계부터 아래 세대 10%씩
+    for(let k = 1; k <= deeper; k++) matching += (genTC[k] || 0) * 0.10;
+    matching = Math.min(myTC, Math.round(matching));       // 본인 팀 커미션 초과 불가
+  }
+
+  /* 항목 구성 */
+  const items = [];  // [label, amt, 'one'|'rec', note, active]
+  const fsTotal = fs1+fs2+fs3+fs4;
+  const fsParts = ['1단계 100PP'];
+  if(fs2) fsParts.push('2단계 400PP'); if(fs3) fsParts.push('3단계 600PP'); if(fs4) fsParts.push('4단계 150PP');
+  items.push(['패스트 스타트 보너스', fsTotal, 'one', fsParts.join(' + ') + ' (30~120일 내 달성 시)', true]);
+  if(kitKey!=='ult' && D>=2) items.push(['패스트 스타트 2·3단계', 0, 'one', '2단계는 얼티밋 팩 파트너 2명 직추천 조건 — '+kit.label+'은 제외 (3단계는 2단계 선행 필요)', false]);
+  else if(D<2) items.push(['패스트 스타트 2단계 400PP', 0, 'one', '직추천 2명(얼티밋 팩·좌/우 배치) 필요 — 현재 직추천 '+D+'명', false]);
+
+  let upperCab = 0;
+  if(upper){
+    /* 디렉터 이상: 카드 항목 대신 공식 문서 + 글로벌 평균으로 구성 */
+    const leg = B/2; let pp = 0;
+    for(const [th,v] of CAB_TIERS){ if(leg >= th) pp = v; }
+    upperCab = Math.min(pp, upper.cabCap) * PP;
+    items.push(['직급 달성 보너스 누적 '+upper.cumPP.toLocaleString()+'PP', upper.cumPP*PP, 'one',
+      '브론즈~'+upper.name+' 전 직급 누적 · 최종 직급분은 '+upper.split+'개월 분할 (크레딧/커스터머 수/추천계보 3가지 방법으로 각 1회씩 추가 수령 가능)', true]);
+    items.push(['고객 유치 보너스 '+Math.round(upperCab/PP).toLocaleString()+'PP', upperCab, 'one', '좌/우 신규 크레딧 및 직급 한도 기준', true]);
+    items.push(['월 평균 수당 (글로벌 '+upper.name+' 평균)', upper.avg, 'rec',
+      '팀 커미션(주간 상한) + 실적 커미션 '+['1%','1.5%','1.75%','2%','2.25%','2.5%','2.75%','3%'][rankIdx-6]+'(10,000크레딧 초과분) + 멘토 매칭 + 캐쉬백 + Z폰/Z카 등 전체 포함 — 진지노 글로벌 직급자 월 평균', true]);
+  } else {
+    const cash = rank ? rank.cash : 38500;
+    items.push(['커스터머 캐쉬 보너스', cash, 'rec', rank ? rank.cashLb : '본인 커스터머 5병 캐쉬백 (병당 7,700원)', true]);
+    if(!activated && T >= 1){
+      items.push(['팀 커미션 · 직급 · 고객 유치 보너스', 0, 'rec',
+        '인컴센터 미활성화 — 직추천이 좌/우 각 1명씩(총 2명) 있어야 발생합니다. 현재 조직 볼륨 '+B.toLocaleString()+'크레딧은 쌓이지만 수당은 미발생', false]);
+    }
+
+    if(rank){
+      items.push(['팀 커미션 '+rank.tcPP+'PP', rank.tcPP*PP, 'rec', '좌/우 균형 크레딧 '+rank.credit+' 기준', true]);
+      items.push(['직급 달성 보너스 '+rank.rankPP.toLocaleString()+'PP', rank.rankPP*PP, 'one', rank.split+'개월 분할 지급', true]);
+      items.push(['고객 유치 보너스 '+rank.cabLb, rank.cabPP*PP, 'one', '좌/우 신규 크레딧 달성 시', true]);
+      if(rank.zphone) items.push(['Z폰 보너스 200PP', 200*PP, 'rec', '자격 유지 시 매월', true]);
+      if(rank.zcar) items.push(['Z카 보너스 1,000PP', 1000*PP, 'rec', '자격 유지 시 매월', true]);
+    }
+    if(stage > 0){
+      items.push(['멘토 매칭 보너스 '+stage+'단계 (추정)', matching, 'rec',
+        '직추천 '+D+'명 → '+stage+'단계 · 1대 팀 커미션의 '+stagePct+'%'+(matching===0?' — 산하 팀 커미션이 아직 없어 0원':''), matching>0]);
+    }
+  }
+
+  const one = items.filter(x=>x[4]&&x[2]==='one').reduce((a,x)=>a+x[1],0);
+  const rec = items.filter(x=>x[4]&&x[2]==='rec').reduce((a,x)=>a+x[1],0);
+
+  /* 받는 제품 가치: 내 시작 팩 병수 + 내 커스터머 병수 × 정가 127,800원 */
+  const custBottles = upper ? 32 : (rankIdx >= 3 ? 13 : 5);
+  const prodBottles = kit.bottles + custBottles;
+  const prodValue = prodBottles * RETAIL;
+
+  /* 월별 흐름 (12개월) */
+  const cash = upper ? 0 : (rank ? rank.cash : 38500);
+  const tc = upper ? upper.avg : myTC;
+  const rb = upper ? upper.cumPP*PP : (rank ? rank.rankPP*PP : 0);
+  const split = upper ? upper.split : (rank ? rank.split : 4);
+  const cab = upper ? upperCab : (rank ? rank.cabPP*PP : 0);
+  const zp = !upper && rank && rank.zphone ? 200*PP : 0, zc = !upper && rank && rank.zcar ? 1000*PP : 0;
+  const mMatch = upper ? 0 : matching;
+  const achName = upper ? upper.name : (rank ? rank.name : null);
+  const months = [];
+  for(let m=1;m<=12;m++){
+    let amt = cash, ev = [];
+    if(m===1){ amt += fs1 + tc*0.25; ev.push('사업 시작 · 패스트 스타트 1단계'); }
+    if(m===2){ amt += fs2 + tc*0.5 + cab/3; if(fs2) ev.push('패스트 스타트 2단계'); ev.push('조직 구축 중'); }
+    if(m===3){ amt += fs3 + tc*0.75 + cab/3; if(fs3) ev.push('패스트 스타트 3단계'); }
+    if(m===4){ amt += fs4 + cab/3; if(fs4) ev.push('패스트 스타트 4단계'); if(achName) ev.push(achName+' 달성!'); }
+    if(m>=4){ amt += tc + zp + zc + (m>=5?mMatch:0); }
+    if((rank||upper) && m>=4 && m<4+split){ amt += rb/split; ev.push('직급 보너스 분할 '+(m-3)+'/'+split); }
+    if(m>=5 && ev.length===0) ev.push(upper ? '조직 볼륨 유지 (글로벌 '+upper.name+' 평균 수당)' : (rank ? '볼륨 유지 (팀 커미션'+(mMatch>0?'+매칭':'')+(zp?'+Z폰':'')+(zc?'+Z카':'')+')' : '커스터머 유지 (캐쉬백)'));
+    months.push({m, amt:Math.round(amt), ev:ev.join(' · ')});
+  }
+  let cum = 0; months.forEach(x=>{ cum += x.amt; x.cum = cum; });
+
+  return { D,S,T,E,kit,rank,rankIdx,upper,activated,B,totalOrg,G,RR,items,one,rec,total:one+rec,matching,stage,stagePct,months,
+           custBottles,prodBottles,prodValue,fs:{fs1,fs2,fs3,fs4} };
+}
+
+/* ── DOM ── */
+const $ = id => document.getElementById(id);
+const dIn = $('dcnt'), sIn = $('scnt'), genIn = $('gen'), nameIn = $('name');
+let kitKey = 'ult', repR = 1;
+
+function nextMile(E){ for(const r of RANKS){ if(r.e > E) return r; } return null; }
+
+function render(){
+  const D = +dIn.value, S = +sIn.value, G = +genIn.value;
+  const name = nameIn.value.trim() || '회원';
+  const r = build(D, S, kitKey, G, repR);
+  const kit = r.kit;
+
+  $('dNum').textContent = D; $('sNum').textContent = S; $('gNum').textContent = G;
+  let sum = `내 조직 : 직추천 <b>${D}명</b> + 후원 <b>${S}명</b> = 총 <b>${r.T}명</b> (${kit.label} 기준${kitKey!=='ult' ? ' · 얼티밋 환산 약 '+(Math.round(r.E*10)/10)+'명' : ''})`;
+  if(G > 0) sum += ` · 복제 ${G}세대 × ${repR}명 → 전체 조직 약 <b>${r.totalOrg.toLocaleString()}명</b> (약 ${r.B.toLocaleString()} 크레딧)`;
+  $('sumLine').innerHTML = sum;
+
+  const rankLabel = r.upper ? r.upper.name : (r.rank ? (r.E >= 14 ? '다이아몬드+' : r.rank.name) : (r.T >= 1 ? 'Q팀 스타트' : '파트너 준비'));
+  $('rankName').textContent = rankLabel;
+  $('whoLine').textContent = `${name}님 · 직추천 ${D}명 + 후원 ${S}명 (${kit.label})`;
+  $('totalAmt').textContent = r.total.toLocaleString('ko-KR');
+  $('totalAmt2').textContent = WON(r.total);
+  $('totalLabel').textContent = rankLabel + ' 기준 총 보너스';
+  $('oneAmt').textContent = WON(r.one);
+  $('recAmt').textContent = WON(r.rec);
+  $('prodVal').textContent = '약 ' + Math.round(r.prodValue/10000).toLocaleString() + '만원 상당';
+  $('prodNote').textContent = `${kit.label} ${kit.bottles}병 + 커스터머 ${r.custBottles}병 = 총 ${r.prodBottles}병 (정가 127,800원/병)`;
+
+  /* progress */
+  const nm = nextMile(r.E);
+  if(!r.activated && r.T >= 1){
+    $('progText').innerHTML = `<b>인컴센터 미활성화</b> — 직추천이 좌/우 각 1명씩 필요합니다. 직추천 <b>${2 - D}명</b>을 더 만들면 쌓인 볼륨(${r.B.toLocaleString()}크레딧)에 대한 수당이 열립니다`;
+    $('progBar').style.width = D === 1 ? '50%' : '6%';
+  } else if(r.upper){
+    const ui = UPPER.indexOf(r.upper);
+    if(ui >= UPPER.length - 1){
+      $('progText').innerHTML = `최고 직급 <b>프레지던트</b> 달성! 이후는 엘리트/글로벌/스타 프레지던트 (실적 커미션 3.5~4%)`;
+      $('progBar').style.width = '100%';
+    } else {
+      const nu = UPPER[ui+1];
+      const needOrg = Math.ceil((nu.c - r.B) / kit.P);
+      $('progText').innerHTML = `다음 직급 <b>${nu.name}</b>(${nu.c.toLocaleString()}크레딧)까지 조직 약 <b>${needOrg.toLocaleString()}명</b> 더 필요합니다`;
+      $('progBar').style.width = Math.max(6, Math.min(100, Math.round(r.B / nu.c * 100))) + '%';
+    }
+  } else if(!nm){
+    const needOrg = Math.ceil((24000 - r.B) / kit.P);
+    $('progText').innerHTML = `다이아몬드 달성! 다음 직급 <b>디렉터</b>(24,000크레딧)까지 조직 약 <b>${needOrg.toLocaleString()}명</b> — 산하 복제 확장(세대 입력)으로 도달해 보세요`;
+    $('progBar').style.width = Math.max(6, Math.min(100, Math.round(r.B / 24000 * 100))) + '%';
+  } else {
+    const prevE = r.rank ? r.rank.e : 0;
+    const pct = Math.round(((r.E - prevE) / (nm.e - prevE)) * 100);
+    const needP = Math.ceil((nm.e - r.E) * 340 / kit.P);
+    $('progText').innerHTML = `다음 직급 <b>${nm.name}</b>까지 ${kit.label} 파트너 <b>${needP}명</b> 더 필요합니다`;
+    $('progBar').style.width = Math.max(6, Math.min(100,pct)) + '%';
+  }
+
+  /* breakdown */
+  $('bdBody').innerHTML = r.items.map(([lb, amt, ty, note, on]) => `
+    <tr${on ? '' : ' class="off"'}><td>${lb}<span class="chip ${on ? (ty==='one'?'one':'rec') : 'no'}">${on ? (ty==='one'?'일회성':'매월 가능') : '미지급'}</span>
+    ${note ? `<div class="bd-note">${note}</div>` : ''}</td>
+    <td class="amt">${on ? WON(amt) : '0원'}</td></tr>`).join('');
+
+  /* perks & conds */
+  const perks = [];
+  if(r.rank){
+    perks.push('제품 1병 무료 증정 (9만원 상당, 다음달)');
+    if(r.rankIdx>=3) perks.push('회사 선정 제품 1개 무료 (다음달)', 'X팀 달성 시 매달 산하 신규 볼륨 ECB×2배 적용');
+    perks.push(`${kit.label} ${kit.bottles}병 + 커스터머 ${r.custBottles}병 = 총 ${r.prodBottles}병 (정가 기준 약 ${Math.round(r.prodValue/10000).toLocaleString()}만원 어치 제품)`);
+  } else {
+    perks.push('Zinzino 4 Free : 직접 추천 커스터머 4명이 매월 자동주문 시 내 오토십 무료');
+    perks.push(`${kit.label} ${kit.bottles}병 + 커스터머 ${r.custBottles}병 = 총 ${r.prodBottles}병 (정가 기준 약 ${Math.round(r.prodValue/10000).toLocaleString()}만원 어치 제품)`);
+  }
+  $('perks').innerHTML = perks.map(p=>`<div>${p}</div>`).join('');
+
+  let cond;
+  if(r.upper){
+    const u = r.upper;
+    cond = `<b>${u.name} 달성조건</b> : 균형 크레딧 ${u.c.toLocaleString()}(좌/우 ${(u.c/2).toLocaleString()}씩) · PCP 25(커스터머 32병 유지) — 또는 커스터머 ${u.cust.toLocaleString()}명 / 추천계보 내 직급자를 통해서도 달성 가능 (3가지 방법 각 1회씩 직급 보너스 지급)`;
+    cond += `<br><b>참고</b> : 월 반복 수익은 진지노 글로벌 ${u.name} 평균 수당 기준 추정치이며, 조직 볼륨·유지율에 따라 크게 달라집니다.`;
+  } else {
+    cond = r.rank ? r.rank.cond : '<b>조건</b> : 본인 얼티밋 키트 + 커스터머 5병 유지 · 파트너 소개로 브론즈부터 시작됩니다';
+    if(!r.activated && r.T >= 1) cond += `<br><b>인컴센터 활성화</b> : 직추천 파트너가 좌/우에 각 1명씩(총 2명) 있어야 팀 커미션·직급·고객 유치 보너스가 발생합니다. 후원 파트너만으로는 볼륨은 쌓여도 수당이 열리지 않습니다.`;
+    if(r.stage>0 && r.matching===0 && S===0) cond += `<br><b>멘토 매칭 팁</b> : 후원 파트너를 직추천 라인 아래에 배치하면 그 라인의 팀 커미션 × ${r.stagePct}%가 매칭 보너스로 추가됩니다.`;
+    if(r.E>=14) cond += `<br><b>+ 직추천 ${D}명</b> : 멘토 매칭 단계가 확장됩니다 (14명=7단계 · 15명=8단계 · 18명=9단계 · 20명=10단계, 2대 이하 10%씩 추가).`;
+  }
+  if(kitKey!=='ult') cond += `<br><b>참고</b> : ${kit.label}(${kit.price}) 파트너는 크레딧이 낮아 직급 도달에 더 많은 인원이 필요하고, 패스트 스타트 2·3단계(얼티밋 조건)는 제외됩니다.`;
+  $('conds').innerHTML = cond;
+
+  drawTree(r);
+  drawFlow(r);
+  drawChart(r);
+  buildTable(r);
+}
+
+/* ── 바이너리 조직 구조도 ──
+   직추천: 좌/우 번갈아 배치 · 후원: 인원이 적은 레그의 빈 슬롯에 배치 (BFS)
+   복제 확장(G세대×RR명): 트리 아래 세대별 피라미드 밴드로 표시 */
+function drawTree(r){
+  const svg = $('treeChart');
+  const W=960;
+  const rootX=W/2, rootY=64;
+  const CAP=15; /* 레그당 표시 노드 수 (4레벨) */
+  const legs = { L:[], R:[] };
+  for(let i=0;i<r.D;i++) (i%2===0?legs.L:legs.R).push({t:'d', n:i+1});
+  for(let j=0;j<r.S;j++) (legs.L.length<=legs.R.length?legs.L:legs.R).push({t:'s', n:j+1});
+
+  const kitP = r.kit.P;
+  const G = r.G || 0, RR = r.RR || 1;
+  const mult = RR === 1 ? (G + 1) : (Math.pow(RR, G + 1) - 1) / (RR - 1);
+  /* 레그 크레딧 = (레그 인원 × 복제 배수) × 팩 크레딧 + 내 커스터머 절반 */
+  const legOrg = side => Math.round(legs[side].length * mult);
+  const legCredit = side => legOrg(side)*kitP + 10;
+
+  /* 동적 레이아웃 계산 */
+  const maxLeg = Math.max(legs.L.length, legs.R.length);
+  const shownMax = Math.min(maxLeg, CAP);
+  const levels = shownMax <= 0 ? 1 : Math.floor(Math.log2(shownMax)) + 1;
+  const treeBottom = 168 + (levels-1)*92 + (maxLeg > CAP ? 66 : 34);
+  const bandH = 44, bandGap = 10;
+  const bandY0 = treeBottom + 16;
+  const sumY = (G > 0 ? bandY0 + G*(bandH+bandGap) + 6 : treeBottom + 10);
+  const H = sumY + 62;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+
+  let s='';
+  /* 나 + 내 커스터머 */
+  const custN = r.custBottles + '병';
+  s+=`<line x1="${rootX}" y1="${rootY}" x2="${rootX+96}" y2="${rootY-26}" stroke="#B8A88F" stroke-width="1.5"/>`;
+  s+=`<circle cx="${rootX+112}" cy="${rootY-30}" r="24" fill="#fff" stroke="#B8A88F" stroke-width="1.5"/>`;
+  s+=`<text x="${rootX+112}" y="${rootY-33}" text-anchor="middle" font-size="10" fill="#8B7FA8">커스터머</text><text x="${rootX+112}" y="${rootY-21}" text-anchor="middle" font-size="10.5" font-weight="900" fill="#8B7FA8">${custN}</text>`;
+
+  const sides = [['L',W*0.27],['R',W*0.73]];
+  sides.forEach(([sd,cx])=>{
+    const list = legs[sd];
+    if(!list.length){
+      s+=`<line x1="${rootX}" y1="${rootY+26}" x2="${cx}" y2="${150}" stroke="#E5DCCB" stroke-width="2" stroke-dasharray="5 5"/>`;
+      s+=`<circle cx="${cx}" cy="${168}" r="20" fill="none" stroke="#E5DCCB" stroke-width="2" stroke-dasharray="4 4"/>`;
+      s+=`<text x="${cx}" y="${172}" text-anchor="middle" font-size="13" fill="#C9BFA9">?</text>`;
+      return;
+    }
+    s+=`<line x1="${rootX}" y1="${rootY+26}" x2="${cx}" y2="${148}" stroke="#B8A88F" stroke-width="2"/>`;
+    const shown = list.slice(0,CAP);
+    const hw = W*0.225;
+    const pos = i => {
+      const lv = Math.floor(Math.log2(i+1));
+      const m = i+1 - (1<<lv);
+      return { x: cx - hw + hw*2*(m+0.5)/(1<<lv), y: 168 + lv*92 };
+    };
+    shown.forEach((nd,i)=>{
+      const p = pos(i);
+      if(i>0){ const pp = pos((i-1)>>1); s+=`<line x1="${pp.x}" y1="${pp.y+20}" x2="${p.x}" y2="${p.y-20}" stroke="#D9CDB6" stroke-width="1.5"/>`; }
+      const fill = nd.t==='d' ? 'url(#gPlum)' : 'url(#gGold)';
+      s+=`<circle cx="${p.x}" cy="${p.y}" r="20" fill="${fill}"/>`;
+      s+=`<text x="${p.x}" y="${p.y-1}" text-anchor="middle" font-size="10.5" font-weight="900" fill="#fff">${nd.t==='d'?'직추':'후원'}</text>`;
+      s+=`<text x="${p.x}" y="${p.y+11}" text-anchor="middle" font-size="10" font-weight="700" fill="${nd.t==='d'?'#E2C889':'#3D2462'}">${nd.n}</text>`;
+    });
+    if(list.length>CAP){
+      s+=`<rect x="${cx-44}" y="${168+(levels-1)*92+34}" width="88" height="26" rx="13" fill="#EDE6F7"/>`;
+      s+=`<text x="${cx}" y="${168+(levels-1)*92+51}" text-anchor="middle" font-size="12.5" font-weight="900" fill="#6B4FA0">+${list.length-CAP}명 더</text>`;
+    }
+    /* 레그 요약 */
+    const cr = legCredit(sd);
+    const lo = legOrg(sd);
+    const bx = sd==='L' ? 40 : W-300;
+    s+=`<rect x="${bx}" y="${sumY}" width="260" height="44" rx="10" fill="#FBF8F1" stroke="#E5DCCB"/>`;
+    s+=`<text x="${bx+130}" y="${sumY+18}" text-anchor="middle" font-size="12" font-weight="700" fill="#5C4A80">${sd==='L'?'좌측':'우측'} 레그 : ${list.length}명${G>0?` (복제 포함 ${lo.toLocaleString()}명)`:''}</text>`;
+    s+=`<text x="${bx+130}" y="${sumY+34}" text-anchor="middle" font-size="12" font-weight="900" fill="#3D2462">약 ${cr.toLocaleString()} 크레딧</text>`;
+  });
+
+  /* 복제 세대 밴드 (피라미드) */
+  if(G > 0 && r.T > 0){
+    s+=`<line x1="${W/2}" y1="${treeBottom-2}" x2="${W/2}" y2="${bandY0}" stroke="#B8A88F" stroke-width="1.5" stroke-dasharray="4 4"/>`;
+    for(let k=1;k<=G;k++){
+      const cnt = Math.round(r.T * Math.pow(RR, k));
+      const y = bandY0 + (k-1)*(bandH+bandGap);
+      const w = Math.min(800, 320 + k*96);
+      const x = W/2 - w/2;
+      const op = 0.10 + k*0.055;
+      s+=`<rect x="${x}" y="${y}" width="${w}" height="${bandH}" rx="12" fill="rgba(107,79,160,${op.toFixed(3)})" stroke="#CBBCE8"/>`;
+      /* 미니 인원 점 */
+      const dots = Math.min(cnt, 22);
+      for(let dd=0; dd<dots; dd++){
+        s+=`<circle cx="${x+18+dd*10}" cy="${y+bandH-10}" r="3" fill="${k%2? '#6B4FA0':'#A98938'}" opacity=".55"/>`;
+      }
+      if(cnt>22) s+=`<text x="${x+18+22*10+4}" y="${y+bandH-6.5}" font-size="10" fill="#8B7FA8">…</text>`;
+      s+=`<text x="${W/2}" y="${y+17}" text-anchor="middle" font-size="12" font-weight="900" fill="#3D2462">복제 ${k}세대 : 파트너 +${cnt.toLocaleString()}명</text>`;
+      s+=`<text x="${W/2}" y="${y+30}" text-anchor="middle" font-size="10.5" fill="#6B4FA0">1인당 ${RR}명 복제 · 약 ${(cnt*kitP).toLocaleString()} 크레딧 추가</text>`;
+    }
+  }
+
+  /* 나 노드 (맨 위) */
+  s+=`<circle cx="${rootX}" cy="${rootY}" r="27" fill="#D6336C"/>`;
+  s+=`<text x="${rootX}" y="${rootY+5}" text-anchor="middle" font-size="15" font-weight="900" fill="#fff">나</text>`;
+  s+=`<text x="${rootX}" y="${rootY-38}" text-anchor="middle" font-size="11.5" font-weight="700" fill="#8B7FA8">${r.kit.label} ${r.kit.price}</text>`;
+
+  /* 균형 판정 */
+  const lC = legCredit('L'), rC = legCredit('R');
+  const emptyLeg = legs.L.length===0 || legs.R.length===0;
+  const bal = emptyLeg ? '한쪽 레그 비어 있음 — 팀 커미션 미발생'
+    : (Math.max(lC,rC)/Math.min(lC,rC) <= 2 ? '균형 양호 (2:1 이내) ✓' : '2:1 초과 — 약한 레그 보강 필요');
+  const balColor = !emptyLeg && Math.max(lC,rC)/Math.min(lC,rC) <= 2 ? '#3D7A4E' : '#D6336C';
+  s+=`<rect x="${W/2-150}" y="${sumY}" width="300" height="44" rx="10" fill="#fff" stroke="#E5DCCB"/>`;
+  s+=`<text x="${W/2}" y="${sumY+18}" text-anchor="middle" font-size="12" font-weight="700" fill="#8B7FA8">2:1 균형 판정${G>0?` · 전체 조직 ${r.totalOrg.toLocaleString()}명`:''}</text>`;
+  s+=`<text x="${W/2}" y="${sumY+34}" text-anchor="middle" font-size="12" font-weight="900" fill="${balColor}">${r.T===0?'파트너를 추가해 보세요':bal}</text>`;
+
+  svg.innerHTML = `<defs>
+    <linearGradient id="gPlumT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6B4FA0"/><stop offset="1" stop-color="#2B1747"/></linearGradient>
+    <linearGradient id="gGoldT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E2C889"/><stop offset="1" stop-color="#C6A55C"/></linearGradient>
+  </defs>` + s.replaceAll('url(#gPlum)','url(#gPlumT)').replaceAll('url(#gGold)','url(#gGoldT)');
+}
+
+/* ── 월별 흐름 차트 ── */
+function drawFlow(r){
+  const svg = $('flowChart');
+  const W=960,H=380,padL=74,padR=84,padT=24,padB=44;
+  const iw=W-padL-padR, ih=H-padT-padB;
+  const maxM = Math.max(...r.months.map(x=>x.amt), 1);
+  const maxC = Math.max(r.months[11].cum, 1);
+  const x = i => padL + iw/12*(i+0.5);
+  const yM = v => padT + ih*(1 - v/maxM);
+  const yC = v => padT + ih*(1 - v/maxC);
+  const bw = iw/12*0.52;
+  let s='';
+  for(let g=0;g<=4;g++){
+    const v=maxM/4*g, yy=yM(v);
+    s+=`<line x1="${padL}" y1="${yy}" x2="${W-padR}" y2="${yy}" stroke="#EDE6D6"/>`;
+    s+=`<text x="${padL-10}" y="${yy+4}" text-anchor="end" font-size="11.5" fill="#9A8FB5">${Math.round(v/10000).toLocaleString()}만</text>`;
+    s+=`<text x="${W-padR+10}" y="${yy+4}" font-size="11.5" fill="#D6336C" opacity=".75">${Math.round(maxC/4*g/10000).toLocaleString()}만</text>`;
+  }
+  r.months.forEach((p,i)=>{
+    const cx=x(i), h=ih*p.amt/maxM;
+    s+=`<rect x="${cx-bw/2}" y="${yM(p.amt)}" width="${bw}" height="${Math.max(1.5,h)}" rx="4" fill="url(#gPlum2)"/>`;
+    if(p.amt>0 && (i<4 || i===11 || p.amt===maxM)) s+=`<text x="${cx}" y="${yM(p.amt)-7}" text-anchor="middle" font-size="10.5" font-weight="700" fill="#6B4FA0">${Math.round(p.amt/10000)}만</text>`;
+    s+=`<text x="${cx}" y="${H-padB+18}" text-anchor="middle" font-size="11.5" fill="#9A8FB5">${p.m}월</text>`;
+  });
+  const line = r.months.map((p,i)=>`${i?'L':'M'}${x(i)},${yC(p.cum)}`).join('');
+  s+=`<path d="${line}" fill="none" stroke="#D6336C" stroke-width="2.5" stroke-linejoin="round" opacity=".9"/>`;
+  r.months.forEach((p,i)=>{ s+=`<circle cx="${x(i)}" cy="${yC(p.cum)}" r="3.2" fill="#fff" stroke="#D6336C" stroke-width="2.2"/>`; });
+  const last = r.months[11];
+  s+=`<text x="${x(11)}" y="${yC(last.cum)-10}" text-anchor="end" font-size="12.5" font-weight="900" fill="#D6336C">1년 누적 ${Math.round(last.cum/10000).toLocaleString()}만원</text>`;
+  svg.innerHTML = `<defs><linearGradient id="gPlum2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6B4FA0"/><stop offset="1" stop-color="#2B1747"/></linearGradient></defs>`+s;
+
+  $('flowBody').innerHTML = r.months.map(p=>`
+    <tr><td><b>${p.m}개월차</b></td><td class="ev">${p.ev||'-'}</td>
+    <td class="num total">${WON(p.amt)}</td><td class="num">${WON(p.cum)}</td></tr>`).join('');
+}
+
+/* ── 마일스톤 차트 (얼티밋·전원 직추천 기준) ── */
+function drawChart(cur){
+  const svg = $('chart');
+  const W=960,H=400,padL=74,padR=20,padT=26,padB=46;
+  const pts=[];
+  for(let i=0;i<=12;i++){ const b=build(i,0,'ult'); pts.push({n:i,one:b.one,rec:b.rec,total:b.total,rank:b.rank?b.rank.name:(i>=1?'Q스타트':'-')}); }
+  const maxV=12000000;
+  const iw=W-padL-padR, ih=H-padT-padB;
+  const bw=iw/13*0.58;
+  const x=i=>padL+iw/13*(i+0.5);
+  const y=v=>padT+ih*(1-v/maxV);
+  const selN = Math.min(12, Math.round(cur.E));
+  let s='';
+  for(let g=0;g<=4;g++){
+    const v=maxV/4*g,yy=y(v);
+    s+=`<line x1="${padL}" y1="${yy}" x2="${W-padR}" y2="${yy}" stroke="#EDE6D6"/>`;
+    s+=`<text x="${padL-10}" y="${yy+4}" text-anchor="end" font-size="11.5" fill="#9A8FB5">${(v/10000).toLocaleString()}만</text>`;
+  }
+  pts.forEach((p,i)=>{
+    const cx=x(i), hOne=ih*p.one/maxV, hRec=ih*p.rec/maxV;
+    const isSel = p.n===selN;
+    const op = isSel?1:0.45;
+    const yRec=y(p.rec), yOne=y(p.total);
+    s+=`<g style="cursor:pointer" onclick="setScenario(${p.n})">`;
+    if(p.rec) s+=`<rect x="${cx-bw/2}" y="${yRec}" width="${bw}" height="${Math.max(1,hRec)}" rx="4" fill="url(#gGold)" opacity="${op}"/>`;
+    if(p.one) s+=`<rect x="${cx-bw/2}" y="${yOne}" width="${bw}" height="${Math.max(1,hOne)}" rx="4" fill="url(#gPlum)" opacity="${op}"/>`;
+    if(isSel){
+      s+=`<rect x="${cx-bw/2-4}" y="${yOne-4}" width="${bw+8}" height="${ih-(yOne-padT)+8}" rx="8" fill="none" stroke="#C6A55C" stroke-width="2" stroke-dasharray="5 4"/>`;
+      s+=`<text x="${cx}" y="${yOne-26}" text-anchor="middle" font-size="13" font-weight="900" fill="#D6336C">${Math.round(p.total/10000).toLocaleString()}만원</text>`;
+      s+=`<text x="${cx}" y="${yOne-11}" text-anchor="middle" font-size="11" font-weight="700" fill="#6B4FA0">${p.rank}</text>`;
+    }
+    s+=`</g>`;
+    s+=`<text x="${cx}" y="${H-padB+20}" text-anchor="middle" font-size="12" font-weight="${isSel?900:500}" fill="${isSel?'#3D2462':'#9A8FB5'}">${p.n}명</text>`;
+  });
+  const line=pts.map((p,i)=>`${i?'L':'M'}${x(i)},${y(p.total)}`).join('');
+  s+=`<path d="${line}" fill="none" stroke="#D6336C" stroke-width="2.5" stroke-linejoin="round" opacity=".85"/>`;
+  pts.forEach((p,i)=>{ s+=`<circle cx="${x(i)}" cy="${y(p.total)}" r="${p.n===selN?5.5:3.5}" fill="#fff" stroke="#D6336C" stroke-width="2.5"/>`; });
+  s+=`<text x="${padL}" y="${H-8}" font-size="11.5" fill="#9A8FB5">※ 13명 이상 직추천 시 멘토 매칭 7~10단계 확장 · 현재 입력(직추천+후원)은 얼티밋 환산 ${Math.round(cur.E*10)/10}명 위치에 표시</text>`;
+  svg.innerHTML = `<defs>
+    <linearGradient id="gPlum" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6B4FA0"/><stop offset="1" stop-color="#2B1747"/></linearGradient>
+    <linearGradient id="gGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E2C889"/><stop offset="1" stop-color="#C6A55C"/></linearGradient>
+  </defs>`+s;
+}
+
+/* ── 비교표 ── */
+function buildTable(cur){
+  const selN = Math.min(12, Math.round(cur.E));
+  const rows=[];
+  for(let i=0;i<=12;i++){
+    const b=build(i,0,'ult');
+    const rname = b.rank ? b.rank.name : (i>=1?'Q팀 스타트':'커스터머');
+    const rcolor = b.rank ? b.rank.color : '#9A8FB5';
+    rows.push(`<tr${i===selN?' class="hl"':''} style="cursor:pointer" onclick="setScenario(${i})">
+      <td><b>${i}명</b></td>
+      <td><span class="rk" style="background:${rcolor}">${rname}</span></td>
+      <td class="num">${WON(b.one)}</td>
+      <td class="num">${WON(b.rec)}</td>
+      <td class="num total">${WON(b.total)}</td></tr>`);
+  }
+  const dm = build(12,0,'ult');
+  rows.push(`<tr${cur.E>12?' class="hl"':''}><td><b>13~20명</b></td><td><span class="rk" style="background:#D6336C">다이아몬드+</span></td>
+    <td class="num">${WON(dm.one)}</td><td class="num">${WON(dm.rec)} <b style="color:#D6336C">+α</b></td>
+    <td class="num total">${WON(dm.total)} <b style="color:#D6336C">+ 매칭 확장</b></td></tr>`);
+  $('cmpBody').innerHTML = rows.join('');
+}
+
+/* 차트/표 클릭 → 직추천 i명, 후원 0, 얼티밋 */
+window.setScenario = function(i){
+  dIn.value = Math.min(20, i); sIn.value = 0; genIn.value = 0; kitKey = 'ult'; repR = 1;
+  document.querySelectorAll('#kitOpts .kit-opt').forEach(b=>b.classList.toggle('on', b.dataset.kit==='ult'));
+  document.querySelectorAll('#repOpts .kit-opt').forEach(b=>b.classList.toggle('on', b.dataset.rep==='1'));
+  render();
+};
+
+/* events */
+dIn.addEventListener('input', render);
+sIn.addEventListener('input', render);
+genIn.addEventListener('input', render);
+nameIn.addEventListener('input', render);
+$('dUp').addEventListener('click', ()=>{ dIn.value=Math.min(20,+dIn.value+1); render(); });
+$('dDown').addEventListener('click', ()=>{ dIn.value=Math.max(0,+dIn.value-1); render(); });
+$('sUp').addEventListener('click', ()=>{ sIn.value=Math.min(30,+sIn.value+1); render(); });
+$('sDown').addEventListener('click', ()=>{ sIn.value=Math.max(0,+sIn.value-1); render(); });
+$('gUp').addEventListener('click', ()=>{ genIn.value=Math.min(5,+genIn.value+1); render(); });
+$('gDown').addEventListener('click', ()=>{ genIn.value=Math.max(0,+genIn.value-1); render(); });
+document.querySelectorAll('#kitOpts .kit-opt').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    kitKey = b.dataset.kit;
+    document.querySelectorAll('#kitOpts .kit-opt').forEach(x=>x.classList.toggle('on', x===b));
+    render();
+  });
+});
+document.querySelectorAll('#repOpts .kit-opt').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    repR = +b.dataset.rep;
+    document.querySelectorAll('#repOpts .kit-opt').forEach(x=>x.classList.toggle('on', x===b));
+    render();
+  });
+});
+render();
+</script>
+</body>
+</html>
