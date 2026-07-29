@@ -12,13 +12,13 @@
 <meta property="og:title" content="진지노 사업 쉽게 이해하기 · 진지노 예상수익 계산기">
 <meta property="og:description" content="진지노 밸런스 오일과 내 예상 수익까지 — 숫자로 쉽게 확인하세요.">
 <meta property="og:url" content="https://www.zinzino.asia/">
-<meta property="og:image" content="https://zinzino.asia/images/balanceoil-hero.jpg">
-<meta property="og:image:width" content="1920">
-<meta property="og:image:height" content="1080">
+<meta property="og:image" content="https://zinzino.asia/images/intro-thumb.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="2134">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="진지노 사업 쉽게 이해하기 · 진지노 예상수익 계산기">
 <meta name="twitter:description" content="진지노 밸런스 오일과 내 예상 수익까지 — 숫자로 쉽게 확인하세요.">
-<meta name="twitter:image" content="https://zinzino.asia/images/balanceoil-hero.jpg">
+<meta name="twitter:image" content="https://zinzino.asia/images/intro-thumb.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
@@ -490,9 +490,79 @@ footer .disc b{color:#B7A9D6}
 /* reveal animation */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
 .reveal.in{opacity:1;transform:none}
+
+/* ══ INTRO 영상 오버레이 ══ */
+html.intro-lock,body.intro-lock{overflow:hidden;height:100%}
+#introOverlay{
+  position:fixed;inset:0;z-index:9999;background:#0b0713;
+  display:flex;align-items:center;justify-content:center;
+  opacity:1;transition:opacity .6s ease;
+}
+#introOverlay.hide{opacity:0;pointer-events:none}
+#introVideo{
+  width:100%;height:100%;object-fit:contain;background:#0b0713;
+}
+/* 모바일(세로 화면)에서는 꽉 채우기 */
+@media(max-aspect-ratio:1/1){
+  #introVideo{object-fit:cover}
+}
+/* 상단 그라데이션 + 하단 버튼 영역 */
+#introOverlay .intro-veil{
+  position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(11,7,19,.35) 0%,transparent 22% 60%,rgba(11,7,19,.55) 100%);
+}
+.intro-skip{
+  position:absolute;top:18px;right:16px;z-index:2;
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:'Noto Sans KR',sans-serif;font-size:13.5px;font-weight:700;
+  color:#fff;background:rgba(0,0,0,.42);border:1px solid rgba(255,255,255,.35);
+  border-radius:999px;padding:9px 16px;cursor:pointer;backdrop-filter:blur(4px);
+  transition:background .2s;
+}
+.intro-skip:hover{background:rgba(0,0,0,.65)}
+.intro-sound{
+  position:absolute;top:18px;left:16px;z-index:2;
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:'Noto Sans KR',sans-serif;font-size:13.5px;font-weight:700;
+  color:#0b0713;background:rgba(255,255,255,.92);border:none;
+  border-radius:999px;padding:9px 16px;cursor:pointer;
+  box-shadow:0 4px 14px rgba(0,0,0,.3);transition:transform .15s;
+}
+.intro-sound:hover{transform:scale(1.04)}
+.intro-sound.on{background:rgba(0,0,0,.42);color:#fff;border:1px solid rgba(255,255,255,.35)}
+/* 자동재생 차단 시 큰 재생 버튼 */
+.intro-play{
+  position:absolute;inset:0;z-index:3;display:none;
+  align-items:center;justify-content:center;flex-direction:column;gap:16px;
+  background:rgba(11,7,19,.55);cursor:pointer;
+}
+.intro-play.show{display:flex}
+.intro-play .disc{
+  width:88px;height:88px;border-radius:50%;
+  background:rgba(255,255,255,.95);display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 30px rgba(0,0,0,.4);
+}
+.intro-play .disc svg{width:34px;height:34px;margin-left:5px;fill:#0b0713}
+.intro-play .txt{color:#fff;font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:15px;letter-spacing:.02em}
+@media(max-width:760px){
+  .intro-skip,.intro-sound{font-size:12.5px;padding:8px 13px}
+}
 </style>
 </head>
 <body>
+
+<!-- ══ INTRO 영상 ══ -->
+<div id="introOverlay" role="dialog" aria-label="진지노 인트로 영상">
+  <video id="introVideo" playsinline preload="auto"
+         src="hyomin_intro.mp4" poster="images/balanceoil-hero.jpg"></video>
+  <div class="intro-veil"></div>
+  <button class="intro-sound on" id="introSound" type="button" aria-label="소리 끄기">🔊 소리 끄기</button>
+  <button class="intro-skip" id="introSkip" type="button">건너뛰기 ▸</button>
+  <div class="intro-play" id="introPlay">
+    <div class="disc"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+    <div class="txt">🔊 소리와 함께 재생 ▶</div>
+  </div>
+</div>
 
 <!-- ══ NAV ══ -->
 <nav>
@@ -1166,6 +1236,74 @@ const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbxEBVZS5Lt7lyKU97
     es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   },{threshold:.12});
   document.querySelectorAll('.reveal').forEach((el,i)=>{ el.style.transitionDelay=(i%3*80)+'ms'; io.observe(el); });
+})();
+
+/* ══ INTRO 영상 제어 ══ */
+(function(){
+  const overlay = document.getElementById('introOverlay');
+  if(!overlay) return;
+  const video   = document.getElementById('introVideo');
+  const skipBtn = document.getElementById('introSkip');
+  const sndBtn  = document.getElementById('introSound');
+  const playBtn = document.getElementById('introPlay');
+
+  // 같은 세션(탭)에서 이미 봤으면 인트로 생략
+  if(sessionStorage.getItem('mainIntroSeen')==='1'){ overlay.remove(); return; }
+
+  const root = document.documentElement;
+  root.classList.add('intro-lock');
+  document.body.classList.add('intro-lock');
+
+  let closed = false;
+  function closeIntro(){
+    if(closed) return; closed = true;
+    sessionStorage.setItem('mainIntroSeen','1');
+    try{ video.pause(); }catch(e){}
+    overlay.classList.add('hide');
+    root.classList.remove('intro-lock');
+    document.body.classList.remove('intro-lock');
+    setTimeout(()=>{ overlay.remove(); }, 650);
+  }
+
+  // 소리 켜기 / 끄기 토글
+  sndBtn.addEventListener('click', ()=>{
+    video.muted = !video.muted;
+    if(video.muted){ sndBtn.textContent='🔇 소리 켜기'; sndBtn.classList.remove('on'); }
+    else{ sndBtn.textContent='🔊 소리 끄기'; sndBtn.classList.add('on');
+          if(video.paused){ video.play().catch(()=>{}); } }
+  });
+
+  skipBtn.addEventListener('click', closeIntro);
+  video.addEventListener('ended', closeIntro);
+
+  // 재생이 실제 시작되면 폴백 버튼 숨김
+  video.addEventListener('playing', ()=>{ playBtn.classList.remove('show'); });
+
+  // ① 소리 켠 상태로 자동재생 우선 시도
+  video.muted = false;
+  const p = video.play();
+  if(p && typeof p.then==='function'){
+    p.catch(()=>{
+      // ② 브라우저가 '소리 자동재생'을 막으면 → 한 번 탭하면 소리와 함께 재생
+      if(video.paused) playBtn.classList.add('show');
+    });
+  }
+
+  // 큰 재생 버튼: 처음부터 소리와 함께 재생
+  playBtn.addEventListener('click', ()=>{
+    playBtn.classList.remove('show');
+    video.muted = false;
+    sndBtn.textContent='🔊 소리 끄기'; sndBtn.classList.add('on');
+    try{ video.currentTime = 0; }catch(e){}
+    video.play().catch(()=>{
+      // 그래도 막히면 최후수단: 음소거로라도 재생
+      video.muted = true; sndBtn.textContent='🔇 소리 켜기'; sndBtn.classList.remove('on');
+      video.play().catch(()=>{});
+    });
+  });
+
+  // 안전장치: 영상 로드 실패 시 인트로 스킵
+  video.addEventListener('error', closeIntro);
 })();
 </script>
 </body>
