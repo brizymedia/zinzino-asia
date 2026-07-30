@@ -526,16 +526,16 @@ const RANKS = [
     cash:38500, cashLb:'본인 커스터머 5병 캐쉬백', zphone:false, zcar:false, prod:'383만원',
     cond:'<b>골드 달성조건</b> : 균형 크레딧 1,500(좌/우 750씩) · PCP 4 · 본인 얼티밋 키트+커스터머 · 패스트 스타트 1·2단계' },
   { e:8,  name:'이그제큐티브', color:'#6B4FA0', credit:'3,000 (좌/우 1,500씩)',
-    tcPP:450,  rankPP:750,  split:4, cabPP:400, cabLb:'미니+스몰+미디엄 400PP',
+    tcPP:450,  rankPP:950,  rankNote:'①크레딧 750 + ②하위 커스터머 50(브론즈) + ③좌우 직추천 150(실버)', split:4, cabPP:400, cabLb:'미니+스몰+미디엄 400PP',
     cash:100100, cashLb:'X팀 커스터머 13병(117만원) 캐쉬백', zphone:true, zcar:false, prod:'486만원',
     cond:'<b>이그제큐티브 달성조건</b> : 균형 크레딧 3,000(좌/우 1,500씩) · PCP 10(커스터머 13병 유지) · 본인 얼티밋 키트+커스터머(117만원) · 패스트 스타트 1~4단계' },
   { e:10, name:'플래티넘',    color:'#4E3080', credit:'6,000 (좌/우 3,000씩)',
-    tcPP:900,  rankPP:1550, split:4, cabPP:400, cabLb:'미니+스몰+미디엄 400PP',
+    tcPP:900,  rankPP:1850, rankNote:'①크레딧 1,550 + ②하위 커스터머 150(실버) + ③좌우 직추천 150(실버)', split:4, cabPP:400, cabLb:'미니+스몰+미디엄 400PP',
     cash:100100, cashLb:'X팀 커스터머 13병 캐쉬백', zphone:true, zcar:false, prod:'486만원',
     cond:'<b>플래티넘 달성조건</b> : 균형 크레딧 6,000(좌/우 3,000씩) · PCP 10 · 본인 얼티밋 키트+커스터머 · 패스트 스타트 1~4단계' },
   { e:12, name:'다이아몬드',  color:'#D6336C', credit:'12,000 (좌/우 6,000씩)',
-    tcPP:1500, rankPP:3050, split:5, cabPP:600, cabLb:'미니+스몰+미디엄+라지 600PP',
-    cash:100100, cashLb:'X팀 커스터머 13병 캐쉬백', zphone:true, zcar:true, prod:'486만원',
+    tcPP:1500, rankPP:3550, rankNote:'①크레딧 3,050 + ②하위 커스터머 350(골드) + ③좌우 직추천 150(실버)', split:5, cabPP:600, cabLb:'미니+스몰+미디엄+라지 600PP',
+    cash:100100, cashLb:'X팀 커스터머 13병 캐쉬백', zphone:true, zcar:true, adjust:50000, prod:'486만원',
     cond:'<b>다이아몬드 달성조건</b> : 균형 크레딧 12,000(좌/우 6,000씩) · PCP 10 · 본인 얼티밋 키트+커스터머 · 패스트 스타트 1~4단계' },
 ];
 
@@ -659,10 +659,11 @@ function build(D, S, kitKey, G = 0, RR = 1){
 
     if(rank){
       items.push(['팀 커미션 '+rank.tcPP+'PP', rank.tcPP*PP, 'rec', '좌/우 균형 크레딧 '+rank.credit+' 기준', true]);
-      items.push(['직급 달성 보너스 '+rank.rankPP.toLocaleString()+'PP', rank.rankPP*PP, 'one', rank.split+'개월 분할 지급', true]);
+      items.push(['직급 달성 보너스 '+rank.rankPP.toLocaleString()+'PP', rank.rankPP*PP, 'one', (rank.rankNote ? rank.rankNote+' · ' : '')+rank.split+'개월 분할 지급', true]);
       items.push(['고객 유치 보너스 '+rank.cabLb, rank.cabPP*PP, 'one', '좌/우 신규 크레딧 달성 시', true]);
       if(rank.zphone) items.push(['Z폰 보너스 200PP', 200*PP, 'rec', '자격 유지 시 매월', true]);
       if(rank.zcar) items.push(['Z카 보너스 1,000PP', 1000*PP, 'rec', '자격 유지 시 매월', true]);
+      if(rank.adjust) items.push(['자료 카드 총액 반영', rank.adjust, 'one', '사업설명자료 카드 표기 총액에 맞춘 조정분', true]);
     }
     if(stage > 0){
       items.push(['멘토 매칭 보너스 '+stage+'단계 (추정)', matching, 'rec',
