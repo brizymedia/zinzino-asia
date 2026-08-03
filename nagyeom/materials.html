@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>진지노 사업자료실</title>
+<meta name="description" content="신규 파트너를 위한 진지노 사업 자료 — 수당계산기, 보상플랜, 제품 리플렛, 소개 영상을 다운로드하고 카톡으로 공유하세요.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#241634;--plum:#3A1F63;--plum-deep:#25123F;--violet:#6B4FA0;
+  --lav:#EFE8F9;--gold:#C9A94E;--gold-lt:#E4CD8A;--gold-deep:#A6852F;
+  --rose:#D6417A;--ivory:#FBF7EF;--paper:#FFFFFF;--line:#E7DECD;
+  --kakao:#FAE100;--kakao-ink:#3C1E1E;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR','Malgun Gothic',sans-serif;color:var(--ink);background:var(--ivory);line-height:1.7;
+  background-image:radial-gradient(ellipse 80% 40% at 50% -10%,rgba(107,79,160,.10),transparent)}
+.serif{font-family:'Noto Serif KR',serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px 80px}
+
+/* 상단 바 */
+.topbar{background:rgba(37,18,63,.9);backdrop-filter:blur(12px);position:sticky;top:0;z-index:50;
+  border-bottom:1px solid rgba(201,169,78,.25)}
+.topbar .in{max-width:1080px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.topbar a.home{display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:#fff}
+.topbar .zn{font-family:'Noto Serif KR';font-weight:900;font-size:18px;letter-spacing:.12em}
+.topbar .zn b{color:var(--gold-lt)}
+.topbar .tag{font-size:12px;color:#C9BBE4;border-left:1px solid rgba(255,255,255,.25);padding-left:10px}
+@media(max-width:560px){.topbar .tag{display:none}}
+.topbar a.back{color:#C9BBE4;text-decoration:none;font-size:13.5px;font-weight:700}
+.topbar a.back:hover{color:#fff}
+
+/* 헤더 */
+header{background:linear-gradient(150deg,var(--plum-deep),var(--plum) 60%,#4E3080);color:#fff;
+  padding:54px 20px 60px;position:relative;overflow:hidden}
+header::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(circle 400px at 88% 10%,rgba(201,169,78,.22),transparent 70%)}
+header .in{max-width:1080px;margin:0 auto;position:relative}
+header .eyebrow{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.2em;color:var(--gold-lt);
+  border:1px solid rgba(201,169,78,.4);border-radius:999px;padding:6px 15px;margin-bottom:16px}
+header h1{font-family:'Noto Serif KR';font-weight:900;font-size:clamp(28px,5vw,44px);line-height:1.25}
+header h1 em{font-style:normal;color:var(--gold-lt)}
+header p{margin-top:14px;font-size:15.5px;color:#CBBFE3;max-width:560px}
+
+/* 전체 공유 바 */
+.shareall{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:700;font-size:14.5px;
+  padding:12px 20px;border-radius:12px;cursor:pointer;border:none;font-family:inherit;transition:.2s}
+.btn:active{transform:scale(.97)}
+.btn-kakao{background:var(--kakao);color:var(--kakao-ink)}
+.btn-kakao:hover{filter:brightness(1.05)}
+.btn-ghost{background:rgba(255,255,255,.1);color:#fff;border:1.5px solid rgba(255,255,255,.3)}
+.btn-ghost:hover{background:rgba(255,255,255,.2)}
+
+/* 섹션 */
+.sec{margin-top:44px}
+.sec-h{display:flex;align-items:center;gap:11px;margin-bottom:18px}
+.sec-h .ic{font-size:24px}
+.sec-h h2{font-family:'Noto Serif KR';font-size:22px;font-weight:900;color:var(--plum)}
+.sec-h .cnt{font-size:12.5px;color:#9A8FB5;background:var(--lav);border-radius:999px;padding:3px 11px;font-weight:700}
+
+/* 카드 그리드 */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.card{background:var(--paper);border:1.5px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;
+  box-shadow:0 14px 30px -24px rgba(58,31,99,.35);transition:.2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 24px 40px -26px rgba(58,31,99,.45);border-color:var(--gold-lt)}
+.card .thumb{width:100%;height:150px;border-radius:12px;overflow:hidden;margin-bottom:14px;position:relative;
+  background:linear-gradient(150deg,#F1E9DA,#E8DCC4);display:grid;place-items:center}
+.card .thumb img{width:100%;height:100%;object-fit:cover}
+.card .thumb.contain img{object-fit:contain;padding:8px}
+.card .thumb .em{font-size:52px}
+.card .thumb .badge{position:absolute;left:10px;top:10px;font-size:11px;font-weight:900;color:#fff;
+  background:var(--plum);border-radius:6px;padding:3px 9px;letter-spacing:.03em}
+.card .thumb .yt{position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.28)}
+.card .thumb .yt::after{content:"";width:0;height:0;border-left:22px solid #fff;border-top:14px solid transparent;
+  border-bottom:14px solid transparent;margin-left:5px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4))}
+.card h3{font-size:16.5px;font-weight:900;color:var(--plum);margin-bottom:5px}
+.card .desc{font-size:13.5px;color:#61537A;flex:1}
+.card .fmt{font-size:11.5px;color:#9A8FB5;margin-top:6px;font-weight:700}
+.card .acts{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.card .acts a,.card .acts button{flex:1;min-width:0;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  text-decoration:none;font-weight:700;font-size:13px;padding:10px 8px;border-radius:10px;cursor:pointer;border:none;font-family:inherit;transition:.15s;white-space:nowrap}
+.card .acts a:active,.card .acts button:active{transform:scale(.96)}
+.a-open{background:var(--plum);color:#fff}
+.a-open:hover{background:var(--plum-deep)}
+.a-dl{background:var(--lav);color:var(--plum)}
+.a-dl:hover{background:#E3D6F5}
+.a-kakao{background:var(--kakao);color:var(--kakao-ink)}
+.a-kakao:hover{filter:brightness(1.04)}
+
+/* 토스트 */
+#toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);
+  background:var(--plum-deep);color:#fff;font-size:14px;font-weight:700;padding:13px 22px;border-radius:12px;
+  box-shadow:0 16px 34px -12px rgba(37,18,63,.6);opacity:0;pointer-events:none;transition:.3s;z-index:100;max-width:90vw;text-align:center}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.note{margin-top:40px;background:var(--lav);border-radius:14px;padding:16px 20px;font-size:13px;color:#6B5A8E;line-height:1.8}
+.note b{color:var(--plum)}
+footer{text-align:center;padding-top:34px;color:#A79BC2;font-size:12.5px}
+footer .z{font-family:'Noto Serif KR';font-weight:900;letter-spacing:.28em;color:var(--plum);font-size:15px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="in">
+    <a class="home" href="index.html"><span class="zn">ZIN<b>ZINO</b></span><span class="tag" id="brandTag">사업자료실</span></a>
+    <a class="back" href="index.html">← 홈으로</a>
+  </div>
+</div>
+
+<header>
+  <div class="in">
+    <div class="eyebrow">신규 파트너 자료실</div>
+    <h1>사업 자료를 <em>다운로드</em>하고<br><em>카톡으로 공유</em>하세요</h1>
+    <p>계산기·보상플랜·제품 리플렛·소개 영상을 한곳에. 예비 파트너에게 링크나 파일을 바로 보낼 수 있습니다.</p>
+    <div class="shareall">
+      <button class="btn btn-kakao" onclick="shareLink(location.origin+base()+'materials.html','진지노 사업자료실')">💬 자료실 전체 공유</button>
+      <button class="btn btn-ghost" onclick="copyLink(location.origin+base()+'materials.html')">🔗 링크 복사</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- 온라인 도구 -->
+  <section class="sec">
+    <div class="sec-h"><span class="ic">📱</span><h2>온라인 도구</h2><span class="cnt">2</span></div>
+    <div class="grid" id="tools"></div>
+  </section>
+
+  <!-- 제품·보상 자료 -->
+  <section class="sec">
+    <div class="sec-h"><span class="ic">📄</span><h2>제품·보상 자료</h2><span class="cnt">4</span></div>
+    <div class="grid" id="docs"></div>
+  </section>
+
+  <!-- 영상 자료 -->
+  <section class="sec">
+    <div class="sec-h"><span class="ic">🎥</span><h2>소개 영상</h2><span class="cnt" id="vidCnt">0</span></div>
+    <div class="grid" id="videos"></div>
+  </section>
+
+  <!-- 공식 링크 -->
+  <section class="sec">
+    <div class="sec-h"><span class="ic">🔗</span><h2>공식 링크 · 상담</h2><span class="cnt">2</span></div>
+    <div class="grid" id="links"></div>
+  </section>
+
+  <div class="note">
+    💡 <b>공유 방법</b> — 휴대폰에서 <b>카톡 공유</b>를 누르면 카카오톡·문자 등 공유 화면이 열립니다.
+    PC에서는 링크가 복사되니 카톡 대화창에 붙여넣기 하세요. <b>다운로드</b>는 파일이 기기에 저장됩니다.<br>
+    ⚠️ 본 자료는 교육·설명용이며, 진지노코리아 공식 홈페이지가 아닙니다. 수익·성과는 보장되지 않습니다.
+  </div>
+
+  <footer>
+    <div class="z">ZINZINO</div>
+    진지노 사업자료실 · 신규 파트너를 위한 자료 모음
+  </footer>
+</div>
+
+<div id="toast"></div>
+
+<script>
+"use strict";
+/* 현재 폴더 경로 (파트너별 하위폴더 대응) */
+function base(){ let p = location.pathname; return p.slice(0, p.lastIndexOf('/')+1); }
+const ORIGIN = location.origin;
+const url = rel => ORIGIN + base() + rel;          // 같은 폴더 파일
+const rootUrl = rel => ORIGIN + '/' + rel.replace(/^\//,'');  // 루트 공유 파일
+
+/* ── 공유/복사 유틸 ── */
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('on'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('on'),2600); }
+async function copyLink(u){
+  try{ await navigator.clipboard.writeText(u); toast('📋 링크가 복사되었습니다. 카톡에 붙여넣기 하세요'); }
+  catch(e){ prompt('아래 링크를 복사하세요', u); }
+}
+async function shareLink(u, title){
+  if(navigator.share){
+    try{ await navigator.share({title:title, text:title, url:u}); return; }
+    catch(e){ if(e.name==='AbortError') return; }
+  }
+  copyLink(u);
+}
+/* 파일 공유 — 모바일은 파일 자체 공유 시도, 안 되면 링크 공유 */
+async function shareFile(fileUrl, name, title){
+  try{
+    if(navigator.canShare){
+      const res = await fetch(fileUrl); const blob = await res.blob();
+      const file = new File([blob], name, {type:blob.type||'application/octet-stream'});
+      if(navigator.canShare({files:[file]})){ await navigator.share({files:[file], title:title}); return; }
+    }
+  }catch(e){ if(e.name==='AbortError') return; }
+  shareLink(fileUrl, title);   // 폴백: 파일 링크 공유
+}
+
+/* ══════════════════════════════════════════
+   ▼ 영상 자료 — 유튜브 링크를 여기에 넣으세요 ▼
+   { title:'제목', desc:'설명', yt:'유튜브영상ID 또는 전체 URL' }
+   (유튜브 주소 youtube.com/watch?v=XXXX 의 XXXX 부분이 영상 ID)
+══════════════════════════════════════════ */
+const VIDEOS = [
+  { title:'진지노 회사·비전 소개', desc:'나스닥 상장 글로벌 헬스케어 기업 진지노 소개', yt:'' },
+  { title:'밸런스 오일 제품 설명', desc:'테스트 기반 개인 맞춤 영양의 원리', yt:'' },
+  { title:'보상플랜 한눈에 보기', desc:'가입부터 다이아몬드까지 수익 구조', yt:'' },
+];
+
+/* ── 렌더 ── */
+function ytId(v){ if(!v) return ''; const m=v.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{6,})/); return m?m[1]:v; }
+
+function card(o){
+  const thumb = o.img
+    ? `<div class="thumb ${o.contain?'contain':''}">${o.badge?`<span class="badge">${o.badge}</span>`:''}<img src="${o.img}" alt="${o.title}" loading="lazy"></div>`
+    : o.ytId
+    ? `<div class="thumb"><img src="https://img.youtube.com/vi/${o.ytId}/hqdefault.jpg" alt="${o.title}" loading="lazy"><div class="yt"></div></div>`
+    : `<div class="thumb"><span class="em">${o.em||'📄'}</span></div>`;
+  const acts = o.acts.map(a=>{
+    if(a.t==='open') return `<a class="a-open" href="${a.href}" ${a.blank?'target="_blank" rel="noopener"':''}>${a.label}</a>`;
+    if(a.t==='dl')   return `<a class="a-dl" href="${a.href}" download>⬇ 다운로드</a>`;
+    if(a.t==='share')return `<button class="a-kakao" onclick='${a.fn}'>💬 카톡</button>`;
+    return '';
+  }).join('');
+  return `<div class="card">${thumb}<h3>${o.title}</h3><div class="desc">${o.desc}</div>${o.fmt?`<div class="fmt">${o.fmt}</div>`:''}<div class="acts">${acts}</div></div>`;
+}
+
+/* 온라인 도구 */
+document.getElementById('tools').innerHTML = [
+  { title:'진지노 수당 계산기', em:'📊', desc:'직추천·후원 수를 넣으면 예상 직급과 월 수익을 표·그래프로 계산',
+    acts:[{t:'open',label:'열기',href:'calculator.html'},{t:'share',label:'카톡',fn:`shareLink(url("calculator.html"),"진지노 수당 계산기")`}] },
+  { title:'쉬운 보상플랜 로드맵', em:'🗺️', desc:'가입부터 다이아몬드까지 6단계를 중학생도 이해하기 쉽게',
+    acts:[{t:'open',label:'열기',href:'plan.html'},{t:'share',label:'카톡',fn:`shareLink(url("plan.html"),"진지노 쉬운 보상플랜")`}] },
+].map(card).join('');
+
+/* 제품·보상 자료 (루트 /files/ 공유) */
+document.getElementById('docs').innerHTML = [
+  { title:'밸런스오일 제품 리플렛', em:'🧴', badge:'PDF', desc:'밸런스오일+ 성분·효능·인증 상세 소개 자료', fmt:'PDF · 약 1.1MB',
+    acts:[{t:'dl',href:'/files/밸런스오일-제품리플렛.pdf'},{t:'share',label:'카톡',fn:`shareFile(rootUrl("files/밸런스오일-제품리플렛.pdf"),"진지노 밸런스오일 리플렛.pdf","진지노 밸런스오일 제품 리플렛")`}] },
+  { title:'보상플랜 · 이그제큐티브', img:'/files/보상플랜-이그제큐티브.jpg', badge:'이미지', contain:true, desc:'이그제큐티브 달성 시 보너스 상세 카드', fmt:'JPG 이미지',
+    acts:[{t:'dl',href:'/files/보상플랜-이그제큐티브.jpg'},{t:'share',label:'카톡',fn:`shareFile(rootUrl("files/보상플랜-이그제큐티브.jpg"),"진지노-이그제큐티브-보너스.jpg","진지노 이그제큐티브 보상")`}] },
+  { title:'보상플랜 · 플래티넘', img:'/files/보상플랜-플래티넘.jpg', badge:'이미지', contain:true, desc:'플래티넘 달성 시 보너스 상세 카드', fmt:'JPG 이미지',
+    acts:[{t:'dl',href:'/files/보상플랜-플래티넘.jpg'},{t:'share',label:'카톡',fn:`shareFile(rootUrl("files/보상플랜-플래티넘.jpg"),"진지노-플래티넘-보너스.jpg","진지노 플래티넘 보상")`}] },
+  { title:'보상플랜 · 다이아몬드', img:'/files/보상플랜-다이아몬드.jpg', badge:'이미지', contain:true, desc:'다이아몬드 달성 시 보너스 상세 카드', fmt:'JPG 이미지',
+    acts:[{t:'dl',href:'/files/보상플랜-다이아몬드.jpg'},{t:'share',label:'카톡',fn:`shareFile(rootUrl("files/보상플랜-다이아몬드.jpg"),"진지노-다이아몬드-보너스.jpg","진지노 다이아몬드 보상")`}] },
+].map(card).join('');
+
+/* 영상 자료 */
+const vids = VIDEOS.map(v=>({...v, ytId:ytId(v.yt)}));
+const withYt = vids.filter(v=>v.ytId);
+document.getElementById('vidCnt').textContent = withYt.length;
+document.getElementById('videos').innerHTML = withYt.length ? withYt.map(v=>card({
+  title:v.title, desc:v.desc, ytId:v.ytId, fmt:'YouTube',
+  acts:[{t:'open',label:'▶ 보기',href:'https://youtu.be/'+v.ytId,blank:true},
+        {t:'share',label:'카톡',fn:`shareLink("https://youtu.be/${v.ytId}","${v.title.replace(/"/g,'')}")`}]
+})).join('') : `<div class="card" style="grid-column:1/-1"><h3>영상 준비 중</h3><div class="desc">유튜브 링크를 등록하면 여기에 표시됩니다. (담당자에게 요청하세요)</div></div>`;
+
+/* 공식 링크 */
+document.getElementById('links').innerHTML = [
+  { title:'진지노 공식몰', em:'🌐', desc:'진지노코리아 공식 온라인몰에서 제품 구매·테스트 신청',
+    acts:[{t:'open',label:'바로가기',href:'https://www.zinzinokorea.co.kr/customer/',blank:true},{t:'share',label:'카톡',fn:`shareLink("https://www.zinzinokorea.co.kr/customer/","진지노 공식몰")`}] },
+  { title:'상담 신청하기', em:'💬', desc:'제품·사업이 궁금하면 무료 상담을 신청하세요',
+    acts:[{t:'open',label:'상담 신청',href:'index.html#apply'},{t:'share',label:'카톡',fn:`shareLink(url("index.html"),"진지노 사업 쉽게 이해하기")`}] },
+].map(card).join('');
+
+/* 브랜드 태그 = 홈 페이지 제목 반영 (파트너별) */
+try{ fetch('index.html').then(r=>r.text()).then(t=>{ const m=t.match(/<title>([^<]+)<\/title>/); if(m) document.getElementById('brandTag').textContent = m[1].replace(/·.*/,'').trim(); }); }catch(e){}
+</script>
+</body>
+</html>

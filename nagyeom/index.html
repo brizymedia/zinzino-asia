@@ -320,8 +320,9 @@ nav .wrap{height:100%;display:flex;align-items:center;justify-content:space-betw
 .tools{background:linear-gradient(165deg,#25123F,#3A1F63);color:#fff}
 .tools .eyebrow{color:var(--gold-lt)}
 .tools .title{color:#fff}
-.tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:44px}
-@media(max-width:760px){.tool-grid{grid-template-columns:1fr}}
+.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+@media(max-width:900px){.tool-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.tool-grid{grid-template-columns:1fr}}
 .tcta{
   display:block;text-decoration:none;border-radius:22px;padding:34px 32px;transition:.25s;position:relative;overflow:hidden;
   background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.16);
@@ -503,6 +504,7 @@ footer .disc b{color:#B7A9D6}
     </a>
     <div class="menu">
       <a class="navtel" href="tel:01022095627"><span class="ic">📞</span>010-2209-5627</a>
+      <a class="plan" href="materials.html"><span class="ic">📁</span><span class="lbl-long">사업</span>자료실</a>
       <a class="plan" href="plan.html"><span class="ic">🗺️</span>쉬운 <span class="lbl-long">보상</span>플랜</a>
       <a class="calc" href="calculator.html"><span class="ic">📊</span>진지노 <span class="lbl-long">수당</span>계산기</a>
     </div>
@@ -843,6 +845,12 @@ footer .disc b{color:#B7A9D6}
         <p>어려운 용어는 빼고 게임처럼! 가입부터 다이아몬드까지 6단계 로드맵을 초등학생도 이해하기 쉽게 설명합니다.</p>
         <span class="go">로드맵 보기 →</span>
       </a>
+      <a class="tcta reveal" href="materials.html">
+        <div class="ic">📁</div>
+        <h3>사업자료실</h3>
+        <p>계산기·보상플랜·제품 리플렛·소개 영상을 한곳에. 예비 파트너에게 다운로드하거나 카톡으로 바로 공유하세요.</p>
+        <span class="go">자료실 열기 →</span>
+      </a>
     </div>
   </div>
 </section>
@@ -978,6 +986,7 @@ footer .disc b{color:#B7A9D6}
       <div class="zn">ZIN<b>ZINO</b></div>
       <div class="ftmenu">
         <a href="tel:01022095627" style="color:var(--gold-lt)">📞 상담 010-2209-5627</a>
+        <a href="materials.html">사업자료실</a>
         <a href="calculator.html">진지노 수당계산기</a>
         <a href="plan.html">쉬운 보상플랜</a>
         <a href="#top">맨 위로</a>
