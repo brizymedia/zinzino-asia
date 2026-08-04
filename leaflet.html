@@ -81,8 +81,13 @@ header p{margin-top:12px;font-size:15px;color:#CBBFE3}
 #lb .bar button,#lb .bar a{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.22);border-radius:10px;
   padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none}
 #lb .bar .a-kakao{background:var(--kakao);color:var(--kakao-ink);border-color:transparent}
-#lb .stage{flex:1;display:grid;place-items:center;min-height:0;padding:16px}
-#lb .stage img{max-width:min(1000px,100%);max-height:100%;object-fit:contain;border-radius:10px;box-shadow:0 20px 60px -20px rgba(0,0,0,.7)}
+#lb .stage{flex:1;display:grid;place-items:center;min-height:0;padding:24px}
+/* 슬라이드 뷰어와 동일 기준: 기본은 화면을 꽉 채우지 않게 */
+#lb .stage img{max-width:min(760px,100%);max-height:min(72vh,100%);object-fit:contain;border-radius:10px;box-shadow:0 20px 60px -20px rgba(0,0,0,.7)}
+@media(max-width:760px){#lb .stage{padding:14px}#lb .stage img{max-width:100%;max-height:100%}}
+/* 크게 보기(전체화면) — 이때만 꽉 채움 */
+#lb.big .stage{padding:0}
+#lb.big .stage img{max-width:100%;max-height:100%;border-radius:0}
 #lb .nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.14);
   color:#fff;border:none;font-size:22px;cursor:pointer;display:grid;place-items:center}
 #lb .nav.prev{left:12px} #lb .nav.next{right:12px}
@@ -155,6 +160,7 @@ header p{margin-top:12px;font-size:15px;color:#CBBFE3}
   <div class="bar">
     <span class="t" id="lbT"></span>
     <div class="g">
+      <button id="lbFs">⛶ 크게</button>
       <a id="lbDl" download>⬇ 저장</a>
       <button class="a-kakao" id="lbShare">💬 카톡</button>
       <button id="lbX">✕ 닫기</button>
@@ -211,7 +217,8 @@ document.getElementById('gal').innerHTML = PHOTOS.map((p,i)=>`
 let cur=0;
 const lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg');
 function openLb(i){ cur=i; render(); lb.classList.add('on'); document.body.style.overflow='hidden'; }
-function closeLb(){ lb.classList.remove('on'); document.body.style.overflow=''; }
+function closeLb(){ lb.classList.remove('on','big'); document.body.style.overflow='';
+  const fs=document.getElementById('lbFs'); if(fs) fs.textContent='⛶ 크게'; }
 function render(){
   const p=PHOTOS[cur];
   lbImg.src=P(p.f); lbImg.alt=p.t;
@@ -221,6 +228,9 @@ function render(){
 }
 function go(d){ cur=(cur+d+PHOTOS.length)%PHOTOS.length; render(); }
 document.getElementById('lbX').onclick=closeLb;
+document.getElementById('lbFs').onclick=e=>{ e.stopPropagation();
+  lb.classList.toggle('big');
+  e.currentTarget.textContent = lb.classList.contains('big') ? '⤡ 작게' : '⛶ 크게'; };
 document.getElementById('lbP').onclick=e=>{e.stopPropagation();go(-1);};
 document.getElementById('lbN').onclick=e=>{e.stopPropagation();go(1);};
 document.getElementById('lbShare').onclick=()=>{const p=PHOTOS[cur];shareFile(rootUrl('files/photos/'+p.f),p.f,'진지노 '+p.t);};
