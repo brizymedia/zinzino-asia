@@ -256,7 +256,7 @@ document.getElementById('videos').innerHTML = withYt.length ? withYt.map(v=>card
 
 /* 공식 링크 */
 document.getElementById('links').innerHTML = [
-  { title:'진지노 공식몰', em:'🌐', desc:'진지노코리아 공식 온라인몰에서 제품 구매·테스트 신청',
+  { title:'진지노 공식몰', img:'/images/official-mall.jpg', badge:'공식', desc:'진지노코리아 공식 온라인몰에서 제품 구매·테스트 신청',
     acts:[{t:'open',label:'바로가기',href:'https://www.zinzinokorea.co.kr/customer/',blank:true},{t:'share',label:'카톡',fn:`shareLink("https://www.zinzinokorea.co.kr/customer/","진지노 공식몰")`}] },
   { title:'상담 신청하기', em:'💬', desc:'제품·사업이 궁금하면 무료 상담을 신청하세요',
     acts:[{t:'open',label:'상담 신청',href:'index.html#apply'},{t:'share',label:'카톡',fn:`shareLink(url("index.html"),"진지노 사업 쉽게 이해하기")`}] },
