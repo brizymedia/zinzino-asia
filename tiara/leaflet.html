@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>밸런스오일 제품 리플렛 · 진지노</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#241634;--plum:#3A1F63;--plum-deep:#25123F;--violet:#6B4FA0;
+  --lav:#EFE8F9;--gold:#C9A94E;--gold-lt:#E4CD8A;--rose:#D6417A;
+  --ivory:#FBF7EF;--paper:#fff;--line:#E7DECD;--kakao:#FAE100;--kakao-ink:#3C1E1E;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans KR','Malgun Gothic',sans-serif;color:var(--ink);background:var(--ivory);line-height:1.7}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px 70px}
+
+.topbar{background:rgba(37,18,63,.94);backdrop-filter:blur(12px);position:sticky;top:0;z-index:50;border-bottom:1px solid rgba(201,169,78,.25)}
+.topbar .in{max-width:1080px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.topbar a{color:#C9BBE4;text-decoration:none;font-size:13.5px;font-weight:700}
+.topbar a:hover{color:#fff}
+.topbar .zn{font-family:'Noto Serif KR';font-weight:900;font-size:17px;letter-spacing:.12em;color:#fff}
+.topbar .zn b{color:var(--gold-lt)}
+
+header{background:linear-gradient(150deg,var(--plum-deep),var(--plum) 60%,#4E3080);color:#fff;padding:44px 20px 48px;position:relative;overflow:hidden}
+header::before{content:"";position:absolute;inset:0;background:radial-gradient(circle 380px at 88% 8%,rgba(201,169,78,.22),transparent 70%)}
+header .in{max-width:1080px;margin:0 auto;position:relative}
+header .eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.2em;color:var(--gold-lt);border:1px solid rgba(201,169,78,.4);border-radius:999px;padding:5px 14px;margin-bottom:14px}
+header h1{font-family:'Noto Serif KR';font-weight:900;font-size:clamp(24px,4.4vw,38px);line-height:1.25}
+header p{margin-top:12px;font-size:15px;color:#CBBFE3}
+.hacts{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:700;font-size:14.5px;padding:12px 20px;border-radius:12px;cursor:pointer;border:none;font-family:inherit;transition:.2s}
+.btn:active{transform:scale(.97)}
+.btn-kakao{background:var(--kakao);color:var(--kakao-ink)}
+.btn-gold{background:linear-gradient(135deg,var(--gold-lt),#A6852F);color:#2A1B00}
+.btn-ghost{background:rgba(255,255,255,.1);color:#fff;border:1.5px solid rgba(255,255,255,.3)}
+
+.sec{margin-top:38px}
+.sec-h{display:flex;align-items:center;gap:11px;margin-bottom:16px;flex-wrap:wrap}
+.sec-h .ic{font-size:22px}
+.sec-h h2{font-family:'Noto Serif KR';font-size:21px;font-weight:900;color:var(--plum)}
+.sec-h .cnt{font-size:12.5px;color:#9A8FB5;background:var(--lav);border-radius:999px;padding:3px 11px;font-weight:700}
+
+/* PDF 카드 */
+.pdfcard{background:var(--paper);border:1.5px solid var(--line);border-radius:18px;padding:22px;display:flex;gap:20px;align-items:center;flex-wrap:wrap;
+  box-shadow:0 14px 30px -24px rgba(58,31,99,.35)}
+.pdfcard .ic{font-size:46px;flex:none}
+.pdfcard .txt{flex:1;min-width:200px}
+.pdfcard h3{font-size:17px;font-weight:900;color:var(--plum)}
+.pdfcard p{font-size:13.5px;color:#61537A;margin-top:3px}
+.pdfcard .acts{display:flex;gap:8px;flex-wrap:wrap}
+.pdfcard .acts a,.pdfcard .acts button{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:700;font-size:13.5px;
+  padding:11px 18px;border-radius:11px;cursor:pointer;border:none;font-family:inherit;transition:.15s}
+.a-open{background:var(--plum);color:#fff}
+.a-dl{background:var(--lav);color:var(--plum)}
+.a-kakao{background:var(--kakao);color:var(--kakao-ink)}
+.a-open:active,.a-dl:active,.a-kakao:active{transform:scale(.96)}
+.pdfview{margin-top:14px;border:1.5px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;height:min(78vh,900px)}
+.pdfview iframe{width:100%;height:100%;border:0;display:block}
+@media(max-width:760px){.pdfview{display:none}}
+.pdfmobile{display:none;margin-top:12px;background:var(--lav);border-radius:12px;padding:14px 18px;font-size:13.5px;color:#6B5A8E}
+@media(max-width:760px){.pdfmobile{display:block}}
+
+/* 사진 갤러리 */
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.ph{background:var(--paper);border:1.5px solid var(--line);border-radius:16px;overflow:hidden;cursor:pointer;transition:.2s;
+  box-shadow:0 12px 26px -22px rgba(58,31,99,.35)}
+.ph:hover{transform:translateY(-3px);border-color:var(--gold-lt);box-shadow:0 22px 38px -26px rgba(58,31,99,.45)}
+.ph .im{width:100%;aspect-ratio:4/3;background:#F1E9DA;overflow:hidden}
+.ph .im img{width:100%;height:100%;object-fit:cover;display:block}
+.ph .cap{padding:11px 14px;font-size:13.5px;font-weight:700;color:var(--plum);display:flex;justify-content:space-between;align-items:center;gap:8px}
+.ph .cap small{font-size:11.5px;color:#9A8FB5;font-weight:500}
+
+/* 라이트박스 */
+#lb{position:fixed;inset:0;background:rgba(15,8,24,.94);z-index:200;display:none;flex-direction:column}
+#lb.on{display:flex}
+#lb .bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;color:#fff;flex-wrap:wrap}
+#lb .bar .t{font-size:14.5px;font-weight:700}
+#lb .bar .g{display:flex;gap:8px}
+#lb .bar button,#lb .bar a{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.22);border-radius:10px;
+  padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none}
+#lb .bar .a-kakao{background:var(--kakao);color:var(--kakao-ink);border-color:transparent}
+#lb .stage{flex:1;display:grid;place-items:center;min-height:0;padding:16px}
+#lb .stage img{max-width:min(1000px,100%);max-height:100%;object-fit:contain;border-radius:10px;box-shadow:0 20px 60px -20px rgba(0,0,0,.7)}
+#lb .nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.14);
+  color:#fff;border:none;font-size:22px;cursor:pointer;display:grid;place-items:center}
+#lb .nav.prev{left:12px} #lb .nav.next{right:12px}
+#lb .pg{text-align:center;color:#B9A8D8;font-size:13px;padding-bottom:14px}
+
+#toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--plum-deep);color:#fff;
+  font-size:14px;font-weight:700;padding:13px 22px;border-radius:12px;opacity:0;pointer-events:none;transition:.3s;z-index:300;max-width:90vw;text-align:center}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.note{margin-top:34px;background:var(--lav);border-radius:14px;padding:15px 20px;font-size:12.5px;color:#6B5A8E;line-height:1.8}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="in">
+    <a href="materials.html">← 자료실</a>
+    <span class="zn">ZIN<b>ZINO</b></span>
+    <a href="index.html">홈</a>
+  </div>
+</div>
+
+<header>
+  <div class="in">
+    <div class="eyebrow">제품 자료</div>
+    <h1>밸런스오일 제품 리플렛</h1>
+    <p>제품 상세 리플렛(PDF)과 제품 사진을 보고 다운로드하세요.</p>
+    <div class="hacts">
+      <button class="btn btn-kakao" onclick="shareLink(location.href,'진지노 밸런스오일 제품 자료')">💬 이 페이지 카톡 공유</button>
+      <a class="btn btn-ghost" href="materials.html">📁 자료실로</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- PDF -->
+  <section class="sec">
+    <div class="sec-h"><span class="ic">📄</span><h2>제품 리플렛 (PDF)</h2></div>
+    <div class="pdfcard">
+      <div class="ic">🧴</div>
+      <div class="txt">
+        <h3>진지노 밸런스오일 플러스 리플렛</h3>
+        <p>성분·효능·인증·복용법 상세 안내 · 약 1.1MB</p>
+      </div>
+      <div class="acts">
+        <a class="a-open" href="/files/밸런스오일-제품리플렛.pdf" target="_blank" rel="noopener">📖 새 창으로 보기</a>
+        <a class="a-dl" href="/files/밸런스오일-제품리플렛.pdf" download>⬇ 다운로드</a>
+        <button class="a-kakao" onclick="shareFile(rootUrl('files/밸런스오일-제품리플렛.pdf'),'진지노 밸런스오일 리플렛.pdf','진지노 밸런스오일 제품 리플렛')">💬 카톡</button>
+      </div>
+    </div>
+    <div class="pdfview"><iframe src="/files/밸런스오일-제품리플렛.pdf#view=FitH" title="밸런스오일 제품 리플렛"></iframe></div>
+    <div class="pdfmobile">📱 모바일에서는 <b>새 창으로 보기</b>를 눌러 PDF를 확인하세요.</div>
+  </section>
+
+  <!-- 사진 -->
+  <section class="sec">
+    <div class="sec-h"><span class="ic">📸</span><h2>제품 사진</h2><span class="cnt" id="phCnt">0</span>
+      <span style="font-size:12.5px;color:#9A8FB5">사진을 클릭하면 크게 보고 저장할 수 있습니다</span></div>
+    <div class="gal" id="gal"></div>
+  </section>
+
+  <div class="note">
+    ⚠️ 본 자료는 진지노 공식 제품 정보를 바탕으로 한 <b>교육·설명용</b>이며, 질병의 진단·치료·예방을 목적으로 하지 않습니다.
+    제품 사진의 저작권은 Zinzino에 있으며 사업 안내 목적으로만 사용해 주세요.
+  </div>
+</div>
+
+<!-- 라이트박스 -->
+<div id="lb" role="dialog" aria-label="사진 크게 보기">
+  <div class="bar">
+    <span class="t" id="lbT"></span>
+    <div class="g">
+      <a id="lbDl" download>⬇ 저장</a>
+      <button class="a-kakao" id="lbShare">💬 카톡</button>
+      <button id="lbX">✕ 닫기</button>
+    </div>
+  </div>
+  <div class="stage" style="position:relative">
+    <button class="nav prev" id="lbP">‹</button>
+    <img id="lbImg" alt="">
+    <button class="nav next" id="lbN">›</button>
+  </div>
+  <div class="pg" id="lbPg"></div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+"use strict";
+const ORIGIN=location.origin;
+function base(){ const p=location.pathname; return p.slice(0,p.lastIndexOf('/')+1); }
+const rootUrl = rel => ORIGIN + '/' + rel.replace(/^\//,'');
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2600);}
+async function copyLink(u){try{await navigator.clipboard.writeText(u);toast('📋 링크가 복사되었습니다');}catch(e){prompt('링크를 복사하세요',u);}}
+async function shareLink(u,title){if(navigator.share){try{await navigator.share({title,text:title,url:u});return;}catch(e){if(e.name==='AbortError')return;}}copyLink(u);}
+async function shareFile(url,name,title){
+  try{ if(navigator.canShare){ const r=await fetch(url); const b=await r.blob();
+    const f=new File([b],name,{type:b.type||'application/octet-stream'});
+    if(navigator.canShare({files:[f]})){ await navigator.share({files:[f],title}); return; } } }
+  catch(e){ if(e.name==='AbortError') return; }
+  shareLink(url,title);
+}
+
+/* 사진 목록 */
+const PHOTOS=[
+  {f:'01_밸런스오일-솔루션.jpg', t:'전 세계가 필요로 하는 솔루션'},
+  {f:'02_제품-라인업.jpg',       t:'밸런스오일 전체 라인업'},
+  {f:'03_밸런스테스트-키트.jpg', t:'밸런스 테스트 키트'},
+  {f:'04_밸런스오일-제품컷.jpg', t:'밸런스오일 플러스'},
+  {f:'05_시음-현장.jpg',         t:'시음 현장'},
+  {f:'06_포스터-비율의문제.jpg', t:'포스터 · 비율의 문제'},
+  {f:'07_포스터-측정하세요.jpg', t:'포스터 · 측정하세요'},
+  {f:'08_포스터-120일의증명.jpg',t:'포스터 · 120일의 증명'},
+];
+const P = f => '/files/photos/'+encodeURIComponent(f);
+const T = f => '/files/photos/thumbs/'+encodeURIComponent(f);
+
+document.getElementById('phCnt').textContent = PHOTOS.length;
+document.getElementById('gal').innerHTML = PHOTOS.map((p,i)=>`
+  <div class="ph" onclick="openLb(${i})">
+    <div class="im"><img src="${T(p.f)}" alt="${p.t}" loading="lazy"></div>
+    <div class="cap"><span>${p.t}</span><small>클릭 ⤢</small></div>
+  </div>`).join('');
+
+/* 라이트박스 */
+let cur=0;
+const lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg');
+function openLb(i){ cur=i; render(); lb.classList.add('on'); document.body.style.overflow='hidden'; }
+function closeLb(){ lb.classList.remove('on'); document.body.style.overflow=''; }
+function render(){
+  const p=PHOTOS[cur];
+  lbImg.src=P(p.f); lbImg.alt=p.t;
+  document.getElementById('lbT').textContent=p.t;
+  document.getElementById('lbPg').textContent=(cur+1)+' / '+PHOTOS.length;
+  const dl=document.getElementById('lbDl'); dl.href=P(p.f); dl.setAttribute('download',p.f);
+}
+function go(d){ cur=(cur+d+PHOTOS.length)%PHOTOS.length; render(); }
+document.getElementById('lbX').onclick=closeLb;
+document.getElementById('lbP').onclick=e=>{e.stopPropagation();go(-1);};
+document.getElementById('lbN').onclick=e=>{e.stopPropagation();go(1);};
+document.getElementById('lbShare').onclick=()=>{const p=PHOTOS[cur];shareFile(rootUrl('files/photos/'+p.f),p.f,'진지노 '+p.t);};
+lb.addEventListener('click',e=>{ if(e.target===lb||e.target.classList.contains('stage')) closeLb(); });
+addEventListener('keydown',e=>{ if(!lb.classList.contains('on'))return;
+  if(e.key==='Escape')closeLb(); if(e.key==='ArrowLeft')go(-1); if(e.key==='ArrowRight')go(1); });
+/* 스와이프 */
+let sx=0;
+lb.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+lb.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-sx; if(Math.abs(d)>50) go(d<0?1:-1);},{passive:true});
+window.openLb=openLb;
+</script>
+</body>
+</html>
