@@ -132,10 +132,16 @@ footer .z{font-family:'Noto Serif KR';font-weight:900;letter-spacing:.28em;color
     <div class="grid" id="tools"></div>
   </section>
 
-  <!-- 제품·보상 자료 -->
+  <!-- 제품 자료 -->
   <section class="sec">
-    <div class="sec-h"><span class="ic">📄</span><h2>제품·보상 자료</h2><span class="cnt">4</span></div>
-    <div class="grid" id="docs"></div>
+    <div class="sec-h"><span class="ic">🧴</span><h2>제품 자료</h2><span class="cnt">3</span></div>
+    <div class="grid" id="products"></div>
+  </section>
+
+  <!-- 보상 자료 -->
+  <section class="sec">
+    <div class="sec-h"><span class="ic">💰</span><h2>보상 자료</h2><span class="cnt">3</span></div>
+    <div class="grid" id="comp"></div>
   </section>
 
   <!-- 영상 자료 -->
@@ -234,10 +240,18 @@ document.getElementById('tools').innerHTML = [
     acts:[{t:'open',label:'열기',href:'plan.html'},{t:'share',label:'카톡',fn:`shareLink(url("plan.html"),"진지노 쉬운 보상플랜")`}] },
 ].map(card).join('');
 
-/* 제품·보상 자료 (루트 /files/ 공유) */
-document.getElementById('docs').innerHTML = [
-  { title:'밸런스오일 제품 리플렛', em:'🧴', badge:'PDF', desc:'밸런스오일+ 성분·효능·인증 상세 소개 자료', fmt:'PDF · 약 1.1MB',
+/* 제품 자료 (미리보기 이미지 포함) */
+document.getElementById('products').innerHTML = [
+  { title:'진지노 사업설명자료', img:'/files/사업설명자료-표지.jpg', badge:'PPT', desc:'회사소개 + 보상플랜 통합 공식 프레젠테이션 (78페이지)', fmt:'PowerPoint · 약 47MB',
+    acts:[{t:'dl',href:'/files/진지노-사업설명자료.pptx'},{t:'share',label:'카톡',fn:`shareFile(rootUrl("files/진지노-사업설명자료.pptx"),"진지노 사업설명자료.pptx","진지노 회사소개+보상플랜 자료")`}] },
+  { title:'밸런스오일 제품 리플렛', img:'/images/balanceoil-hero.jpg', badge:'PDF', desc:'밸런스오일+ 성분·효능·인증 상세 소개 자료', fmt:'PDF · 약 1.1MB',
     acts:[{t:'dl',href:'/files/밸런스오일-제품리플렛.pdf'},{t:'share',label:'카톡',fn:`shareFile(rootUrl("files/밸런스오일-제품리플렛.pdf"),"진지노 밸런스오일 리플렛.pdf","진지노 밸런스오일 제품 리플렛")`}] },
+  { title:'국제 인증 · 품질 기준', img:'/images/certifications.png', badge:'이미지', contain:true, desc:'GMP·Friend of the Sea·Vegan·Halal 등 12개 국제 인증', fmt:'PNG 이미지',
+    acts:[{t:'dl',href:'/images/certifications.png'},{t:'share',label:'카톡',fn:`shareFile(rootUrl("images/certifications.png"),"진지노-국제인증.png","진지노 국제 인증")`}] },
+].map(card).join('');
+
+/* 보상 자료 (미리보기 이미지 포함) */
+document.getElementById('comp').innerHTML = [
   { title:'보상플랜 · 이그제큐티브', img:'/files/보상플랜-이그제큐티브.jpg', badge:'이미지', contain:true, desc:'이그제큐티브 달성 시 보너스 상세 카드', fmt:'JPG 이미지',
     acts:[{t:'dl',href:'/files/보상플랜-이그제큐티브.jpg'},{t:'share',label:'카톡',fn:`shareFile(rootUrl("files/보상플랜-이그제큐티브.jpg"),"진지노-이그제큐티브-보너스.jpg","진지노 이그제큐티브 보상")`}] },
   { title:'보상플랜 · 플래티넘', img:'/files/보상플랜-플래티넘.jpg', badge:'이미지', contain:true, desc:'플래티넘 달성 시 보너스 상세 카드', fmt:'JPG 이미지',
