@@ -228,9 +228,9 @@ function card(o){
 
 /* 온라인 도구 */
 document.getElementById('tools').innerHTML = [
-  { title:'진지노 수당 계산기', em:'📊', desc:'직추천·후원 수를 넣으면 예상 직급과 월 수익을 표·그래프로 계산',
+  { title:'진지노 수당 계산기', img:'/images/card-calculator.jpg', badge:'계산기', desc:'직추천·후원 수를 넣으면 예상 직급과 월 수익을 표·그래프로 계산',
     acts:[{t:'open',label:'열기',href:'calculator.html'},{t:'share',label:'카톡',fn:`shareLink(url("calculator.html"),"진지노 수당 계산기")`}] },
-  { title:'쉬운 보상플랜 로드맵', em:'🗺️', desc:'가입부터 다이아몬드까지 6단계를 중학생도 이해하기 쉽게',
+  { title:'쉬운 보상플랜 로드맵', img:'/images/card-plan.jpg', badge:'로드맵', desc:'가입부터 다이아몬드까지 6단계를 중학생도 이해하기 쉽게',
     acts:[{t:'open',label:'열기',href:'plan.html'},{t:'share',label:'카톡',fn:`shareLink(url("plan.html"),"진지노 쉬운 보상플랜")`}] },
 ].map(card).join('');
 
