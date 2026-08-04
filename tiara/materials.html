@@ -134,14 +134,8 @@ footer .z{font-family:'Noto Serif KR';font-weight:900;letter-spacing:.28em;color
 
   <!-- 제품 자료 -->
   <section class="sec">
-    <div class="sec-h"><span class="ic">🧴</span><h2>제품 자료</h2><span class="cnt">3</span></div>
+    <div class="sec-h"><span class="ic">🧴</span><h2>제품 자료</h2><span class="cnt">4</span></div>
     <div class="grid" id="products"></div>
-  </section>
-
-  <!-- 보상 자료 -->
-  <section class="sec">
-    <div class="sec-h"><span class="ic">💰</span><h2>보상 자료</h2><span class="cnt">3</span></div>
-    <div class="grid" id="comp"></div>
   </section>
 
   <!-- 영상 자료 -->
@@ -240,28 +234,16 @@ document.getElementById('tools').innerHTML = [
     acts:[{t:'open',label:'열기',href:'plan.html'},{t:'share',label:'카톡',fn:`shareLink(url("plan.html"),"진지노 쉬운 보상플랜")`}] },
 ].map(card).join('');
 
-/* PPT 온라인 뷰어 URL (다운로드 없이 모바일에서 바로 렌더링) */
-const pptFileUrl = rootUrl('files/진지노-사업설명자료.pptx');
-const pptView = 'https://view.officeapps.live.com/op/view.aspx?src=' + encodeURIComponent(pptFileUrl);
-
-/* 제품 자료 (미리보기 이미지 포함) */
+/* 제품 자료 — PPT는 HTML 슬라이드 뷰어로 바로 열림 (다운로드/외부뷰어 불필요) */
 document.getElementById('products').innerHTML = [
-  { title:'진지노 사업설명자료', img:'/files/사업설명자료-표지.jpg', badge:'PPT', desc:'회사소개 + 보상플랜 통합 공식 프레젠테이션 (78페이지)', fmt:'📱 모바일에서 바로보기 (다운로드 없이)',
-    acts:[{t:'open',label:'📱 바로보기',href:pptView,blank:true},{t:'share',label:'카톡',fn:`shareLink("${pptView}","진지노 사업설명자료 (모바일 보기)")`}] },
+  { title:'진지노 회사소개', img:'/slides/company/s01.jpg', badge:'45장', desc:'회사·비전·제품을 담은 공식 소개 자료. 클릭하면 바로 열립니다.', fmt:'📱 슬라이드 보기 (다운로드 없이)',
+    acts:[{t:'open',label:'📱 바로보기',href:'deck.html?d=company'},{t:'share',label:'카톡',fn:`shareLink(url("deck.html?d=company"),"진지노 회사소개 자료")`}] },
+  { title:'진지노 사업설명자료', img:'/files/사업설명자료-표지.jpg', badge:'PPT', desc:'회사소개 + 보상플랜 통합 공식 프레젠테이션 (78페이지)', fmt:'PowerPoint 파일',
+    acts:[{t:'dl',href:'/files/진지노-사업설명자료.pptx'},{t:'share',label:'카톡',fn:`shareFile(rootUrl("files/진지노-사업설명자료.pptx"),"진지노 사업설명자료.pptx","진지노 회사소개+보상플랜 자료")`}] },
+  { title:'진지노 보상플랜', img:'/slides/comp/s01.jpg', badge:'42장', desc:'수당 구조와 직급 체계를 슬라이드로. 클릭하면 바로 열립니다.', fmt:'📱 슬라이드 보기 (다운로드 없이)',
+    acts:[{t:'open',label:'📱 바로보기',href:'deck.html?d=comp'},{t:'share',label:'카톡',fn:`shareLink(url("deck.html?d=comp"),"진지노 보상플랜 자료")`}] },
   { title:'밸런스오일 제품 리플렛', img:'/images/balanceoil-hero.jpg', badge:'PDF', desc:'밸런스오일+ 성분·효능·인증 상세 소개 자료', fmt:'PDF · 약 1.1MB',
     acts:[{t:'dl',href:'/files/밸런스오일-제품리플렛.pdf'},{t:'share',label:'카톡',fn:`shareFile(rootUrl("files/밸런스오일-제품리플렛.pdf"),"진지노 밸런스오일 리플렛.pdf","진지노 밸런스오일 제품 리플렛")`}] },
-  { title:'국제 인증 · 품질 기준', img:'/images/certifications.png', badge:'이미지', contain:true, desc:'GMP·Friend of the Sea·Vegan·Halal 등 12개 국제 인증', fmt:'PNG 이미지',
-    acts:[{t:'dl',href:'/images/certifications.png'},{t:'share',label:'카톡',fn:`shareFile(rootUrl("images/certifications.png"),"진지노-국제인증.png","진지노 국제 인증")`}] },
-].map(card).join('');
-
-/* 보상 자료 (미리보기 이미지 포함) */
-document.getElementById('comp').innerHTML = [
-  { title:'보상플랜 · 이그제큐티브', img:'/files/보상플랜-이그제큐티브.jpg', badge:'이미지', contain:true, desc:'이그제큐티브 달성 시 보너스 상세 카드', fmt:'JPG 이미지',
-    acts:[{t:'dl',href:'/files/보상플랜-이그제큐티브.jpg'},{t:'share',label:'카톡',fn:`shareFile(rootUrl("files/보상플랜-이그제큐티브.jpg"),"진지노-이그제큐티브-보너스.jpg","진지노 이그제큐티브 보상")`}] },
-  { title:'보상플랜 · 플래티넘', img:'/files/보상플랜-플래티넘.jpg', badge:'이미지', contain:true, desc:'플래티넘 달성 시 보너스 상세 카드', fmt:'JPG 이미지',
-    acts:[{t:'dl',href:'/files/보상플랜-플래티넘.jpg'},{t:'share',label:'카톡',fn:`shareFile(rootUrl("files/보상플랜-플래티넘.jpg"),"진지노-플래티넘-보너스.jpg","진지노 플래티넘 보상")`}] },
-  { title:'보상플랜 · 다이아몬드', img:'/files/보상플랜-다이아몬드.jpg', badge:'이미지', contain:true, desc:'다이아몬드 달성 시 보너스 상세 카드', fmt:'JPG 이미지',
-    acts:[{t:'dl',href:'/files/보상플랜-다이아몬드.jpg'},{t:'share',label:'카톡',fn:`shareFile(rootUrl("files/보상플랜-다이아몬드.jpg"),"진지노-다이아몬드-보너스.jpg","진지노 다이아몬드 보상")`}] },
 ].map(card).join('');
 
 /* 영상 자료 */

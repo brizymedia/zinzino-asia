@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>진지노 자료 보기</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#241634;--plum:#3A1F63;--plum-deep:#25123F;--gold:#C9A94E;--gold-lt:#E4CD8A;--rose:#D6417A}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Noto Sans KR','Malgun Gothic',sans-serif;background:#150C22;color:#fff;
+  display:flex;flex-direction:column;overflow:hidden;overscroll-behavior:none}
+
+/* 상단 바 */
+.bar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:10px 14px;background:rgba(37,18,63,.92);backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(201,169,78,.28);padding-top:max(10px,env(safe-area-inset-top))}
+.bar .t{display:flex;align-items:center;gap:10px;min-width:0}
+.bar .zn{font-family:'Noto Serif KR';font-weight:900;font-size:15px;letter-spacing:.1em;color:#fff;white-space:nowrap}
+.bar .zn b{color:var(--gold-lt)}
+.bar h1{font-size:14px;font-weight:700;color:#C9BBE4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .acts{display:flex;gap:7px;flex:none}
+.bar button,.bar a{display:inline-flex;align-items:center;gap:5px;font-family:inherit;font-size:12.5px;font-weight:700;
+  padding:8px 12px;border-radius:9px;border:none;cursor:pointer;text-decoration:none;transition:.15s;white-space:nowrap}
+.b-ghost{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.22)}
+.b-ghost:hover{background:rgba(255,255,255,.2)}
+.b-gold{background:linear-gradient(135deg,var(--gold-lt),#A6852F);color:#2A1B00}
+@media(max-width:520px){.bar h1{display:none}.bar button,.bar a{padding:8px 10px;font-size:12px}}
+
+/* 슬라이드 영역 */
+.stage{flex:1;position:relative;display:grid;place-items:center;min-height:0;background:#0F0818;
+  touch-action:pan-y pinch-zoom}
+.stage img{max-width:100%;max-height:100%;object-fit:contain;display:block;
+  box-shadow:0 20px 60px -20px rgba(0,0,0,.7);opacity:0;transition:opacity .18s}
+.stage img.on{opacity:1}
+.nav{position:absolute;top:0;bottom:0;width:22%;max-width:160px;border:none;background:transparent;cursor:pointer;
+  display:grid;place-items:center;color:rgba(255,255,255,.55);font-size:34px;transition:.2s;-webkit-tap-highlight-color:transparent}
+.nav:hover{background:rgba(255,255,255,.05);color:#fff}
+.nav.prev{left:0}.nav.next{right:0}
+.nav:disabled{opacity:.15;cursor:default}
+.loading{position:absolute;font-size:13px;color:#8B7BA8}
+
+/* 하단 바 */
+.foot{flex:none;display:flex;align-items:center;gap:12px;padding:10px 14px;
+  background:rgba(37,18,63,.92);border-top:1px solid rgba(201,169,78,.22);
+  padding-bottom:max(10px,env(safe-area-inset-bottom))}
+.foot .pg{font-size:13px;font-weight:900;color:var(--gold-lt);font-variant-numeric:tabular-nums;flex:none;min-width:62px}
+.foot input[type=range]{flex:1;accent-color:var(--gold);height:26px;cursor:pointer}
+.foot .thumbs-btn{flex:none;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.22);
+  font-family:inherit;font-size:12.5px;font-weight:700;padding:8px 12px;border-radius:9px;cursor:pointer}
+
+/* 썸네일 패널 */
+.thumbs{position:fixed;inset:0;z-index:60;background:rgba(15,8,24,.97);display:none;flex-direction:column;padding:14px;
+  padding-top:max(14px,env(safe-area-inset-top))}
+.thumbs.on{display:flex}
+.thumbs .th{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.thumbs .th b{font-family:'Noto Serif KR';font-size:16px}
+.thumbs .close{background:rgba(255,255,255,.12);color:#fff;border:none;font-family:inherit;font-weight:700;
+  padding:8px 14px;border-radius:9px;cursor:pointer}
+.thumbs .grid{flex:1;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;padding-bottom:20px}
+.thumbs .grid figure{cursor:pointer;border-radius:8px;overflow:hidden;border:2px solid transparent;background:#1E1030;position:relative}
+.thumbs .grid figure.cur{border-color:var(--gold)}
+.thumbs .grid img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+.thumbs .grid figcaption{position:absolute;left:6px;bottom:5px;font-size:11px;font-weight:900;color:#fff;
+  background:rgba(0,0,0,.6);border-radius:5px;padding:1px 7px}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="t">
+    <span class="zn">ZIN<b>ZINO</b></span>
+    <h1 id="deckTitle">자료</h1>
+  </div>
+  <div class="acts">
+    <button class="b-ghost" id="fs" title="전체화면">⛶ 전체화면</button>
+    <button class="b-gold" id="share">💬 공유</button>
+    <a class="b-ghost" href="materials.html">✕ 닫기</a>
+  </div>
+</div>
+
+<div class="stage" id="stage">
+  <div class="loading" id="loading">불러오는 중…</div>
+  <img id="slide" alt="슬라이드">
+  <button class="nav prev" id="prev" aria-label="이전">‹</button>
+  <button class="nav next" id="next" aria-label="다음">›</button>
+</div>
+
+<div class="foot">
+  <span class="pg" id="pg">1 / 1</span>
+  <input type="range" id="range" min="1" max="1" value="1">
+  <button class="thumbs-btn" id="openThumbs">☰ 목차</button>
+</div>
+
+<div class="thumbs" id="thumbs">
+  <div class="th"><b id="thTitle">전체 슬라이드</b><button class="close" id="closeThumbs">닫기</button></div>
+  <div class="grid" id="thGrid"></div>
+</div>
+
+<script>
+"use strict";
+/* 자료 정의 — ?d=company / ?d=comp */
+const DECKS = {
+  company:{ title:'진지노 회사소개', dir:'/slides/company/', n:45 },
+  comp:   { title:'진지노 보상플랜', dir:'/slides/comp/',    n:42 },
+};
+const key = new URLSearchParams(location.search).get('d') || 'company';
+const deck = DECKS[key] || DECKS.company;
+const pad = i => String(i).padStart(2,'0');
+const src = i => deck.dir + 's' + pad(i) + '.jpg';
+
+let cur = 1;
+const $ = id => document.getElementById(id);
+document.title = deck.title + ' · 진지노';
+$('deckTitle').textContent = deck.title;
+$('thTitle').textContent = deck.title + ' — 전체 ' + deck.n + '장';
+$('range').max = deck.n;
+
+const img = $('slide');
+function show(i, push){
+  cur = Math.max(1, Math.min(deck.n, i));
+  img.classList.remove('on');
+  const pre = new Image();
+  pre.onload = ()=>{ img.src = pre.src; img.classList.add('on'); $('loading').style.display='none'; };
+  pre.onerror = ()=>{ $('loading').textContent='슬라이드를 불러올 수 없습니다'; $('loading').style.display='block'; };
+  pre.src = src(cur);
+  $('pg').textContent = cur + ' / ' + deck.n;
+  $('range').value = cur;
+  $('prev').disabled = cur<=1; $('next').disabled = cur>=deck.n;
+  [...document.querySelectorAll('#thGrid figure')].forEach((f,k)=>f.classList.toggle('cur',k+1===cur));
+  // 인접 슬라이드 미리 로드
+  [cur+1, cur-1].forEach(j=>{ if(j>=1&&j<=deck.n){ const p=new Image(); p.src=src(j); } });
+  if(push) history.replaceState(null,'','?d='+key+'#'+cur);
+}
+$('prev').onclick = ()=>show(cur-1,true);
+$('next').onclick = ()=>show(cur+1,true);
+$('range').oninput = e=>show(+e.target.value,true);
+addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown') { e.preventDefault(); show(cur+1,true); }
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); show(cur-1,true); }
+  if(e.key==='Home') show(1,true); if(e.key==='End') show(deck.n,true);
+  if(e.key==='Escape') $('thumbs').classList.remove('on');
+});
+/* 스와이프 */
+let x0=null;
+$('stage').addEventListener('touchstart',e=>{ x0=e.changedTouches[0].clientX; },{passive:true});
+$('stage').addEventListener('touchend',e=>{
+  if(x0===null) return; const dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>45) show(cur + (dx<0?1:-1), true);
+},{passive:true});
+
+/* 전체화면 */
+$('fs').onclick = ()=>{ const el=document.documentElement;
+  if(!document.fullscreenElement){ (el.requestFullscreen||el.webkitRequestFullscreen).call(el); }
+  else document.exitFullscreen(); };
+
+/* 공유 */
+$('share').onclick = async ()=>{
+  const u = location.origin + location.pathname + '?d=' + key;
+  const t = deck.title + ' (진지노 자료)';
+  if(navigator.share){ try{ await navigator.share({title:t, text:t, url:u}); return; }catch(e){ if(e.name==='AbortError') return; } }
+  try{ await navigator.clipboard.writeText(u); alert('링크가 복사되었습니다.\n카톡에 붙여넣기 하세요.'); }
+  catch(e){ prompt('아래 링크를 복사하세요', u); }
+};
+
+/* 썸네일 목차 */
+$('thGrid').innerHTML = Array.from({length:deck.n},(_,k)=>
+  `<figure data-i="${k+1}"><img src="${src(k+1)}" loading="lazy" alt="슬라이드 ${k+1}"><figcaption>${k+1}</figcaption></figure>`).join('');
+$('thGrid').onclick = e=>{ const f=e.target.closest('figure'); if(!f) return; show(+f.dataset.i,true); $('thumbs').classList.remove('on'); };
+$('openThumbs').onclick = ()=>$('thumbs').classList.add('on');
+$('closeThumbs').onclick = ()=>$('thumbs').classList.remove('on');
+
+/* 시작 (해시로 페이지 지정 가능) */
+show(parseInt(location.hash.slice(1))||1);
+</script>
+</body>
+</html>
