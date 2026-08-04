@@ -134,7 +134,7 @@ footer .z{font-family:'Noto Serif KR';font-weight:900;letter-spacing:.28em;color
 
   <!-- 제품 자료 -->
   <section class="sec">
-    <div class="sec-h"><span class="ic">🧴</span><h2>제품 자료</h2><span class="cnt">4</span></div>
+    <div class="sec-h"><span class="ic">🧴</span><h2>제품 자료</h2><span class="cnt">3</span></div>
     <div class="grid" id="products"></div>
   </section>
 
@@ -238,8 +238,6 @@ document.getElementById('tools').innerHTML = [
 document.getElementById('products').innerHTML = [
   { title:'진지노 회사소개', img:'/slides/company/s01.jpg', badge:'45장', desc:'회사·비전·제품을 담은 공식 소개 자료. 클릭하면 바로 열립니다.', fmt:'📱 슬라이드 보기 (다운로드 없이)',
     acts:[{t:'open',label:'📱 바로보기',href:'deck.html?d=company'},{t:'share',label:'카톡',fn:`shareLink(url("deck.html?d=company"),"진지노 회사소개 자료")`}] },
-  { title:'진지노 사업설명자료', img:'/files/사업설명자료-표지.jpg', badge:'PPT', desc:'회사소개 + 보상플랜 통합 공식 프레젠테이션 (78페이지)', fmt:'PowerPoint 파일',
-    acts:[{t:'dl',href:'/files/진지노-사업설명자료.pptx'},{t:'share',label:'카톡',fn:`shareFile(rootUrl("files/진지노-사업설명자료.pptx"),"진지노 사업설명자료.pptx","진지노 회사소개+보상플랜 자료")`}] },
   { title:'진지노 보상플랜', img:'/slides/comp/s01.jpg', badge:'42장', desc:'수당 구조와 직급 체계를 슬라이드로. 클릭하면 바로 열립니다.', fmt:'📱 슬라이드 보기 (다운로드 없이)',
     acts:[{t:'open',label:'📱 바로보기',href:'deck.html?d=comp'},{t:'share',label:'카톡',fn:`shareLink(url("deck.html?d=comp"),"진지노 보상플랜 자료")`}] },
   { title:'밸런스오일 제품 리플렛', img:'/images/balanceoil-hero.jpg', badge:'PDF', desc:'밸런스오일+ 성분·효능·인증 상세 소개 자료', fmt:'PDF · 약 1.1MB',
