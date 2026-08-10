@@ -709,7 +709,15 @@ function build(D, S, kitKey, C){
     if(rank){
       items.push(['팀 커미션 '+rank.tcPP+'PP', rank.tcPP*PP, 'rec', '좌/우 균형 크레딧 '+rank.credit+' 기준', true]);
       items.push(['직급 달성 보너스 '+rank.rankPP.toLocaleString()+'PP', rank.rankPP*PP, 'one', (rank.rankNote ? rank.rankNote+' · ' : '')+rank.split+'개월 분할 지급', true]);
-      items.push(['고객 유치 보너스 '+rank.cabLb, rank.cabPP*PP, 'one', '좌/우 신규 크레딧 달성 시', true]);
+      /* 고객 유치 보너스(CAB) — 자료 규정: "신규 커스터머 + 신규 파트너의 오토십 크레딧의 합"
+         → 파트너 레그 볼륨(B)에 내 소비자 크레딧(ECB 2배 적용)을 더해 좌/우 기준으로 단계 산정 */
+      const cabLeg = (B + cust.pcv*2) / 2;
+      let cabPP = 0, cabName = '';
+      const CAB_NAMES = ['미니','스몰','미디엄','라지','X라지','XX라지','3X라지','4X라지','5X라지'];
+      CAB_TIERS.forEach(([th,v],i)=>{ if(cabLeg >= th){ cabPP = v; cabName = CAB_NAMES[i]; } });
+      cabPP = Math.min(cabPP, 1500);   /* 브론즈~디렉터 한도 XX라지 1,500PP */
+      items.push(['고객 유치 보너스 '+(cabName?cabName+' ':'')+cabPP.toLocaleString()+'PP', cabPP*PP, 'one',
+        '좌/우 각 '+Math.round(cabLeg).toLocaleString()+'크레딧 (파트너 볼륨 + 내 소비자 '+C+'명 오토십 '+(cust.pcv*2).toLocaleString()+'크레딧) 기준', true]);
       if(rank.zphone) items.push(['Z폰 보너스 200PP', 200*PP, 'rec', '자격 유지 시 매월', true]);
       if(rank.zcar) items.push(['Z카 보너스 1,000PP', 1000*PP, 'rec', '자격 유지 시 매월', true]);
       if(rank.adjust) items.push(['자료 카드 총액 반영', rank.adjust, 'one', '사업설명자료 카드 표기 총액에 맞춘 조정분', true]);
