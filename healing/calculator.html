@@ -315,6 +315,17 @@ footer .z{font-family:'Noto Serif KR',serif;font-weight:900;letter-spacing:.3em;
           </div>
         </div>
       </div>
+      <div>
+        <label class="fl" for="ccnt">내 소비자(커스터머) 수 <small>(직접 관리하는 오토십 고객)</small></label>
+        <div class="cnt-row">
+          <div class="stepper"><button id="cUp">+</button><button id="cDown">−</button></div>
+          <div class="cnt-num"><span id="cNum">5</span><small> 명</small></div>
+          <div class="slider-box">
+            <input type="range" id="ccnt" min="0" max="120" step="1" value="5">
+            <div class="range-scale"><span>0</span><span>25</span><span>50</span><span>100</span><span>120</span></div>
+          </div>
+        </div>
+      </div>
       <div class="sum-line" id="sumLine"></div>
     </div>
   </section>
@@ -414,9 +425,24 @@ footer .z{font-family:'Noto Serif KR',serif;font-weight:900;letter-spacing:.3em;
     </div>
   </section>
 
-  <!-- 7. 상위 직급 로드맵 -->
+  <!-- 커스터머(소비자) 플랜 -->
   <section class="panel">
-    <h2><span class="no">7</span>다이아몬드 이상 상위 직급 로드맵</h2>
+    <h2><span class="no">7</span>커스터머(소비자) 플랜 <span style="font-size:13px;color:#9A8FB5;font-weight:400">— 소비자만 늘려도 오르는 수익</span></h2>
+    <div class="h2sub">파트너 없이 <b>소비자(오토십 고객)</b>만 늘려도 캐쉬백·월간 보너스가 계단식으로 올라갑니다. 소비자 1명 = 오토십 1병(월 4크레딧) 기준.</div>
+    <div class="tbl-scroll">
+      <table class="cmp">
+        <thead><tr>
+          <th>자격</th><th>필요 소비자</th><th>캐쉬백</th><th>월간 커스터머 보너스</th><th>무료 제품</th><th>원-타임 보너스</th><th>매월 합계</th>
+        </tr></thead>
+        <tbody id="custBody"></tbody>
+      </table>
+    </div>
+    <div class="conds" id="custNote"></div>
+  </section>
+
+  <!-- 8. 상위 직급 로드맵 -->
+  <section class="panel">
+    <h2><span class="no">8</span>다이아몬드 이상 상위 직급 로드맵</h2>
     <div class="h2sub">직급 보너스는 ① 좌/우 크레딧 실적 ② 커스터머 수 ③ 추천계보 내 직급자 — 3가지 방법으로 각각 달성할 때마다 지급됩니다 (직급별 최대 3회). 디렉터부터는 10,000크레딧 초과 실적에 대한 실적 커미션(1~4%)이 추가됩니다.</div>
     <div class="tbl-scroll">
       <table class="cmp">
@@ -447,7 +473,7 @@ footer .z{font-family:'Noto Serif KR',serif;font-weight:900;letter-spacing:.3em;
 
   <!-- 8. 가정 -->
   <section class="panel">
-    <h2><span class="no">8</span>계산 가정 &amp; 유의사항</h2>
+    <h2><span class="no">9</span>계산 가정 &amp; 유의사항</h2>
     <div class="assump">
       <div><b>기본 단위</b>1 PP(페이포인트) = 1,500원 · 밸런스오일 1병 = 4크레딧 ≈ 9만원</div>
       <div><b>본인 시작 조건</b>본인도 선택한 시작 팩 구매 + 본인 커스터머 5병(45만원) 유지 (이그제큐티브부터는 13병·117만원) · 팩 병수 : 베이직 7병 / 어드밴스드 17병 / 얼티밋 25병</div>
@@ -455,7 +481,7 @@ footer .z{font-family:'Noto Serif KR',serif;font-weight:900;letter-spacing:.3em;
       <div><b>직추천 vs 후원</b>팀 커미션·직급·고객 유치 보너스는 <u>직추천이 좌/우 각 1명(총 2명) 이상</u>일 때(인컴센터 활성화) 직추천+후원 <u>전체 볼륨</u> 기준으로 발생 · 패스트 스타트 2단계와 멘토 매칭 단계는 <u>직추천 수</u> 기준</div>
       <div><b>팀 커미션</b>좌/우 균형 크레딧의 10%(~2,500크레딧) / 15%(3,000크레딧~) · 월 최고 900만원</div>
       <div><b>멘토 매칭</b>직추천 2/4/6/8/10명 → 1~5단계(산하 팀 커미션의 5~25%), 12명 이상 → 6~10단계(2대 이하 10%씩 추가) · 본인 팀 커미션 초과 불가</div>
-      <div><b>캐쉬 보너스</b>본인 커스터머 매출의 10%(Q/X팀) ~ 20%(A팀 이상) 캐쉬백</div>
+      <div><b>커스터머(소비자) 플랜</b>소비자 1명 = 오토십 1병(월 4크레딧·PCV) 가정 · 캐쉬백 10%(Q·X팀) → <u>A팀(32명)부터 20%</u> · A팀 이상은 월간 커스터머 보너스(100~1,000PP)와 무료 제품, 등급 최초 달성 시 원-타임 보너스(얼티밋 팩·500PP·10,000PP)가 추가</div>
       <div><b>패스트 스타트</b>1단계 100PP(30일) · 2단계 400PP(60일, 얼티밋 2명 직추천) · 3단계 600PP(90일, 하위 4명 키트 포인트 6점: 얼티밋3·어드밴2·베이직1, 2단계 선행 필요) · 4단계 150PP(120일, X팀) — 3단계 외에는 순서 무관</div>
       <div><b>지급 주기·한도</b>팀 커미션·매칭·실적 커미션은 주별 계산 — 인컴센터당 팀 커미션 주간 최대 1,500PP(약 225만원, 월 900만원 수준) · 10,000크레딧 초과분은 디렉터 이상 실적 커미션(1~4%) 대상</div>
       <div><b>직급 판정 기준</b>직급은 실제 <u>누적 크레딧</u>으로 판정 (얼티밋 1명 = 340크레딧). 예: 다이아몬드(좌/우 6,000씩 = 12,000크레딧)는 약 <b>36명(좌우 18씩)</b> 필요 · 브론즈 2명 → 실버 3명 → 골드 5명 → 이그제큐티브 9명 → 플래티넘 18명 → 다이아몬드 36명</div>
@@ -491,6 +517,43 @@ const KITS = {
   ult:  { key:'ult',   label:'얼티밋 팩',   price:'200만원', P:340, bottles:25 },
 };
 const RETAIL = 127800;   /* 밸런스오일 1병 정가 */
+
+/* ══ 커스터머(소비자) 플랜 ══════════════════════════════
+   소비자 1명 = 오토십 1병/월 = 4크레딧(PCV), PCP = PCV ÷ 5
+   캐쉬백: Q/X팀 10%(병당 7,700원) · A팀 이상 20%(병당 15,400원)
+   자료: 커스터머(소비자) 플랜 — 캐쉬/월간/원타임/패스트스타트 */
+const CUST_TIERS = [
+  { n:'Q팀',      c:5,   pcp:4,   pcv:20,   pct:10, monPP:0,    free:0, oneLb:'',                oneAmt:0,        oneSplit:0 },
+  { n:'X팀',      c:13,  pcp:10,  pcv:50,   pct:10, monPP:0,    free:1, oneLb:'',                oneAmt:0,        oneSplit:0 },
+  { n:'A팀',      c:32,  pcp:25,  pcv:125,  pct:20, monPP:100,  free:2, oneLb:'얼티밋 팩 증정',   oneAmt:2000000,  oneSplit:1 },
+  { n:'프로팀',   c:63,  pcp:50,  pcv:250,  pct:20, monPP:200,  free:2, oneLb:'500PP',           oneAmt:750000,   oneSplit:10 },
+  { n:'탑팀',     c:125, pcp:100, pcv:500,  pct:20, monPP:400,  free:2, oneLb:'10,000PP',        oneAmt:15000000, oneSplit:25 },
+  { n:'탑-200팀', c:250, pcp:200, pcv:1000, pct:20, monPP:1000, free:2, oneLb:'',                oneAmt:0,        oneSplit:0 },
+];
+const CASH_PER_BOTTLE = 77000;   /* 병당 매출 (10% = 7,700원) */
+
+/* 소비자 수 → 커스터머 플랜 혜택 */
+function custPlan(c){
+  let t = null;
+  CUST_TIERS.forEach(x=>{ if(c >= x.c) t = x; });
+  const pct   = t ? t.pct : 10;
+  const cash  = Math.round(c * CASH_PER_BOTTLE * pct / 100);   /* 매월 캐쉬백 */
+  const monPP = t ? t.monPP : 0;
+  const mon   = monPP * PP;                                     /* 매월 커스터머 보너스 */
+  const free  = t ? t.free : 0;                                 /* 이달의 무료 제품 개수 */
+  /* 커스터머 패스트 스타트 (일회성) */
+  let cfs = 0, cfsLb = '';
+  if(c >= 13){ cfs = 250*PP; cfsLb = 'Q팀 100PP(30일) + X팀 150PP(120일)'; }
+  else if(c >= 5){ cfs = 100*PP; cfsLb = 'Q팀 100PP (30일 내)'; }
+  /* 원-타임 보너스는 거쳐온 등급이 누적 지급 */
+  let oneAmt = 0; const oneParts = [];
+  CUST_TIERS.forEach(x=>{ if(c >= x.c && x.oneAmt > 0){ oneAmt += x.oneAmt; oneParts.push(x.n+' '+x.oneLb); } });
+  return { tier:t, name:t?t.n:'—', pct, cash, monPP, mon, free,
+           oneAmt, oneLb:oneParts.join(' + '),
+           cfs, cfsLb, pcp:Math.round(c*0.8), pcv:c*4 };
+}
+/* 다음 커스터머 등급 */
+function nextCust(c){ for(const x of CUST_TIERS){ if(x.c > c) return x; } return null; }
 
 /* 직급 정의 (직급 카드 기준) — e : 얼티밋 환산 파트너 수 기준 마일스톤 */
 const RANKS = [
@@ -549,9 +612,10 @@ function tcTablePP(c){
 /* ── 시나리오 계산 ──────────────────────────────
    D = 직추천 수, S = 후원 수, kit = 파트너 팩
    직급은 실제 누적 크레딧으로 판정 (1명 = 팩 크레딧, 얼티밋 340) */
-function build(D, S, kitKey){
+function build(D, S, kitKey, C){
   const kit = KITS[kitKey];
   const T = D + S;
+  const cust = custPlan(C == null ? 5 : C);   /* 소비자(커스터머) 플랜 */
   const totalOrg = T;
   const B = totalOrg * kit.P + 40;        // 총 조직 크레딧 (내 커스터머 포함)
   const E = totalOrg * kit.P / 340;       // 얼티밋 환산 파트너 수 (참고용)
@@ -624,8 +688,19 @@ function build(D, S, kitKey){
     items.push(['월 평균 수당 (글로벌 '+upper.name+' 평균)', upper.avg, 'rec',
       '팀 커미션(주간 상한) + 실적 커미션 '+['1%','1.5%','1.75%','2%','2.25%','2.5%','2.75%','3%'][rankIdx-6]+'(10,000크레딧 초과분) + 멘토 매칭 + 캐쉬백 + Z폰/Z카 등 전체 포함 — 진지노 글로벌 직급자 월 평균', true]);
   } else {
-    const cash = rank ? rank.cash : 38500;
-    items.push(['커스터머 캐쉬 보너스', cash, 'rec', rank ? rank.cashLb : '본인 커스터머 5병 캐쉬백 (병당 7,700원)', true]);
+    /* ── 커스터머(소비자) 플랜 — 소비자 수에 따라 증가 ── */
+    const cash = cust.cash;
+    items.push(['커스터머 캐쉬 보너스', cash, 'rec',
+      '소비자 '+C+'명 오토십 매출의 '+cust.pct+'%'+(cust.tier?' ('+cust.name+' 자격)':'')+' · 1명당 월 '+(CASH_PER_BOTTLE*cust.pct/100).toLocaleString()+'원', true]);
+    if(cust.mon > 0)
+      items.push(['월간 커스터머 보너스 '+cust.monPP+'PP', cust.mon, 'rec',
+        cust.name+' 달성 (소비자 '+cust.tier.c+'명 이상) 시 매월 지급', true]);
+    /* 이달의 무료 제품은 현물 혜택 — 자료 카드와 동일하게 현금 총액에서 제외하고 혜택(🎁)으로 표기 */
+    if(cust.oneAmt > 0)
+      items.push(['커스터머 원-타임 보너스', cust.oneAmt, 'one',
+        cust.oneLb+' — 각 등급 최초 달성 시 1회 (프로팀 10회·탑팀 25회 분할)', true]);
+    /* 커스터머 패스트 스타트(Q팀 100PP·X팀 150PP)는 위 파트너 패스트 스타트
+       1단계·4단계와 동일한 보너스이므로 별도 합산하지 않음 (이중 계산 방지) */
     if(!activated && T >= 1){
       items.push(['팀 커미션 · 직급 · 고객 유치 보너스', 0, 'rec',
         '인컴센터 미활성화 — 직추천이 좌/우 각 1명씩(총 2명) 있어야 발생합니다. 현재 조직 볼륨 '+B.toLocaleString()+'크레딧은 쌓이지만 수당은 미발생', false]);
@@ -649,12 +724,12 @@ function build(D, S, kitKey){
   const rec = items.filter(x=>x[4]&&x[2]==='rec').reduce((a,x)=>a+x[1],0);
 
   /* 받는 제품 가치: 내 시작 팩 병수 + 내 커스터머 병수 × 정가 127,800원 */
-  const custBottles = upper ? 32 : (rankIdx >= 3 ? 13 : 5);
+  const custBottles = C;   /* 소비자 1명 = 오토십 1병 */
   const prodBottles = kit.bottles + custBottles;
   const prodValue = prodBottles * RETAIL;
 
   /* 월별 흐름 (12개월) */
-  const cash = upper ? 0 : (rank ? rank.cash : 38500);
+  const cash = upper ? 0 : (cust.cash + cust.mon);
   const tc = upper ? upper.avg : myTC;
   const rb = upper ? upper.cumPP*PP : (rank ? rank.rankPP*PP : 0);
   const split = upper ? upper.split : (rank ? rank.split : 4);
@@ -676,25 +751,26 @@ function build(D, S, kitKey){
   }
   let cum = 0; months.forEach(x=>{ cum += x.amt; x.cum = cum; });
 
-  return { D,S,T,E,kit,rank,rankIdx,upper,activated,B,totalOrg,items,one,rec,total:one+rec,matching,stage,stagePct,months,
+  return { D,S,T,C,cust,E,kit,rank,rankIdx,upper,activated,B,totalOrg,items,one,rec,total:one+rec,matching,stage,stagePct,months,
            custBottles,prodBottles,prodValue,fs:{fs1,fs2,fs3,fs4} };
 }
 
 /* ── DOM ── */
 const $ = id => document.getElementById(id);
-const dIn = $('dcnt'), sIn = $('scnt'), nameIn = $('name');
+const dIn = $('dcnt'), sIn = $('scnt'), cIn = $('ccnt'), nameIn = $('name');
 let kitKey = 'ult';
 
 function nextMile(B){ for(const r of RANKS){ if(r.cr > B) return r; } return null; }
 
 function render(){
-  const D = +dIn.value, S = +sIn.value;
+  const D = +dIn.value, S = +sIn.value, C = +cIn.value;
   const name = nameIn.value.trim() || '회원';
-  const r = build(D, S, kitKey);
+  const r = build(D, S, kitKey, C);
   const kit = r.kit;
 
-  $('dNum').textContent = D; $('sNum').textContent = S;
+  $('dNum').textContent = D; $('sNum').textContent = S; $('cNum').textContent = C;
   let sum = `내 조직 : 직추천 <b>${D}명</b> + 후원 <b>${S}명</b> = 총 <b>${r.T}명</b> (${kit.label} 기준 · 누적 약 <b>${r.B.toLocaleString()}</b> 크레딧)`;
+  sum += ` · 소비자 <b>${C}명</b>${r.cust.tier ? ` → <b style="color:var(--rose)">${r.cust.name}</b> (캐쉬백 ${r.cust.pct}%)` : ' (Q팀까지 '+(5-C)+'명)'}`;
   $('sumLine').innerHTML = sum;
 
   const rankLabel = r.upper ? r.upper.name : (r.rank ? r.rank.name : (r.T >= 1 ? 'Q팀 스타트' : '파트너 준비'));
@@ -732,6 +808,8 @@ function render(){
 
   /* perks & conds */
   const perks = [];
+  if(r.cust.free > 0)
+    perks.push(`이달의 무료 제품 ${r.cust.free}개 (${r.cust.name} 혜택 · 약 ${r.cust.free*9}만원 상당, 매월)`);
   if(r.rank){
     perks.push('제품 1병 무료 증정 (9만원 상당, 다음달)');
     if(r.rankIdx>=3) perks.push('회사 선정 제품 1개 무료 (다음달)', 'X팀 달성 시 매달 산하 신규 볼륨 ECB×2배 적용');
@@ -760,6 +838,7 @@ function render(){
   drawFlow(r);
   drawChart(r);
   buildTable(r);
+  buildCustTable(r);
 }
 
 /* ── 바이너리 조직 구조도 ──
@@ -890,7 +969,7 @@ function drawFlow(r){
 function rankScenarios(){
   return RANKS.map(rk=>{
     const need = Math.max(2, Math.ceil((rk.cr - 40)/340));   // 얼티밋 1명=340크레딧
-    const b = build(2, need-2, 'ult');                       // 직추2 + 후원(need-2)
+    const b = build(2, need-2, 'ult', +cIn.value);           // 직추2 + 후원(need-2), 현재 소비자 수
     return {name:rk.name, color:rk.color, need, cr:rk.cr, one:b.one, rec:b.rec, total:b.total};
   });
 }
@@ -947,6 +1026,33 @@ function buildTable(cur){
   $('cmpBody').innerHTML = rows.join('');
 }
 
+/* ── 커스터머(소비자) 플랜 표 ── */
+function buildCustTable(cur){
+  const curTier = cur.cust.tier;
+  const colors = {'Q팀':'#96A5B8','X팀':'#6B4FA0','A팀':'#C6A55C','프로팀':'#4E3080','탑팀':'#D6336C','탑-200팀':'#B04070'};
+  const rows = CUST_TIERS.map(t=>{
+    const p = custPlan(t.c);
+    const monthly = p.cash + p.mon;
+    const sel = curTier && curTier.n === t.n;
+    return `<tr${sel?' class="hl"':''} style="cursor:pointer" onclick="setCust(${t.c})">
+      <td><span class="rk" style="background:${colors[t.n]}">${t.n}</span></td>
+      <td><b>${t.c}명</b><div class="ev">PCP ${t.pcp} · PCV ${t.pcv}</div></td>
+      <td class="num">${t.pct}%</td>
+      <td class="num">${t.monPP?WON(t.monPP*PP):'—'}</td>
+      <td class="num">${t.free?t.free+'개':'—'}</td>
+      <td class="num">${t.oneAmt?(t.oneLb||WON(t.oneAmt)):'—'}</td>
+      <td class="num total">${WON(monthly)}</td></tr>`;
+  });
+  $('custBody').innerHTML = rows.join('');
+  const nx = nextCust(cur.C);
+  $('custNote').innerHTML = cur.cust.tier
+    ? `현재 소비자 <b>${cur.C}명</b> → <b>${cur.cust.name}</b> · 매월 <b>${WON(cur.cust.cash+cur.cust.mon)}</b>`
+      + (nx ? ` · 다음 <b>${nx.n}</b>까지 소비자 <b>${nx.c-cur.C}명</b> 더 (매월 ${WON(custPlan(nx.c).cash+custPlan(nx.c).mon)}로 상승)` : ' · 최고 등급 달성')
+      + `<br><b>참고</b> : 소비자 수는 파트너 조직과 별개로 <u>혼자서도</u> 늘릴 수 있고, A팀(32명)부터 캐쉬백이 10%→20%로 2배가 됩니다.`
+    : `소비자 <b>${cur.C}명</b> — Q팀(5명)까지 <b>${5-cur.C}명</b> 남았습니다. Q팀부터 캐쉬백과 패스트 스타트 보너스가 시작됩니다.`;
+}
+window.setCust = function(c){ cIn.value = Math.min(120, c); render(); };
+
 /* 차트/표 클릭 → 직추2 + 후원(need-2), 얼티밋 */
 window.setScenario = function(need){
   const S = Math.max(0, Math.min(40, need-2));
@@ -958,7 +1064,10 @@ window.setScenario = function(need){
 /* events */
 dIn.addEventListener('input', render);
 sIn.addEventListener('input', render);
+cIn.addEventListener('input', render);
 nameIn.addEventListener('input', render);
+$('cUp').addEventListener('click', ()=>{ cIn.value=Math.min(120,+cIn.value+1); render(); });
+$('cDown').addEventListener('click', ()=>{ cIn.value=Math.max(0,+cIn.value-1); render(); });
 $('dUp').addEventListener('click', ()=>{ dIn.value=Math.min(20,+dIn.value+1); render(); });
 $('dDown').addEventListener('click', ()=>{ dIn.value=Math.max(0,+dIn.value-1); render(); });
 $('sUp').addEventListener('click', ()=>{ sIn.value=Math.min(40,+sIn.value+1); render(); });
