@@ -319,9 +319,9 @@ footer .z{font-family:'Noto Serif KR',serif;font-weight:900;letter-spacing:.3em;
         <label class="fl" for="ccnt">내 소비자(커스터머) 수 <small>(직접 관리하는 오토십 고객)</small></label>
         <div class="cnt-row">
           <div class="stepper"><button id="cUp">+</button><button id="cDown">−</button></div>
-          <div class="cnt-num"><span id="cNum">5</span><small> 명</small></div>
+          <div class="cnt-num"><span id="cNum">10</span><small> 명</small></div>
           <div class="slider-box">
-            <input type="range" id="ccnt" min="0" max="120" step="1" value="5">
+            <input type="range" id="ccnt" min="0" max="120" step="1" value="10">
             <div class="range-scale"><span>0</span><span>25</span><span>50</span><span>100</span><span>120</span></div>
           </div>
         </div>
@@ -615,7 +615,7 @@ function tcTablePP(c){
 function build(D, S, kitKey, C){
   const kit = KITS[kitKey];
   const T = D + S;
-  const cust = custPlan(C == null ? 5 : C);   /* 소비자(커스터머) 플랜 */
+  const cust = custPlan(C == null ? 10 : C);   /* 소비자(커스터머) 플랜 */
   const totalOrg = T;
   /* 총 레그 볼륨 = 파트너 볼륨 + 내 커스터머 오토십 볼륨(ECB 2배)
      본인 커스터머도 레그 볼륨에 산입되므로 직급·팀커미션에 함께 반영 */
@@ -855,6 +855,7 @@ function render(){
   } else {
     cond = r.rank ? r.rank.cond : '<b>조건</b> : 본인 얼티밋 키트 + 커스터머 5병 유지 · 파트너 소개로 브론즈부터 시작됩니다';
     if(!r.activated && r.T >= 1) cond += `<br><b>인컴센터 활성화</b> : 직추천 파트너가 좌/우에 각 1명씩(총 2명) 있어야 팀 커미션·직급·고객 유치 보너스가 발생합니다. 후원 파트너만으로는 볼륨은 쌓여도 수당이 열리지 않습니다.`;
+    if(r.blockedBy) cond += `<br><b style="color:var(--rose)">⚠️ 커스터머 요건 미달</b> : 조직 볼륨(${r.B.toLocaleString()}크레딧)은 <b>${r.blockedBy.name}</b> 기준을 넘었지만, 액티브 커스터머 <b>${r.blockedBy.reqC}명</b>을 보유해야 승급됩니다 (현재 ${C}명 · <b>${r.blockedBy.reqC-C}명 부족</b>). 후원을 더 늘려도 커스터머를 채우기 전까지는 직급이 오르지 않습니다.`;
     if(r.stage>0 && r.matching===0 && S===0) cond += `<br><b>멘토 매칭 팁</b> : 후원 파트너를 직추천 라인 아래에 배치하면 그 라인의 팀 커미션 × ${r.stagePct}%가 매칭 보너스로 추가됩니다.`;
     if(D>=14) cond += `<br><b>+ 직추천 ${D}명</b> : 멘토 매칭 단계가 확장됩니다 (14명=7단계 · 15명=8단계 · 18명=9단계 · 20명=10단계, 2대 이하 10%씩 추가).`;
   }
