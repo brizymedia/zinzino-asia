@@ -71,6 +71,21 @@ nav .wrap{height:100%;display:flex;align-items:center;justify-content:space-betw
 .menu a.cta{background:linear-gradient(135deg,#C9A94E,#B8963E);color:#fff;padding:10px 18px}
 .menu a.tel{color:var(--gold-deep)}
 @media(max-width:860px){.menu a.hide-m{display:none}}
+@media(max-width:520px){.menu a.hide-s{display:none}}
+.mnav-btn{display:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:42px;height:42px;border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;flex:none;padding:0}
+.mnav-btn span{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px;transition:transform .25s,opacity .2s}
+.mnav-btn.on span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.mnav-btn.on span:nth-child(2){opacity:0}
+.mnav-btn.on span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+@media(max-width:860px){.mnav-btn{display:flex}}
+.mnav{position:fixed;top:var(--nav-h);left:0;right:0;z-index:99;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);box-shadow:var(--sh-2);transform:translateY(-8px);opacity:0;pointer-events:none;transition:transform .22s,opacity .22s}
+.mnav.on{transform:none;opacity:1;pointer-events:auto}
+.mnav a{display:flex;align-items:center;justify-content:space-between;padding:15px 22px;font-size:1rem;font-weight:700;color:var(--ink);text-decoration:none;border-top:1px solid var(--line)}
+.mnav a:first-child{border-top:0}
+.mnav a::after{content:"\203A";color:var(--gold-deep);font-size:1.1rem}
+.mnav a.m-tel{color:var(--gold-deep)}
+.mnav a.m-cta{background:linear-gradient(135deg,#C9A94E,#B8963E);color:#fff}
+.mnav a.m-cta::after{color:#fff}
 
 /* ── HERO ── */
 .hero{padding:88px 0 64px;background:linear-gradient(180deg,#fff 0%,var(--bg-soft) 100%);position:relative;overflow:hidden}
@@ -398,11 +413,15 @@ html.intro-lock,body.intro-lock{overflow:hidden;height:100%}
       <a class="tel hide-m" href="tel:01056421268">010-5642-1268</a>
       <a class="hide-m" href="materials.html">자료실</a>
       <a class="hide-m" href="plan.html">보상플랜</a>
-      <a href="calculator.html">수익 계산기</a>
+      <a class="hide-s" href="calculator.html">수익 계산기</a>
       <a class="cta" href="#apply">상담 신청</a>
+      <button class="mnav-btn" id="mnavBtn" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
     </div>
   </div>
 </nav>
+
+<!-- ══ 모바일 전체 메뉴 (햄버거) ══ -->
+<div class="mnav" id="mnav"></div>
 
 <!-- ══ HERO ══ -->
 <header class="hero" id="top">
@@ -799,6 +818,20 @@ html.intro-lock,body.intro-lock{overflow:hidden;height:100%}
   document.querySelectorAll('.rv,.rv-g').forEach(el=>io.observe(el));
   function countUp(el){const to=+el.dataset.count;if(reduce){el.textContent=to;return;}const t0=performance.now(),dur=1200;
     (function f(t){const p=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-p,3);el.textContent=Math.round(to*e);if(p<1)requestAnimationFrame(f);})(t0);}
+})();
+
+/* ── 모바일 햄버거 메뉴: 나브 링크를 복제해 서랍으로 ── */
+(function(){
+  const btn=document.getElementById('mnavBtn'),m=document.getElementById('mnav');if(!btn||!m)return;
+  document.querySelectorAll('nav .menu > a').forEach(a=>{
+    const c=document.createElement('a');c.href=a.getAttribute('href');c.textContent=a.textContent;
+    if(a.classList.contains('tel')){c.classList.add('m-tel');c.textContent='전화 상담 '+a.textContent;}
+    if(a.classList.contains('cta'))c.classList.add('m-cta');
+    c.addEventListener('click',()=>set(false));m.appendChild(c);
+  });
+  function set(o){m.classList.toggle('on',o);btn.classList.toggle('on',o);btn.setAttribute('aria-expanded',o?'true':'false');btn.setAttribute('aria-label',o?'메뉴 닫기':'메뉴 열기');}
+  btn.addEventListener('click',()=>set(!m.classList.contains('on')));
+  addEventListener('keydown',e=>{if(e.key==='Escape')set(false);});
 })();
 
 /* ── 모바일 하단바: 히어로 벗어나면 등장 ── */
