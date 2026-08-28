@@ -1,0 +1,21 @@
+# zinzino.asia — 진지노 사업 안내
+User-agent: *
+Allow: /
+
+# 네이버
+User-agent: Yeti
+Allow: /
+
+# AI 검색 크롤러 허용
+User-agent: GPTBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://zinzino.asia/sitemap.xml
