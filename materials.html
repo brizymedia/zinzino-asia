@@ -148,6 +148,12 @@ footer .z{font-family:'Noto Serif KR';font-weight:900;letter-spacing:.28em;color
     <div class="grid" id="videos"></div>
   </section>
 
+  <!-- 광고 홍보영상 -->
+  <section class="sec">
+    <div class="sec-h"><span class="ic">📢</span><h2>광고 홍보영상</h2><span class="cnt" id="promoCnt">0</span></div>
+    <div class="grid" id="promos"></div>
+  </section>
+
   <!-- 교육 자료 -->
   <section class="sec">
     <div class="sec-h"><span class="ic">📚</span><h2>교육 자료</h2><span class="cnt" id="eduCnt">0</span>
@@ -219,6 +225,12 @@ const VIDEOS = [
   { title:'건강과 부의 열쇠를 가지세요', desc:'진지노 창립자 오리얀 셀레가 전하는 비전과 기회', yt:'https://youtu.be/2PebW7EpBDY' },
 ];
 
+/* ══ 광고 홍보영상 (쇼츠) ══ */
+const PROMO = [
+  { title:'왜 진지노 밸런스오일을 먹어야 할까?', desc:'30초 만에 보는 밸런스오일 핵심 — 카톡·SNS에 바로 공유하기 좋은 쇼츠', yt:'https://www.youtube.com/shorts/89SpCaiKZnA' },
+  { title:'진지노 채널 홍보 영상', desc:'진지노를 처음 접하는 분께 보내기 좋은 짧은 소개 쇼츠', yt:'https://www.youtube.com/shorts/ols23SmP3Mw' },
+];
+
 /* ══ 교육 자료 영상 ══ */
 const EDU = [
   { title:'[추적60분] 영양제를 믿으십니까', desc:'6조원 영양제 시장의 민낯 — 과학보다 마케팅이 앞선 현실 (5분 요약)', yt:'https://youtu.be/hRUdXy3P2vk' },
@@ -271,6 +283,15 @@ document.getElementById('videos').innerHTML = withYt.length ? withYt.map(v=>card
   acts:[{t:'open',label:'▶ 보기',href:'https://youtu.be/'+v.ytId,blank:true},
         {t:'share',label:'카톡',fn:`shareLink("https://youtu.be/${v.ytId}","${v.title.replace(/"/g,'')}")`}]
 })).join('') : `<div class="card" style="grid-column:1/-1"><h3>영상 준비 중</h3><div class="desc">유튜브 링크를 등록하면 여기에 표시됩니다. (담당자에게 요청하세요)</div></div>`;
+
+/* 광고 홍보영상 */
+const promo = PROMO.map(v=>({...v, ytId:ytId(v.yt)})).filter(v=>v.ytId);
+document.getElementById('promoCnt').textContent = promo.length;
+document.getElementById('promos').innerHTML = promo.map(v=>card({
+  title:v.title, desc:v.desc, ytId:v.ytId, fmt:'YouTube Shorts · 홍보용',
+  acts:[{t:'open',label:'▶ 보기',href:'https://www.youtube.com/shorts/'+v.ytId,blank:true},
+        {t:'share',label:'카톡',fn:`shareLink("https://www.youtube.com/shorts/${v.ytId}","${v.title.replace(/"/g,'')}")`}]
+})).join('');
 
 /* 교육 자료 */
 const edu = EDU.map(v=>({...v, ytId:ytId(v.yt)})).filter(v=>v.ytId);
