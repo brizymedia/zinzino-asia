@@ -378,7 +378,7 @@ footer .z{font-family:'Noto Serif KR',serif;font-weight:900;letter-spacing:.3em;
       <div class="headline">
         <div class="who" id="whoLine"></div>
         <div class="amt">총 <b id="totalAmt">-</b> 원</div>
-        <div class="cap">직급 첫 달성 시 누적 보너스 (사업설명자료 예시 시나리오 기준)</div>
+        <div class="cap" id="totalCap">직급 첫 달성 시 누적 보너스 (사업설명자료 예시 시나리오 기준)</div>
       </div>
     </div>
 
@@ -846,6 +846,9 @@ function render(){
   $('whoLine').textContent = `${name}님 · 직추천 ${D}명 + 후원 ${S}명 (${kit.label})`;
   $('totalAmt').textContent = r.total.toLocaleString('ko-KR');
   $('totalAmt2').textContent = WON(r.total);
+  $('totalCap').innerHTML = r.rank
+    ? '직급 첫 달성 시 누적 보너스 (사업설명자료 예시 시나리오 기준)'
+    : '첫 달 예상 = 일회성 <b>'+WON(r.one)+'</b> + 매월 반복 <b>'+WON(r.rec)+'</b> — 직급 미달성 상태 (팀 커미션·직급 보너스 미포함)';
   $('totalLabel').textContent = rankLabel + ' 기준 총 보너스';
   $('oneAmt').textContent = WON(r.one);
   $('recAmt').textContent = WON(r.rec);
