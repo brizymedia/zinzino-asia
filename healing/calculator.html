@@ -517,7 +517,7 @@ footer .z{font-family:'Noto Serif KR',serif;font-weight:900;letter-spacing:.3em;
       <div><b>직추천 vs 후원</b>팀 커미션·직급·고객 유치 보너스는 <u>직추천이 좌/우 각 1명(총 2명) 이상</u>일 때(인컴센터 활성화) 직추천+후원 <u>전체 볼륨</u> 기준으로 발생 · 패스트 스타트 2단계와 멘토 매칭 단계는 <u>직추천 수</u> 기준</div>
       <div><b>팀 커미션</b>좌/우 균형 크레딧의 10%(~2,500크레딧) / 15%(3,000크레딧~) · 월 최고 900만원</div>
       <div><b>멘토 매칭</b>직추천 2/4/6/8/10명 → 1~5단계(산하 팀 커미션의 5~25%), 12명 이상 → 6~10단계(2대 이하 10%씩 추가) · 본인 팀 커미션 초과 불가</div>
-      <div><b>커스터머(소비자) 플랜</b>소비자 1명 = 오토십 1병(월 4크레딧·PCV) 가정 · <u>본인 커스터머 볼륨도 레그 볼륨에 산입</u>되어 직급·팀 커미션·고객 유치 보너스에 함께 반영 · 캐쉬백 10%(Q·X팀) → <u>A팀(32명)부터 20%</u> · A팀 이상은 월간 커스터머 보너스(100~1,000PP)와 무료 제품, 등급 최초 달성 시 원-타임 보너스(얼티밋 팩·500PP·10,000PP)가 추가</div>
+      <div><b>커스터머(소비자) 플랜</b>소비자 1명 = 오토십 1병(월 4크레딧·PCV) 가정 · <u>본인 커스터머 볼륨도 레그 볼륨에 산입</u>되어 직급·팀 커미션·고객 유치 보너스에 함께 반영 · 캐쉬백 10%(Q·X팀) → <u>A팀(32명)부터 20%</u> · A팀 이상은 월간 커스터머 보너스(100~1,000PP)와 무료 제품, 등급 최초 달성 시 원-타임 보너스(500PP·10,000PP)가 현금으로 추가되고, A팀 얼티밋 팩 증정은 제품 혜택(현금 합산 제외)으로 표시</div>
       <div><b>패스트 스타트</b>1단계 100PP(30일) · 2단계 400PP(60일, 얼티밋 2명 직추천) · 3단계 600PP(90일, 하위 4명 키트 포인트 6점: 얼티밋3·어드밴2·베이직1, 2단계 선행 필요) · 4단계 150PP(120일, X팀) — 3단계 외에는 순서 무관</div>
       <div><b>지급 주기·한도</b>팀 커미션·매칭·실적 커미션은 주별 계산 — 인컴센터당 팀 커미션 주간 최대 1,500PP(약 225만원, 월 900만원 수준) · 10,000크레딧 초과분은 디렉터 이상 실적 커미션(1~4%) 대상</div>
       <div><b>직급 판정 기준</b>직급 = <u>누적 크레딧</u> + <u>액티브 커스터머 보유 요건</u> 동시 충족 (브론즈~골드 4명·Q팀 / 이그제큐티브~다이아몬드 10명·X팀 / 디렉터 이상 25명·A팀) — 볼륨만으로는 승급 불가 (얼티밋 1명 = 340크레딧). 예: 다이아몬드(좌/우 6,000씩 = 12,000크레딧)는 약 <b>36명(좌우 18씩)</b> 필요 — ECB×3 프로모션 기간엔 더 적은 인원으로 도달 · 브론즈 2명 → 실버 3명 → 골드 5명 → 이그제큐티브 9명 → 플래티넘 18명 → 다이아몬드 36명</div>
@@ -571,7 +571,7 @@ const RETAIL = 127800;   /* 밸런스오일 1병 정가 */
 const CUST_TIERS = [
   { n:'Q팀',      c:5,   pcp:4,   pcv:20,   pct:10, monPP:0,    free:0, oneLb:'',                oneAmt:0,        oneSplit:0 },
   { n:'X팀',      c:13,  pcp:10,  pcv:50,   pct:10, monPP:0,    free:1, oneLb:'',                oneAmt:0,        oneSplit:0 },
-  { n:'A팀',      c:32,  pcp:25,  pcv:125,  pct:20, monPP:100,  free:2, oneLb:'얼티밋 팩 증정',   oneAmt:2000000,  oneSplit:1 },
+  { n:'A팀',      c:32,  pcp:25,  pcv:125,  pct:20, monPP:100,  free:2, oneLb:'얼티밋 팩 증정(제품)', oneAmt:0, oneSplit:0, gift:1 },
   { n:'프로팀',   c:63,  pcp:50,  pcv:250,  pct:20, monPP:200,  free:2, oneLb:'500PP',           oneAmt:750000,   oneSplit:10 },
   { n:'탑팀',     c:125, pcp:100, pcv:500,  pct:20, monPP:400,  free:2, oneLb:'10,000PP',        oneAmt:15000000, oneSplit:25 },
   { n:'탑-200팀', c:250, pcp:200, pcv:1000, pct:20, monPP:1000, free:2, oneLb:'',                oneAmt:0,        oneSplit:0 },
@@ -592,10 +592,10 @@ function custPlan(c){
   if(c >= 13){ cfs = 250*PP; cfsLb = 'Q팀 100PP(30일) + X팀 150PP(120일)'; }
   else if(c >= 5){ cfs = 100*PP; cfsLb = 'Q팀 100PP (30일 내)'; }
   /* 원-타임 보너스는 거쳐온 등급이 누적 지급 */
-  let oneAmt = 0; const oneParts = [];
-  CUST_TIERS.forEach(x=>{ if(c >= x.c && x.oneAmt > 0){ oneAmt += x.oneAmt; oneParts.push(x.n+' '+x.oneLb); } });
+  let oneAmt = 0; const oneParts = [], giftParts = [];
+  CUST_TIERS.forEach(x=>{ if(c >= x.c){ if(x.oneAmt > 0){ oneAmt += x.oneAmt; oneParts.push(x.n+' '+x.oneLb); } if(x.gift) giftParts.push(x.n+' '+x.oneLb); } });
   return { tier:t, name:t?t.n:'—', pct, cash, monPP, mon, free,
-           oneAmt, oneLb:oneParts.join(' + '),
+           oneAmt, oneLb:oneParts.join(' + '), gift:giftParts.join(' + '),
            cfs, cfsLb, pcp:Math.round(c*0.8), pcv:c*4 };
 }
 /* 다음 커스터머 등급 */
@@ -883,6 +883,8 @@ function render(){
   const perks = [];
   if(r.cust.free > 0)
     perks.push(`이달의 무료 제품 ${r.cust.free}개 (${r.cust.name} 혜택 · 약 ${r.cust.free*9}만원 상당, 매월)`);
+  if(r.cust.gift)
+    perks.push(`${r.cust.gift} — 등급 최초 달성 시 1회 (약 200만원 상당 제품, 현금 합산 제외)`);
   if(r.rank){
     perks.push('제품 1병 무료 증정 (9만원 상당, 다음달)');
     if(r.rankIdx>=3) perks.push('회사 선정 제품 1개 무료 (다음달)', 'X팀 달성 시 매달 산하 신규 볼륨 ECB×2배 적용');
@@ -1114,7 +1116,7 @@ function buildCustTable(cur){
       <td class="num">${t.pct}%</td>
       <td class="num">${t.monPP?WON(t.monPP*PP):'—'}</td>
       <td class="num">${t.free?t.free+'개':'—'}</td>
-      <td class="num">${t.oneAmt?(t.oneLb||WON(t.oneAmt)):'—'}</td>
+      <td class="num">${t.oneLb||'—'}</td>
       <td class="num total">${WON(monthly)}</td></tr>`;
   });
   $('custBody').innerHTML = rows.join('');
