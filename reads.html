@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#241634;--plum:#3A1F63;--plum-deep:#25123F;--violet:#6B4FA0;
+  --lav:#EFE8F9;--gold:#C9A94E;--gold-lt:#E4CD8A;--gold-deep:#A6852F;
+  --rose:#D6417A;--ivory:#FBF7EF;--paper:#FFFFFF;--line:#E7DECD;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR','Malgun Gothic',sans-serif;color:var(--ink);background:var(--ivory);line-height:1.7;
+  word-break:keep-all;
+  background-image:radial-gradient(ellipse 80% 40% at 50% -10%,rgba(107,79,160,.10),transparent)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px 80px}
+
+/* 상단 바 */
+.topbar{background:rgba(37,18,63,.9);backdrop-filter:blur(12px);position:sticky;top:0;z-index:50;
+  border-bottom:1px solid rgba(201,169,78,.25)}
+.topbar .in{max-width:1080px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.topbar a.home{display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:#fff}
+.topbar .zn{font-family:'Noto Serif KR';font-weight:900;font-size:18px;letter-spacing:.12em}
+.topbar .zn b{color:var(--gold-lt)}
+.topbar .tag{font-size:12px;color:#C9BBE4;border-left:1px solid rgba(255,255,255,.25);padding-left:10px}
+@media(max-width:560px){.topbar .tag{display:none}}
+.topbar a.back{color:#C9BBE4;text-decoration:none;font-size:13.5px;font-weight:700}
+.topbar a.back:hover{color:#fff}
+
+/* 헤더 */
+header{background:linear-gradient(150deg,var(--plum-deep),var(--plum) 60%,#4E3080);color:#fff;
+  padding:54px 20px 60px;position:relative;overflow:hidden}
+header::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(circle 400px at 88% 10%,rgba(201,169,78,.22),transparent 70%)}
+header .in{max-width:1080px;margin:0 auto;position:relative}
+header .eyebrow{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.2em;color:var(--gold-lt);
+  border:1px solid rgba(201,169,78,.4);border-radius:999px;padding:6px 15px;margin-bottom:16px}
+header h1{font-family:'Noto Serif KR';font-weight:900;font-size:clamp(28px,5vw,44px);line-height:1.25}
+header h1 em{font-style:normal;color:var(--gold-lt)}
+header p{margin-top:14px;font-size:15.5px;color:#CBBFE3;max-width:620px}
+
+/* 섹션 */
+.sec{margin-top:44px}
+.sec-h{display:flex;align-items:center;gap:11px;margin-bottom:6px;flex-wrap:wrap}
+.sec-h .ic{font-size:24px}
+.sec-h h2{font-family:'Noto Serif KR';font-size:22px;font-weight:900;color:var(--plum)}
+.sec-h .cnt{font-size:12.5px;color:#9A8FB5;background:var(--lav);border-radius:999px;padding:3px 11px;font-weight:700}
+.sec-sub{font-size:13.5px;color:#7A6C96;margin-bottom:18px}
+
+/* 기사 카드 */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:16px}
+.rd{display:flex;flex-direction:column;background:var(--paper);border:1.5px solid var(--line);border-radius:18px;
+  padding:24px;text-decoration:none;color:inherit;
+  box-shadow:0 14px 30px -24px rgba(58,31,99,.35);transition:.2s}
+.rd:hover{transform:translateY(-3px);box-shadow:0 24px 40px -26px rgba(58,31,99,.45);border-color:var(--gold-lt)}
+.rd .top{display:flex;align-items:center;gap:9px;margin-bottom:11px;flex-wrap:wrap}
+.rd .kind{font-size:11px;font-weight:900;letter-spacing:.04em;color:#fff;background:var(--plum);border-radius:6px;padding:3px 9px}
+.rd .kind.biz{background:var(--gold-deep)}
+.rd .date{font-size:12px;color:#9A8FB5;font-weight:700}
+.rd h3{font-family:'Noto Serif KR';font-size:18px;font-weight:900;color:var(--plum);line-height:1.45;margin-bottom:9px}
+.rd .desc{font-size:14px;color:#61537A;flex:1}
+.rd .desc b{color:var(--plum)}
+.rd .tags{font-size:11.5px;color:#9A8FB5;margin-top:13px;font-weight:700}
+.rd .go{margin-top:15px;font-size:13.5px;font-weight:900;color:var(--gold-deep)}
+.rd .go::after{content:" \203A";font-size:15px}
+.rd.new{border-color:var(--gold-lt);box-shadow:0 14px 30px -22px rgba(166,133,47,.5)}
+.rd .flag{font-size:11px;font-weight:900;color:var(--rose);letter-spacing:.03em}
+
+/* 안내 박스 */
+.note{margin-top:40px;background:var(--lav);border-radius:14px;padding:18px 22px;font-size:13.5px;color:#6B5A8E;line-height:1.85}
+.note b{color:var(--plum)}
+.note a{color:var(--gold-deep);font-weight:700}
+
+/* 하단 CTA */
+.cta-band{margin-top:40px;background:linear-gradient(150deg,var(--plum-deep),var(--plum) 70%);border-radius:20px;
+  padding:34px 28px;text-align:center;color:#fff;position:relative;overflow:hidden}
+.cta-band::before{content:"";position:absolute;inset:0;background:radial-gradient(circle 300px at 80% 0%,rgba(201,169,78,.24),transparent 70%)}
+.cta-band .in{position:relative}
+.cta-band h2{font-family:'Noto Serif KR';font-size:clamp(19px,3.4vw,25px);font-weight:900;line-height:1.4}
+.cta-band p{margin-top:10px;font-size:14.5px;color:#CBBFE3}
+.cta-band .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.cta-band a{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-weight:700;font-size:14.5px;
+  padding:13px 22px;border-radius:12px;transition:.2s}
+.cta-band a.gold{background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:#fff}
+.cta-band a.ghost{background:rgba(255,255,255,.1);color:#fff;border:1.5px solid rgba(255,255,255,.32)}
+.cta-band a:hover{filter:brightness(1.06)}
+.cta-band a:active{transform:scale(.97)}
+
+footer{text-align:center;padding-top:34px;color:#A79BC2;font-size:12.5px;line-height:1.9}
+footer .z{font-family:'Noto Serif KR';font-weight:900;letter-spacing:.28em;color:var(--plum);font-size:15px}
+footer a{color:#8E7FB0;text-decoration:none}
+footer a:hover{color:var(--plum)}
+</style>
+<title>진지노 읽을거리 | 사업·제품·검사에 대해 정리한 글 모음</title>
+<meta name="description" content="진지노 사업과 밸런스 오일에 대해 정리한 글을 모았습니다. 보상플랜과 주식 보상 구조, 밸런스 테스트 사용법, 먹는 법과 구매 방법까지 한곳에서 읽으실 수 있습니다.">
+<meta name="keywords" content="진지노 기사, 진지노 칼럼, 진지노 사업, 진지노 보상플랜, 진지노 밸런스 오일, 진지노 모멘텀, 진지노 테스트키트, 진지노 먹는법, 진지노 구매">
+<link rel="canonical" href="https://zinzino.asia/reads.html">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Jino Kim, 진지노 독립 파트너">
+<meta property="og:type" content="website">
+<meta property="og:title" content="진지노 읽을거리 | 사업·제품·검사에 대해 정리한 글 모음">
+<meta property="og:description" content="보상플랜과 주식 보상 구조, 밸런스 테스트 사용법, 먹는 법과 구매 방법까지. 진지노에 대해 정리한 글을 한곳에 모았습니다.">
+<meta property="og:url" content="https://zinzino.asia/reads.html">
+<meta property="og:locale" content="ko_KR">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "CollectionPage",
+ "name": "진지노 읽을거리",
+ "description": "진지노 사업과 밸런스 오일에 대해 정리한 글 모음",
+ "url": "https://zinzino.asia/reads.html",
+ "inLanguage": "ko",
+ "author": {"@type": "Person", "name": "Jino Kim", "jobTitle": "진지노 독립 파트너"},
+ "mainEntity": {
+  "@type": "ItemList",
+  "numberOfItems": 6,
+  "itemListElement": [
+   {"@type": "ListItem", "position": 1, "name": "진지노 사업하는 법: 대한민국 오픈 극초기, 지금 무엇을 알아야 하나", "url": "https://www.zinzinoshop.co.kr/blog/zinzino-business-korea.html"},
+   {"@type": "ListItem", "position": 2, "name": "AI 시대, 교육 시스템으로 승부하는 진지노 사업", "url": "https://zinzino.asia/article.html"},
+   {"@type": "ListItem", "position": 3, "name": "진지노 테스트키트 사용법과 결과 보는 법", "url": "https://www.zinzinoshop.co.kr/blog/zinzino-test-kit.html"},
+   {"@type": "ListItem", "position": 4, "name": "진지노 먹는 법: 하루 몇 ml, 언제, 어떻게", "url": "https://www.zinzinoshop.co.kr/blog/how-to-take-zinzino.html"},
+   {"@type": "ListItem", "position": 5, "name": "진지노 어디서 사나요? 구매 방법과 회원가입 총정리", "url": "https://www.zinzinoshop.co.kr/blog/how-to-buy-zinzino.html"},
+   {"@type": "ListItem", "position": 6, "name": "진지노 모멘텀이란? 검사로 시작하는 오메가 균형 여정", "url": "https://www.zinzinoshop.co.kr/blog/zinzino-momentum.html"}
+  ]
+ }
+}
+</script>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="in">
+    <a class="home" href="index.html"><span class="zn">ZIN<b>ZINO</b></span><span class="tag">읽을거리</span></a>
+    <a class="back" href="index.html">← 홈으로</a>
+  </div>
+</div>
+
+<header>
+  <div class="in">
+    <div class="eyebrow">읽을거리</div>
+    <h1>궁금하실 만한 것들을<br><em>글로 정리해 두었습니다</em></h1>
+    <p>설명을 듣는 것보다 직접 읽어보시는 편이 나을 때가 있습니다. 사업 구조부터 제품을 먹는 법까지, 실제로 가장 많이 받은 질문 순서대로 정리했습니다.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="sec">
+    <div class="sec-h"><span class="ic">📈</span><h2>사업이 궁금하시다면</h2><span class="cnt">2</span></div>
+    <p class="sec-sub">회사가 어떤 곳이고, 보상이 어떻게 설계되어 있는지부터 봅니다.</p>
+    <div class="grid">
+
+      <a class="rd new" href="https://www.zinzinoshop.co.kr/blog/zinzino-business-korea.html" target="_blank" rel="noopener">
+        <div class="top"><span class="kind biz">사업</span><span class="date">2026.08.27</span><span class="flag">NEW</span></div>
+        <h3>진지노 사업하는 법: 대한민국 오픈 극초기, 지금 무엇을 알아야 하나</h3>
+        <p class="desc">2005년 스웨덴에서 시작해 나스닥에 상장된 회사, 그리고 2026년 7월 1일에 열린 대한민국. 보상플랜을 어떻게 읽는지, <b>자격을 갖춘 사업자가 회사 주식으로 보상받는 구조</b>는 무엇인지, 누구에게 맞는 일인지 솔직하게 정리했습니다.</p>
+        <p class="tags">진지노 사업 · 극초기 · 보상플랜 · 주식 보상 · 스웨덴</p>
+        <span class="go">읽어보기</span>
+      </a>
+
+      <a class="rd" href="article.html">
+        <div class="top"><span class="kind biz">칼럼</span><span class="date">진지노 아시아</span></div>
+        <h3>AI 시대, 교육 시스템으로 승부하는 진지노 사업</h3>
+        <p class="desc">왜 지금 진지노인가. 제품이 아니라 사람을 성장시키는 교육 시스템이 왜 사업의 핵심이 되는지, 온라인 브랜딩이 왜 첫인상이자 신뢰가 되는지 풀어본 칼럼입니다.</p>
+        <p class="tags">교육 시스템 · 온라인 브랜딩 · 네트워크마케팅</p>
+        <span class="go">읽어보기</span>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-h"><span class="ic">🧬</span><h2>제품과 검사가 궁금하시다면</h2><span class="cnt">4</span></div>
+    <p class="sec-sub">진지노는 좋아진 것 같다는 느낌이 아니라 검사 수치로 확인하는 방식을 씁니다.</p>
+    <div class="grid">
+
+      <a class="rd" href="https://www.zinzinoshop.co.kr/blog/zinzino-momentum.html" target="_blank" rel="noopener">
+        <div class="top"><span class="kind">제품</span><span class="date">2026.08.18</span></div>
+        <h3>진지노 모멘텀이란? 검사로 시작하는 오메가 균형 여정</h3>
+        <p class="desc">밸런스 테스트로 내 오메가 6:3 비율을 재고, 120일 뒤 다시 재서 변화를 수치로 확인하는 진지노의 핵심 프로그램. 왜 하필 지방산인지, 왜 검사가 먼저인지 정리했습니다.</p>
+        <p class="tags">진지노 모멘텀 · 밸런스 테스트 · 오메가 6:3</p>
+        <span class="go">읽어보기</span>
+      </a>
+
+      <a class="rd" href="https://www.zinzinoshop.co.kr/blog/zinzino-test-kit.html" target="_blank" rel="noopener">
+        <div class="top"><span class="kind">검사</span><span class="date">2026.08.26</span></div>
+        <h3>진지노 테스트키트 사용법과 결과 보는 법</h3>
+        <p class="desc">집에서 손끝 채혈로 오메가 6:3 비율을 재는 밸런스 테스트. 키트 사용 순서, 결과가 나오기까지 걸리는 시간, 결과지의 숫자를 읽는 법까지 정리했습니다.</p>
+        <p class="tags">진지노 테스트키트 · 밸런스 테스트 · VITAS</p>
+        <span class="go">읽어보기</span>
+      </a>
+
+      <a class="rd" href="https://www.zinzinoshop.co.kr/blog/how-to-take-zinzino.html" target="_blank" rel="noopener">
+        <div class="top"><span class="kind">제품</span><span class="date">2026.08.24</span></div>
+        <h3>진지노 먹는 법: 하루 몇 ml, 언제, 어떻게</h3>
+        <p class="desc">하루 12ml를 식사와 함께. 체중에 따라 양이 달라지는 이유, 공복에 먹어도 되는지, 생선을 잘 먹으면 따로 안 먹어도 되는지까지 실제로 많이 받는 질문만 담았습니다.</p>
+        <p class="tags">진지노 먹는법 · 오메가3 · 비타민D · 올리브유</p>
+        <span class="go">읽어보기</span>
+      </a>
+
+      <a class="rd" href="https://www.zinzinoshop.co.kr/blog/how-to-buy-zinzino.html" target="_blank" rel="noopener">
+        <div class="top"><span class="kind">구매</span><span class="date">2026.08.22</span></div>
+        <h3>진지노 어디서 사나요? 구매 방법과 회원가입 총정리</h3>
+        <p class="desc">진지노는 일반 쇼핑몰에서 팔지 않습니다. 진지노코리아 소비자 회원가입 후 구매하는 구조와, 추천인 코드가 왜 필요한지, 가장 쉬운 구매 순서를 정리했습니다.</p>
+        <p class="tags">진지노 구매 · 진지노쇼핑몰 · 회원가입</p>
+        <span class="go">읽어보기</span>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="note">
+    <b>글은 어디에 있나요?</b> 제품과 검사에 대한 글은 제품 안내 사이트인
+    <a href="https://www.zinzinoshop.co.kr/blog/" target="_blank" rel="noopener">진지노 이야기</a>에 있습니다.
+    새 글이 올라오면 이 목록에도 함께 추가됩니다. 링크를 누르면 새 창에서 열립니다.
+  </div>
+
+  <div class="cta-band">
+    <div class="in">
+      <h2>읽어보시고 궁금한 점이 남으면<br>편하게 물어보세요</h2>
+      <p>글로 다 담기 어려운 것들이 있습니다. 통화 한 번이면 정리되는 경우가 많습니다.</p>
+      <div class="row">
+        <a class="gold" href="index.html#apply">상담 신청하기</a>
+        <a class="ghost" href="tel:15337295">1533-7295</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="z">ZINZINO</div>
+    <p>Jino Kim · 진지노 독립 파트너 · 010-7635-7886</p>
+    <p>본 페이지는 진지노 독립 파트너가 운영하는 안내 페이지이며, 진지노 본사의 공식 홈페이지가 아닙니다.</p>
+    <p>본 안내는 소득을 보장하지 않습니다. 본 제품은 질병의 예방 및 치료를 위한 의약품이 아닙니다.</p>
+  </footer>
+
+</div>
+</body>
+</html>
