@@ -378,6 +378,7 @@ footer .z{font-family:'Noto Serif KR',serif;font-weight:900;letter-spacing:.3em;
         <div class="sim-row">
           <div class="sim-ctl"><span>추가 직추천</span><button type="button" id="adDown">−</button><b id="adNum">0</b><button type="button" id="adUp">+</button><small>명</small></div>
           <div class="sim-ctl"><span>추가 후원</span><button type="button" id="asDown">−</button><b id="asNum">0</b><button type="button" id="asUp">+</button><small>명</small></div>
+          <div class="sim-ctl"><span>추가 소비자</span><button type="button" id="acDown">−</button><b id="acNum">0</b><button type="button" id="acUp">+</button><small>명 <span style="font-weight:600;color:#A08A5E">(오토십 1병/월)</span></small></div>
         </div>
         <div class="sim-out" id="simOut"></div>
       </div>
@@ -861,17 +862,17 @@ function render(){
   $('sumLine').innerHTML = sum;
 
   /* 지금 이후 시뮬레이션 — 현재 입력을 기준점으로 추가 인원의 증분 수당 */
-  $('adNum').textContent = ADD_D; $('asNum').textContent = ADD_S;
-  if(ADD_D + ADD_S > 0){
-    const rf = build(D + ADD_D, S + ADD_S, kitKey, C);
+  $('adNum').textContent = ADD_D; $('asNum').textContent = ADD_S; $('acNum').textContent = ADD_C;
+  if(ADD_D + ADD_S + ADD_C > 0){
+    const rf = build(D + ADD_D, S + ADD_S, kitKey, C + ADD_C);
     const dOne = Math.max(0, rf.one - r.one), dRec = Math.max(0, rf.rec - r.rec);
     const up = rf.rankIdx > r.rankIdx;
     $('simOut').innerHTML =
       '현재 <b>' + (r.rank ? r.rank.name : '직급 없음') + '</b> · 매월 ' + WON(r.rec)
       + ' → 추가 후 <b' + (up ? ' style="color:#C0392B"' : '') + '>' + (rf.rank ? rf.rank.name : '직급 없음') + '</b> · 매월 ' + WON(rf.rec)
       + (up ? ' <b style="color:#C0392B">승급!</b>' : '')
-      + '<br>추천 +' + ADD_D + '명 · 후원 +' + ADD_S + '명으로 <b>새로 늘어나는 수당</b> : 일회성 <b>+' + WON(dOne) + '</b> · 매월 <b>+' + WON(dRec) + '</b>'
-      + (rf.blockedBy && !rf.rank ? '<br>⚠️ 볼륨은 ' + rf.blockedBy.name + ' 수준이지만 액티브 커스터머 ' + rf.blockedBy.reqC + '명이 필요합니다 (현재 ' + C + '명)' : '');
+      + '<br>추천 +' + ADD_D + ' · 후원 +' + ADD_S + ' · 소비자 +' + ADD_C + '명(오토십 ' + ADD_C + '병/월)으로 <b>새로 늘어나는 수당</b> : 일회성 <b>+' + WON(dOne) + '</b> · 매월 <b>+' + WON(dRec) + '</b>'
+      + (rf.blockedBy && !rf.rank ? '<br>⚠️ 볼륨은 ' + rf.blockedBy.name + ' 수준이지만 액티브 커스터머 ' + rf.blockedBy.reqC + '명이 필요합니다 (현재 ' + (C + ADD_C) + '명)' : '');
   } else {
     $('simOut').innerHTML = '추가 인원을 <b>+</b> 로 올리면, 위 입력(현재 상황)을 기준으로 <b>새로 늘어나는 수당</b>만 따로 보여드립니다.';
   }
@@ -1201,11 +1202,13 @@ document.querySelectorAll('#ecbOpts .kit-opt').forEach(b=>{
     render();
   });
 });
-let ADD_D = 0, ADD_S = 0;
+let ADD_D = 0, ADD_S = 0, ADD_C = 0;
 $('adUp').addEventListener('click', ()=>{ ADD_D = Math.min(20, ADD_D + 1); render(); });
 $('adDown').addEventListener('click', ()=>{ ADD_D = Math.max(0, ADD_D - 1); render(); });
 $('asUp').addEventListener('click', ()=>{ ADD_S = Math.min(40, ADD_S + 1); render(); });
 $('asDown').addEventListener('click', ()=>{ ADD_S = Math.max(0, ADD_S - 1); render(); });
+$('acUp').addEventListener('click', ()=>{ ADD_C = Math.min(60, ADD_C + 1); render(); });
+$('acDown').addEventListener('click', ()=>{ ADD_C = Math.max(0, ADD_C - 1); render(); });
 applyEcb();
 render();
 </script>
