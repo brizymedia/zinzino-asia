@@ -134,6 +134,17 @@ input[type=range]{width:100%;accent-color:var(--plum);height:30px;cursor:pointer
 .kit-opt .kp{font-size:12px;color:#8B7FA8;margin-top:2px}
 .kit-opt.on{border-color:var(--gold);background:#FBF3E2;box-shadow:0 0 0 3px rgba(198,165,92,.18)}
 .kit-opt.on .kn{color:var(--gold-deep)}
+.sim-box{margin-top:16px;border:1.5px dashed #C6A55C;border-radius:14px;padding:14px 18px;background:#FDF9EF}
+.sim-title{font-weight:800;color:#8B6F3A;font-size:.95rem}
+.sim-title small{font-weight:600;color:#A08A5E;margin-left:6px;font-size:.78rem}
+.sim-row{display:flex;gap:26px;flex-wrap:wrap;margin-top:10px}
+.sim-ctl{display:flex;align-items:center;gap:8px;font-size:.9rem;font-weight:700}
+.sim-ctl span{color:#5A4A6A}
+.sim-ctl button{width:30px;height:30px;border:1.5px solid var(--line);background:#fff;border-radius:9px;font-size:15px;font-weight:900;cursor:pointer;transition:.15s}
+.sim-ctl button:hover{background:#F5EEDF;border-color:#C6A55C}
+.sim-ctl b{min-width:26px;text-align:center;font-size:1.15rem}
+.sim-out{margin-top:10px;font-size:.92rem;line-height:1.7;border-top:1px dashed #E2D5B8;padding-top:10px}
+.sim-out b{color:#8B6F3A}
 .sum-line{
   grid-column:1/-1;background:var(--lav);border-radius:12px;padding:11px 18px;
   font-size:14px;color:var(--plum);font-weight:500;
@@ -317,9 +328,9 @@ footer .z{font-family:'Noto Serif KR',serif;font-weight:900;letter-spacing:.3em;
       <div>
         <label class="fl">시작 팩 <small>(나와 소개 파트너 모두 동일 팩으로 시작 가정)</small></label>
         <div class="kit-opts" id="kitOpts">
-          <button class="kit-opt" data-kit="basic"><div class="kn">베이직 팩</div><div class="kp">63만원 · 30(ECB 60)크레딧</div></button>
-          <button class="kit-opt" data-kit="adv"><div class="kn">어드밴스드 팩</div><div class="kp">140만원 · 90(ECB 180)크레딧</div></button>
-          <button class="kit-opt on" data-kit="ult"><div class="kn">얼티밋 팩</div><div class="kp">200만원 · 150(ECB 300)크레딧</div></button>
+          <button class="kit-opt" data-kit="basic"><div class="kn">베이직 팩</div><div class="kp">63만원 · 30(ECB 60)크레딧 · 오일 7병</div></button>
+          <button class="kit-opt" data-kit="adv"><div class="kn">어드밴스드 팩</div><div class="kp">140만원 · 90(ECB 180)크레딧 · 오일 17병</div></button>
+          <button class="kit-opt on" data-kit="ult"><div class="kn">얼티밋 팩</div><div class="kp">200만원 · 150(ECB 300)크레딧 · 오일 25병</div></button>
         </div>
       </div>
       <div>
@@ -361,6 +372,14 @@ footer .z{font-family:'Noto Serif KR',serif;font-weight:900;letter-spacing:.3em;
             <div class="range-scale"><span>0</span><span>25</span><span>50</span><span>100</span><span>120</span></div>
           </div>
         </div>
+      </div>
+      <div class="sim-box">
+        <div class="sim-title">🔮 지금 이후 시뮬레이션 <small>위에 입력한 값 = 현재 상황(기준점)</small></div>
+        <div class="sim-row">
+          <div class="sim-ctl"><span>추가 직추천</span><button type="button" id="adDown">−</button><b id="adNum">0</b><button type="button" id="adUp">+</button><small>명</small></div>
+          <div class="sim-ctl"><span>추가 후원</span><button type="button" id="asDown">−</button><b id="asNum">0</b><button type="button" id="asUp">+</button><small>명</small></div>
+        </div>
+        <div class="sim-out" id="simOut"></div>
       </div>
       <div class="sum-line" id="sumLine"></div>
     </div>
@@ -559,7 +578,7 @@ function applyEcb(){
   Object.values(KITS).forEach(k => { k.P = k.base * ECBX + 40; });
   document.querySelectorAll('#kitOpts .kit-opt').forEach(b => {
     const k = KITS[b.dataset.kit];
-    b.querySelector('.kp').textContent = k.price + ' · ' + k.base + '(ECB ' + (k.base * ECBX) + ')크레딧';
+    b.querySelector('.kp').textContent = k.price + ' · ' + k.base + '(ECB ' + (k.base * ECBX) + ')크레딧 · 오일 ' + k.bottles + '병';
   });
 }
 const RETAIL = 127800;   /* 밸런스오일 1병 정가 */
@@ -840,6 +859,22 @@ function render(){
   let sum = `내 조직 : 직추천 <b>${D}명</b> + 후원 <b>${S}명</b> = 총 <b>${r.T}명</b> (${kit.label} 기준 · 누적 약 <b>${r.B.toLocaleString()}</b> 크레딧)`;
   sum += ` · 소비자 <b>${C}명</b>${r.cust.tier ? ` → <b style="color:var(--rose)">${r.cust.name}</b> (캐쉬백 ${r.cust.pct}%)` : ' (Q팀까지 '+(5-C)+'명)'}`;
   $('sumLine').innerHTML = sum;
+
+  /* 지금 이후 시뮬레이션 — 현재 입력을 기준점으로 추가 인원의 증분 수당 */
+  $('adNum').textContent = ADD_D; $('asNum').textContent = ADD_S;
+  if(ADD_D + ADD_S > 0){
+    const rf = build(D + ADD_D, S + ADD_S, kitKey, C);
+    const dOne = Math.max(0, rf.one - r.one), dRec = Math.max(0, rf.rec - r.rec);
+    const up = rf.rankIdx > r.rankIdx;
+    $('simOut').innerHTML =
+      '현재 <b>' + (r.rank ? r.rank.name : '직급 없음') + '</b> · 매월 ' + WON(r.rec)
+      + ' → 추가 후 <b' + (up ? ' style="color:#C0392B"' : '') + '>' + (rf.rank ? rf.rank.name : '직급 없음') + '</b> · 매월 ' + WON(rf.rec)
+      + (up ? ' <b style="color:#C0392B">승급!</b>' : '')
+      + '<br>추천 +' + ADD_D + '명 · 후원 +' + ADD_S + '명으로 <b>새로 늘어나는 수당</b> : 일회성 <b>+' + WON(dOne) + '</b> · 매월 <b>+' + WON(dRec) + '</b>'
+      + (rf.blockedBy && !rf.rank ? '<br>⚠️ 볼륨은 ' + rf.blockedBy.name + ' 수준이지만 액티브 커스터머 ' + rf.blockedBy.reqC + '명이 필요합니다 (현재 ' + C + '명)' : '');
+  } else {
+    $('simOut').innerHTML = '추가 인원을 <b>+</b> 로 올리면, 위 입력(현재 상황)을 기준으로 <b>새로 늘어나는 수당</b>만 따로 보여드립니다.';
+  }
 
   const rankLabel = r.upper ? r.upper.name : (r.rank ? r.rank.name : (r.T >= 1 ? 'Q팀 스타트' : '파트너 준비'));
   $('rankName').textContent = rankLabel;
@@ -1166,6 +1201,11 @@ document.querySelectorAll('#ecbOpts .kit-opt').forEach(b=>{
     render();
   });
 });
+let ADD_D = 0, ADD_S = 0;
+$('adUp').addEventListener('click', ()=>{ ADD_D = Math.min(20, ADD_D + 1); render(); });
+$('adDown').addEventListener('click', ()=>{ ADD_D = Math.max(0, ADD_D - 1); render(); });
+$('asUp').addEventListener('click', ()=>{ ADD_S = Math.min(40, ADD_S + 1); render(); });
+$('asDown').addEventListener('click', ()=>{ ADD_S = Math.max(0, ADD_S - 1); render(); });
 applyEcb();
 render();
 </script>
