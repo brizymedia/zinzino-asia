@@ -61,6 +61,26 @@ header p{margin-top:12px;font-size:15px;color:#CBBFE3}
 .pdfmobile{display:none;margin-top:12px;background:var(--lav);border-radius:12px;padding:14px 18px;font-size:13.5px;color:#6B5A8E}
 @media(max-width:760px){.pdfmobile{display:block}}
 
+/* 홍보 전단 */
+.flyers{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(240px,100%),1fr));gap:16px}
+.fly{background:var(--paper);border:1.5px solid var(--line);border-radius:18px;overflow:hidden;
+  display:flex;flex-direction:column;box-shadow:0 14px 30px -24px rgba(58,31,99,.35)}
+.fly.hot{border-color:var(--rose)}
+.fly .sh{background:#EFEAE0;padding:14px 14px 0}
+.fly .sh img{width:100%;height:auto;display:block;border-radius:8px 8px 0 0;cursor:zoom-in;
+  box-shadow:0 -2px 18px rgba(0,0,0,.18)}
+.fly .bd{padding:16px 16px 18px;display:flex;flex-direction:column;flex:1}
+.fly .bg{display:inline-block;align-self:flex-start;font-size:11px;font-weight:900;color:#fff;
+  background:var(--plum);border-radius:6px;padding:3px 9px;letter-spacing:.03em}
+.fly.hot .bg{background:var(--rose)}
+.fly h3{font-size:16px;font-weight:900;color:var(--plum);margin-top:9px;line-height:1.4}
+.fly p{font-size:13px;color:#61537A;margin-top:5px;line-height:1.6;flex:1}
+.fly .acts{display:flex;gap:7px;margin-top:13px;flex-wrap:wrap}
+.fly .acts a,.fly .acts button{flex:1;min-width:0;display:inline-flex;align-items:center;justify-content:center;
+  gap:5px;text-decoration:none;font-weight:700;font-size:12.5px;padding:10px 6px;border-radius:10px;
+  cursor:pointer;border:none;font-family:inherit;white-space:nowrap}
+.fly .acts a:active,.fly .acts button:active{transform:scale(.96)}
+
 /* 사진 갤러리 */
 .gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
 .ph{background:var(--paper);border:1.5px solid var(--line);border-radius:16px;overflow:hidden;cursor:pointer;transition:.2s;
@@ -147,6 +167,66 @@ header p{margin-top:12px;font-size:15px;color:#CBBFE3}
     <div class="pdfmobile">📱 모바일에서는 <b>새 창으로 보기</b>를 눌러 PDF를 확인하세요.</div>
   </section>
 
+  <!-- 홍보 전단 -->
+  <section class="sec">
+    <div class="sec-h"><span class="ic">📢</span><h2>홍보 전단</h2><span class="cnt">3</span>
+      <span style="font-size:12.5px;color:#9A8FB5">인쇄하거나 카톡으로 바로 보내세요</span></div>
+    <div class="flyers">
+
+      <div class="fly hot">
+        <div class="sh"><img src="/files/flyers/thumb-chuseok.jpg" alt="추석 선물세트 사전예약 전단 미리보기" loading="lazy" onclick="openImg('/files/flyers/chuseok-2026.png','추석 선물세트 사전예약','진지노-추석선물세트-사전예약.png')"></div>
+        <div class="bd">
+          <span class="bg">기간 한정</span>
+          <h3>추석 선물세트 사전예약</h3>
+          <p>밸런스오일+ 300ml에 프리미엄 선물포장과 메시지 카드. 사전예약 2026.09.08~09.21 · 추석 전 배송.</p>
+          <div class="acts">
+            <a class="a-dl" href="/files/flyers/chuseok-2026.png" download="진지노-추석선물세트-사전예약.png">⬇ 저장</a>
+            <button class="a-kakao" onclick="shareFile(rootUrl('files/flyers/chuseok-2026.png'),'진지노-추석선물세트-사전예약.png','진지노 추석 선물세트 사전예약')">💬 카톡</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="fly">
+        <div class="sh"><img src="/files/flyers/thumb-front.jpg" alt="제품 전단 앞면 미리보기" loading="lazy" onclick="openImg('/files/flyers/product-front.png','제품 전단 앞면','진지노-전단-앞면.png')"></div>
+        <div class="bd">
+          <span class="bg">앞면</span>
+          <h3>밸런스오일 제품 전단 · 앞면</h3>
+          <p>올리브가 지켜주는 오메가3. 한 병에 담긴 세 가지와 180만 건 검사 근거. 담당자·연락처 칸은 비어 있습니다.</p>
+          <div class="acts">
+            <a class="a-dl" href="/files/flyers/product-front.png" download="진지노-전단-앞면.png">⬇ 저장</a>
+            <button class="a-kakao" onclick="shareFile(rootUrl('files/flyers/product-front.png'),'진지노-전단-앞면.png','진지노 밸런스오일 전단 앞면')">💬 카톡</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="fly">
+        <div class="sh"><img src="/files/flyers/thumb-back.jpg" alt="제품 전단 뒷면 미리보기" loading="lazy" onclick="openImg('/files/flyers/product-back.png','제품 전단 뒷면','진지노-전단-뒷면.png')"></div>
+        <div class="bd">
+          <span class="bg">뒷면</span>
+          <h3>밸런스오일 제품 전단 · 뒷면</h3>
+          <p>일반 오메가3와의 비교표, 복용 방법, 식약처가 인정한 기능성 네 가지.</p>
+          <div class="acts">
+            <a class="a-dl" href="/files/flyers/product-back.png" download="진지노-전단-뒷면.png">⬇ 저장</a>
+            <button class="a-kakao" onclick="shareFile(rootUrl('files/flyers/product-back.png'),'진지노-전단-뒷면.png','진지노 밸런스오일 전단 뒷면')">💬 카톡</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="pdfcard" style="margin-top:16px">
+      <div class="ic">📄</div>
+      <div class="txt">
+        <h3>제품 전단 인쇄용 PDF (A4 양면)</h3>
+        <p>집·사무실 프린터는 양면·실제 크기(100%)로, 인쇄소는 이 파일 그대로 · 약 0.8MB</p>
+      </div>
+      <div class="acts">
+        <a class="a-open" href="/files/flyers/product-a4.pdf" target="_blank" rel="noopener">📖 새 창으로 보기</a>
+        <a class="a-dl" href="/files/flyers/product-a4.pdf" download="진지노-전단-A4양면.pdf">⬇ 다운로드</a>
+        <button class="a-kakao" onclick="shareFile(rootUrl('files/flyers/product-a4.pdf'),'진지노-전단-A4양면.pdf','진지노 밸런스오일 전단 (A4 양면)')">💬 카톡</button>
+      </div>
+    </div>
+  </section>
+
   <!-- 사진 -->
   <section class="sec">
     <div class="sec-h"><span class="ic">📸</span><h2>제품 사진</h2><span class="cnt" id="phCnt">0</span>
@@ -225,6 +305,8 @@ function openLb(i){ cur=i; render(); lb.classList.add('on'); document.body.style
 function closeLb(){ lb.classList.remove('on','big'); document.body.style.overflow='';
   const fs=document.getElementById('lbFs'); if(fs) fs.textContent='⛶ 크게'; }
 function render(){
+  document.getElementById('lbP').style.display='';
+  document.getElementById('lbN').style.display='';
   const p=PHOTOS[cur];
   lbImg.src=P(p.f); lbImg.alt=p.t;
   document.getElementById('lbT').textContent=p.t;
@@ -245,6 +327,24 @@ addEventListener('keydown',e=>{ if(!lb.classList.contains('on'))return;
 /* 스와이프 */
 let sx=0;
 lb.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+
+/* 전단 미리보기: 갤러리와 별개로 한 장만 크게 */
+function openImg(src, title, name){
+  cur = -1;
+  name = name || src.split('/').pop();
+  lbImg.src = src;
+  document.getElementById('lbT').textContent = title;
+  document.getElementById('lbPg').textContent = '';
+  var dl = document.getElementById('lbDl');
+  dl.href = src; dl.setAttribute('download', name);
+  document.getElementById('lbShare').onclick = function(){
+    shareFile(rootUrl(src.replace(/^[/]/, '')), name, '진지노 ' + title);
+  };
+  /* 전단은 한 장이라 좌우 화살표를 감춘다 */
+  document.getElementById('lbP').style.display = 'none';
+  document.getElementById('lbN').style.display = 'none';
+  lb.classList.add('on'); document.body.style.overflow = 'hidden';
+}
 lb.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-sx; if(Math.abs(d)>50) go(d<0?1:-1);},{passive:true});
 window.openLb=openLb;
 </script>
