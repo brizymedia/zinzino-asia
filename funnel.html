@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>지인 명단 해바라기 · 15단계 퍼널 | 진지노 파트너 도구</title>
+<meta name="description" content="지인 명단을 해바라기로 만들고, 한 사람 한 사람에게 15단계 메시지를 문자·카톡으로 보내는 진지노 파트너 전용 도구. 명단은 이 휴대폰에만 저장됩니다.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#25123F">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='6' fill='%233A1F63'/%3E%3Cg fill='%23C9A94E'%3E%3Ccircle cx='16' cy='4' r='3.4'/%3E%3Ccircle cx='16' cy='28' r='3.4'/%3E%3Ccircle cx='4' cy='16' r='3.4'/%3E%3Ccircle cx='28' cy='16' r='3.4'/%3E%3Ccircle cx='7.5' cy='7.5' r='3.4'/%3E%3Ccircle cx='24.5' cy='7.5' r='3.4'/%3E%3Ccircle cx='7.5' cy='24.5' r='3.4'/%3E%3Ccircle cx='24.5' cy='24.5' r='3.4'/%3E%3C/g%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#241634;--plum:#3A1F63;--plum-deep:#25123F;--violet:#6B4FA0;
+  --lav:#EFE8F9;--gold:#C9A94E;--gold-lt:#E4CD8A;--gold-deep:#A6852F;
+  --rose:#D6417A;--ivory:#FBF7EF;--paper:#FFFFFF;--line:#E7DECD;
+  --ok:#3C8C5A;--warn:#C8552D;--mute:#9A8FB5;
+  --kakao:#FAE100;--kakao-ink:#3C1E1E;
+  --sh:0 14px 32px -22px rgba(58,31,99,.55);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Noto Sans KR','Malgun Gothic',sans-serif;color:var(--ink);background:var(--ivory);
+  line-height:1.7;word-break:keep-all;-webkit-font-smoothing:antialiased}
+.serif{font-family:'Noto Serif KR',serif}
+button,input,textarea,select{font-family:inherit;font-size:inherit;color:inherit}
+[hidden]{display:none!important}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px 120px}
+
+/* ── 상단 바 ── */
+.topbar{background:rgba(37,18,63,.94);backdrop-filter:blur(12px);position:sticky;top:0;z-index:50;
+  border-bottom:1px solid rgba(201,169,78,.25)}
+.topbar .in{max-width:920px;margin:0 auto;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.topbar a.home{display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:#fff}
+.topbar .zn{font-family:'Noto Serif KR';font-weight:900;font-size:17px;letter-spacing:.12em}
+.topbar .zn b{color:var(--gold-lt)}
+.topbar .tag{font-size:11.5px;color:#C9BBE4;border-left:1px solid rgba(255,255,255,.25);padding-left:9px}
+@media(max-width:520px){.topbar .tag{display:none}}
+.topbar a.back{color:#C9BBE4;text-decoration:none;font-size:13px;font-weight:700}
+
+/* ── 헤더 ── */
+header{background:linear-gradient(150deg,var(--plum-deep),var(--plum) 60%,#4E3080);color:#fff;
+  padding:30px 16px 26px;position:relative;overflow:hidden}
+header::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(circle 340px at 88% 0%,rgba(201,169,78,.24),transparent 70%)}
+header .in{max-width:920px;margin:0 auto;position:relative}
+header .eyebrow{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.18em;color:var(--gold-lt);
+  border:1px solid rgba(201,169,78,.42);border-radius:999px;padding:5px 13px;margin-bottom:12px}
+header h1{font-family:'Noto Serif KR';font-weight:900;font-size:clamp(23px,5.6vw,34px);line-height:1.3}
+header h1 em{font-style:normal;color:var(--gold-lt)}
+header p.sub{margin-top:11px;font-size:14px;color:#CBBFE3;max-width:600px}
+
+/* 내 정보 줄 */
+.mebar{margin-top:18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.17);border-radius:13px;padding:11px 13px}
+.mebar .who{font-size:13.5px;color:#EDE6F8;font-weight:700;flex:1;min-width:130px}
+.mebar .who span{color:var(--gold-lt)}
+.mebar button{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.28);
+  border-radius:9px;padding:7px 13px;font-size:12.5px;font-weight:700;cursor:pointer}
+.mebar button:active{transform:scale(.97)}
+
+/* 통계 */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:12px;
+  padding:11px 6px;text-align:center}
+.stat b{display:block;font-family:'Noto Serif KR';font-size:22px;font-weight:900;color:var(--gold-lt);line-height:1.1}
+.stat span{font-size:11px;color:#C3B6DE;letter-spacing:.02em}
+
+/* ── 탭 ── */
+.tabs{display:flex;gap:6px;background:var(--paper);border:1.5px solid var(--line);border-radius:14px;
+  padding:5px;margin:18px 0 20px;box-shadow:var(--sh);position:sticky;top:52px;z-index:40}
+.tabs button{flex:1;border:none;background:transparent;border-radius:10px;padding:10px 4px;
+  font-size:13.5px;font-weight:700;color:#6E6383;cursor:pointer;transition:.16s}
+.tabs button.on{background:var(--plum);color:#fff}
+.tabs button b{display:block;font-size:11px;font-weight:500;opacity:.7;margin-top:1px}
+
+/* ── 해바라기 ── */
+.flowerbox{background:var(--paper);border:1.5px solid var(--line);border-radius:20px;padding:14px 10px 18px;
+  box-shadow:var(--sh);position:relative;overflow:hidden}
+.flowerbox::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 50% at 50% 45%,rgba(201,169,78,.10),transparent 72%)}
+#flower{position:relative;width:min(94vw,540px);aspect-ratio:1;margin:0 auto;touch-action:manipulation}
+#flowerSvg{position:absolute;inset:0;width:100%;height:100%}
+.pet{position:absolute;transform:translate(-50%,-50%);border-radius:50%;border:2.5px solid #fff;
+  display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;
+  font-weight:700;color:var(--ink);line-height:1.15;padding:2px;overflow:hidden;
+  box-shadow:0 3px 9px rgba(37,18,63,.28);transition:transform .14s,box-shadow .14s;z-index:3}
+.pet:hover{transform:translate(-50%,-50%) scale(1.13);z-index:9;box-shadow:0 7px 18px rgba(37,18,63,.4)}
+.pet:active{transform:translate(-50%,-50%) scale(1.03)}
+.pet .bd{position:absolute;top:-3px;right:-3px;font-size:12px;line-height:1;filter:drop-shadow(0 1px 1px rgba(0,0,0,.35))}
+.pet.add{background:#fff;border:2.5px dashed var(--gold);color:var(--gold-deep);font-size:22px;font-weight:900}
+.center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#4E3080,var(--plum-deep));color:#fff;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  border:3px solid var(--gold);box-shadow:0 6px 20px rgba(37,18,63,.45);z-index:5;padding:6px}
+.center b{font-family:'Noto Serif KR';font-weight:900;font-size:15px;line-height:1.2}
+.center span{font-size:10.5px;color:var(--gold-lt);letter-spacing:.06em;margin-top:2px}
+
+.legend{display:flex;flex-wrap:wrap;gap:7px 12px;justify-content:center;margin-top:14px;
+  font-size:11.5px;color:#6E6383;position:relative}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:4px;
+  vertical-align:-1px;border:1.5px solid #fff;box-shadow:0 0 0 1px var(--line)}
+
+.empty{text-align:center;padding:26px 16px;color:#7B7091;position:relative}
+.empty b{display:block;font-family:'Noto Serif KR';font-size:18px;font-weight:900;color:var(--plum);margin-bottom:7px}
+
+/* 빠른 추가 */
+.quickadd{display:flex;gap:7px;margin-top:16px;position:relative}
+.quickadd input{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:11px;padding:12px 13px;
+  font-size:15px;background:var(--paper)}
+.quickadd input:focus{outline:none;border-color:var(--violet)}
+.quickadd button{background:var(--plum);color:#fff;border:none;border-radius:11px;padding:12px 18px;
+  font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap}
+.quickadd button:active{transform:scale(.97)}
+
+/* ── 카드 공통 ── */
+.card{background:var(--paper);border:1.5px solid var(--line);border-radius:16px;padding:16px;
+  box-shadow:var(--sh);margin-top:14px}
+.card h3{font-family:'Noto Serif KR';font-size:16.5px;font-weight:900;color:var(--plum);margin-bottom:4px}
+.card p.d{font-size:13px;color:#6E6383}
+
+/* ── 오늘 할 일 ── */
+.todo{display:flex;align-items:center;gap:12px;background:var(--paper);border:1.5px solid var(--line);
+  border-radius:14px;padding:13px 14px;margin-top:10px;cursor:pointer;box-shadow:var(--sh);transition:.15s}
+.todo:active{transform:scale(.99)}
+.todo.due{border-color:var(--rose);background:linear-gradient(180deg,#FFF7FA,#fff)}
+.todo .av{width:44px;height:44px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:15px;color:var(--ink);border:2px solid #fff;box-shadow:0 0 0 1.5px var(--line)}
+.todo .tx{flex:1;min-width:0}
+.todo .tx b{display:block;font-size:15px;font-weight:700}
+.todo .tx small{display:block;font-size:12.5px;color:#7B7091;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.todo .go{font-size:11.5px;font-weight:700;color:#fff;background:var(--plum);border-radius:999px;padding:6px 11px;white-space:nowrap}
+.todo.due .go{background:var(--rose)}
+
+/* ── 이름 떠올리기 ── */
+.jog{border:1.5px solid var(--line);border-radius:14px;background:var(--paper);margin-top:9px;overflow:hidden}
+.jog>b{display:block;padding:12px 14px 8px;font-size:14.5px;font-weight:700;color:var(--plum)}
+.jog .row{display:flex;gap:7px;padding:0 12px 12px}
+.jog .row input{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:10px;padding:9px 11px;font-size:14.5px}
+.jog .row input:focus{outline:none;border-color:var(--violet)}
+.jog .row button{background:var(--lav);color:var(--plum);border:none;border-radius:10px;padding:9px 14px;
+  font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap}
+.jog .got{padding:0 14px 11px;font-size:12px;color:var(--ok);font-weight:700}
+
+/* ── 상세 시트 ── */
+.sheet{position:fixed;inset:0;z-index:90;background:var(--ivory);overflow-y:auto;
+  transform:translateY(100%);transition:transform .26s cubic-bezier(.2,.8,.3,1);
+  -webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.sheet.on{transform:translateY(0)}
+.sheet .sh-top{position:sticky;top:0;z-index:20;background:linear-gradient(150deg,var(--plum-deep),var(--plum));
+  color:#fff;padding:13px 16px;display:flex;align-items:center;gap:11px;
+  box-shadow:0 6px 18px -10px rgba(0,0,0,.6)}
+.sheet .sh-top .x{background:rgba(255,255,255,.16);border:none;color:#fff;width:34px;height:34px;
+  border-radius:10px;font-size:19px;cursor:pointer;flex:none;line-height:1}
+.sheet .sh-top .nm{flex:1;min-width:0}
+.sheet .sh-top .nm b{display:block;font-family:'Noto Serif KR';font-size:18px;font-weight:900;line-height:1.25}
+.sheet .sh-top .nm small{font-size:12px;color:#C9BBE4}
+.sheet .body{max-width:760px;margin:0 auto;padding:16px 16px 140px}
+
+/* 진행 바 */
+.prog{background:var(--paper);border:1.5px solid var(--line);border-radius:14px;padding:14px;box-shadow:var(--sh)}
+.prog .lbl{display:flex;justify-content:space-between;font-size:12.5px;color:#6E6383;font-weight:700;margin-bottom:7px}
+.prog .lbl b{color:var(--plum)}
+.bar{height:9px;border-radius:999px;background:var(--lav);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gold-lt),var(--gold));transition:width .3s}
+.prog .dots{display:flex;gap:3px;margin-top:9px;flex-wrap:wrap}
+.prog .dots s{width:100%;max-width:17px;flex:1;height:5px;border-radius:3px;background:var(--lav);text-decoration:none}
+.prog .dots s.on{background:var(--gold)}
+
+/* 정보 편집 */
+.info{margin-top:12px}
+.info .fr{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.info label{flex:1;min-width:130px}
+.info label span{display:block;font-size:11.5px;font-weight:700;color:#7B7091;margin-bottom:4px}
+.info input,.info textarea,.info select{width:100%;border:1.5px solid var(--line);border-radius:11px;
+  padding:10px 12px;font-size:14.5px;background:var(--paper)}
+.info input:focus,.info textarea:focus,.info select:focus{outline:none;border-color:var(--violet)}
+.info textarea{min-height:62px;resize:vertical}
+
+.segs{display:flex;gap:5px;background:var(--lav);border-radius:11px;padding:4px}
+.segs button{flex:1;border:none;background:transparent;border-radius:8px;padding:8px 3px;font-size:12.5px;
+  font-weight:700;color:#6E6383;cursor:pointer}
+.segs button.on{background:var(--paper);color:var(--plum);box-shadow:0 1px 4px rgba(58,31,99,.16)}
+.segs.five{display:grid;grid-template-columns:repeat(3,1fr)}
+
+/* 단계 카드 */
+.parthd{display:flex;align-items:center;gap:9px;margin:22px 0 8px}
+.parthd b{font-family:'Noto Serif KR';font-size:14.5px;font-weight:900;color:var(--plum-deep);white-space:nowrap}
+.parthd i{flex:1;height:1px;background:var(--line)}
+
+.st{background:var(--paper);border:1.5px solid var(--line);border-radius:15px;margin-top:9px;overflow:hidden;
+  box-shadow:0 8px 20px -18px rgba(58,31,99,.5)}
+.st.done{border-color:#BEDFC9;background:#F6FCF8}
+.st.next{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,169,78,.16)}
+.st .hd{display:flex;align-items:flex-start;gap:11px;padding:13px 14px;cursor:pointer}
+.st .no{width:29px;height:29px;border-radius:9px;background:var(--lav);color:var(--plum);font-weight:900;
+  font-size:13.5px;display:flex;align-items:center;justify-content:center;flex:none;margin-top:1px}
+.st.done .no{background:var(--ok);color:#fff}
+.st.next .no{background:var(--gold);color:#fff}
+.st .ti{flex:1;min-width:0}
+.st .ti b{display:block;font-size:15px;font-weight:700;line-height:1.35}
+.st .ti small{display:block;font-size:12.5px;color:#7B7091;margin-top:1px}
+.st .ck{font-size:11.5px;font-weight:700;color:var(--ok);white-space:nowrap;margin-top:3px}
+.st .arw{color:var(--mute);font-size:13px;margin-top:4px;transition:transform .2s}
+.st.open .arw{transform:rotate(180deg)}
+
+.st .bd{border-top:1px solid var(--line);padding:13px 14px 15px}
+.msg{background:#F4F0FA;border:1.5px solid #E2D8F2;border-radius:13px;padding:13px 14px;
+  font-size:14.5px;line-height:1.72;white-space:pre-wrap;color:#2B1C42}
+.msg .lk{display:block;margin-top:8px;color:var(--violet);font-weight:700;word-break:break-all;font-size:13.5px}
+.mlen{font-size:11.5px;color:var(--mute);margin-top:6px;text-align:right}
+.tip{margin-top:11px;background:#FFF8E8;border:1.5px solid #F0DFB0;border-radius:12px;padding:11px 13px;
+  font-size:13px;color:#6B5520;line-height:1.65}
+.tip b{color:var(--gold-deep)}
+
+.acts{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:12px}
+.acts button{border:none;border-radius:11px;padding:12px 4px;font-weight:700;font-size:13.5px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:5px}
+.acts button:active{transform:scale(.96)}
+.b-copy{background:var(--lav);color:var(--plum)}
+.b-sms{background:var(--plum);color:#fff}
+.b-share{background:var(--kakao);color:var(--kakao-ink)}
+.sentrow{display:flex;gap:7px;margin-top:8px}
+.sentrow button{flex:1;border-radius:11px;padding:11px 4px;font-weight:700;font-size:13.5px;cursor:pointer;
+  border:1.5px solid var(--line);background:var(--paper);color:#6E6383}
+.sentrow button.on{background:var(--ok);border-color:var(--ok);color:#fff}
+.sentrow button:active{transform:scale(.97)}
+
+/* 하단 고정 삭제/닫기 */
+.shfoot{position:fixed;left:0;right:0;bottom:0;z-index:95;background:rgba(251,247,239,.96);
+  backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  display:none;gap:8px}
+.sheet.on ~ .shfoot{display:flex}
+.shfoot .in{max-width:760px;margin:0 auto;display:flex;gap:8px;width:100%}
+.shfoot button{border-radius:12px;padding:13px 16px;font-weight:700;font-size:14.5px;cursor:pointer;border:none}
+.shfoot .del{background:#fff;border:1.5px solid #EBC9C9;color:#B4453F}
+.shfoot .cls{flex:1;background:var(--plum);color:#fff}
+
+/* 설정 모달 */
+.modal{position:fixed;inset:0;z-index:110;background:rgba(37,18,63,.55);display:none;
+  align-items:center;justify-content:center;padding:16px}
+.modal.on{display:flex}
+.modal .in{background:var(--paper);border-radius:20px;padding:20px;width:100%;max-width:440px;
+  max-height:88vh;overflow-y:auto;box-shadow:0 30px 60px -20px rgba(0,0,0,.5)}
+.modal h3{font-family:'Noto Serif KR';font-size:19px;font-weight:900;color:var(--plum);margin-bottom:4px}
+.modal p.d{font-size:13px;color:#6E6383;margin-bottom:14px}
+.modal label{display:block;margin-top:11px}
+.modal label span{display:block;font-size:12px;font-weight:700;color:#7B7091;margin-bottom:4px}
+.modal input,.modal select{width:100%;border:1.5px solid var(--line);border-radius:11px;padding:11px 12px;font-size:15px}
+.modal input:focus,.modal select:focus{outline:none;border-color:var(--violet)}
+.modal .mfoot{display:flex;gap:8px;margin-top:18px}
+.modal .mfoot button{flex:1;border:none;border-radius:12px;padding:13px;font-weight:700;font-size:15px;cursor:pointer}
+.modal .mfoot .ok{background:var(--plum);color:#fff}
+.modal .mfoot .no{background:var(--lav);color:var(--plum)}
+
+/* 안내 · 백업 */
+.note{margin-top:16px;background:#F4F0FA;border:1.5px solid #E2D8F2;border-radius:14px;padding:14px 15px;
+  font-size:12.8px;color:#5B4C77;line-height:1.7}
+.note b{color:var(--plum)}
+.bkbtns{display:flex;gap:8px;margin-top:11px;flex-wrap:wrap}
+.bkbtns button{background:var(--paper);border:1.5px solid var(--line);border-radius:11px;padding:10px 15px;
+  font-size:13px;font-weight:700;color:var(--plum);cursor:pointer}
+.bkbtns button:active{transform:scale(.97)}
+
+/* 토스트 */
+#toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%) translateY(20px);z-index:200;
+  background:var(--plum-deep);color:#fff;padding:12px 20px;border-radius:999px;font-size:13.5px;font-weight:700;
+  opacity:0;pointer-events:none;transition:.25s;box-shadow:0 12px 30px -10px rgba(0,0,0,.55);
+  max-width:90vw;text-align:center}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+footer{text-align:center;padding:30px 16px 40px;font-size:12px;color:#8A7FA5;line-height:1.9}
+footer a{color:var(--plum);font-weight:700}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="in">
+    <a class="home" href="index.html"><span class="zn">ZIN<b>ZINO</b></span><span class="tag">파트너 도구</span></a>
+    <span style="display:flex;align-items:center;gap:14px">
+      <a class="back" href="materials.html">자료실</a>
+      <a class="back" href="index.html">← 홈으로</a>
+    </span>
+  </div>
+</div>
+
+<header>
+  <div class="in">
+    <div class="eyebrow">지인 명단 · 15단계 퍼널</div>
+    <h1>이름을 <em>심으면</em><br>보낼 말이 <em>따라옵니다</em></h1>
+    <p class="sub">떠오르는 이름을 해바라기에 하나씩 심으세요. 꽃잎을 누르면 그 사람에게 지금 보낼 메시지가 나옵니다. 복사해서 카톡, 그대로 문자. 무슨 말을 할지 고민하지 않아도 됩니다.</p>
+
+    <div class="mebar">
+      <div class="who" id="whoLine">내 이름을 먼저 정해 주세요</div>
+      <button type="button" id="btnSetup">내 정보 설정</button>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b id="s1">0</b><span>명단</span></div>
+      <div class="stat"><b id="s2">0</b><span>진행 중</span></div>
+      <div class="stat"><b id="s3">0</b><span>고객</span></div>
+      <div class="stat"><b id="s4">0</b><span>파트너</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="tabs">
+    <button type="button" class="on" data-v="flower">해바라기<b>명단 보기</b></button>
+    <button type="button" data-v="today">오늘 할 일<b id="tabDue">대기 0</b></button>
+    <button type="button" data-v="jog">이름 떠올리기<b>30가지 질문</b></button>
+  </div>
+
+  <!-- ── 해바라기 ── -->
+  <section id="viewFlower">
+    <div class="flowerbox">
+      <div id="flower"></div>
+      <div class="empty" id="flowerEmpty" hidden>
+        <b>아직 심은 이름이 없습니다</b>
+        아래 칸에 떠오르는 사람 이름을 적고 「심기」를 누르세요.<br>
+        생각이 안 나면 위의 <b style="display:inline;font-size:13px">이름 떠올리기</b> 탭을 열어 보세요.
+      </div>
+      <div class="legend">
+        <span><i style="background:#EFE8F9"></i>아직 안 보냄</span>
+        <span><i style="background:#FFE9A8"></i>1~5단계</span>
+        <span><i style="background:#F5B942"></i>6~11단계</span>
+        <span><i style="background:#E07C2A"></i>12~15단계</span>
+        <span><i style="background:#3C8C5A"></i>🛒 고객</span>
+        <span><i style="background:#C9A94E"></i>⭐ 파트너</span>
+        <span><i style="background:#CFC9D9"></i>💤 보류</span>
+      </div>
+      <div class="quickadd">
+        <input id="qName" type="text" placeholder="지인 이름 (예: 김민수)" autocomplete="off" enterkeyhint="done">
+        <button type="button" id="qAdd">심기</button>
+      </div>
+    </div>
+
+    <div class="note">
+      <b>명단은 이 기기에만 저장됩니다.</b> 서버로 보내지 않고, 이 브라우저 안에만 남습니다.
+      휴대폰을 바꾸거나 브라우저를 지우면 사라지니, 명단이 쌓이면 <b>내보내기</b>로 파일 하나 받아 두세요.
+      <div class="bkbtns">
+        <button type="button" id="btnExport">⬇ 명단 내보내기</button>
+        <button type="button" id="btnImport">⬆ 명단 불러오기</button>
+        <input type="file" id="fileIn" accept="application/json,.json" hidden>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 오늘 할 일 ── -->
+  <section id="viewToday" hidden>
+    <div class="card">
+      <h3>오늘 연락할 사람</h3>
+      <p class="d">권장 간격이 지난 사람이 위로 올라옵니다. 하루에 <b>세 명</b>이면 충분합니다. 이름을 누르면 바로 보낼 메시지가 열립니다.</p>
+    </div>
+    <div id="todoList"></div>
+  </section>
+
+  <!-- ── 이름 떠올리기 ── -->
+  <section id="viewJog" hidden>
+    <div class="card">
+      <h3>이름이 안 떠오를 때</h3>
+      <p class="d">아래 질문을 하나씩 읽으면서 얼굴이 떠오르는 사람을 적으세요. 판단은 나중에 합니다. <b>지금은 떠오르는 대로 다 적는 게 맞습니다.</b> 살지 안 살지는 그 사람이 정할 일입니다.</p>
+    </div>
+    <div id="jogList"></div>
+  </section>
+
+</div>
+
+<footer>
+  진지노 독립 파트너 전용 도구 · 이 페이지는 검색에 노출되지 않습니다<br>
+  <a href="materials.html">사업 자료실</a> · <a href="calculator.html">수익 계산기</a> · <a href="plan.html">쉬운 보상플랜</a><br>
+  본 제품은 질병의 예방 및 치료를 위한 의약품이 아닙니다. 수입은 개인의 활동에 따라 다르며 보장되지 않습니다.
+</footer>
+
+<!-- ── 상세 시트 ── -->
+<div class="sheet" id="sheet">
+  <div class="sh-top">
+    <button type="button" class="x" id="shX" aria-label="닫기">✕</button>
+    <div class="nm"><b id="shName">이름</b><small id="shSub">—</small></div>
+  </div>
+  <div class="body" id="shBody"></div>
+</div>
+<div class="shfoot" id="shFoot">
+  <div class="in">
+    <button type="button" class="del" id="shDel">삭제</button>
+    <button type="button" class="cls" id="shClose">닫기</button>
+  </div>
+</div>
+
+<!-- ── 설정 모달 ── -->
+<div class="modal" id="setup">
+  <div class="in">
+    <h3>내 정보</h3>
+    <p class="d">메시지에 들어갈 내 이름과, 지인에게 보낼 링크의 주인을 정합니다.</p>
+    <label><span>내 이름</span><input id="mName" type="text" placeholder="예: 김효민" autocomplete="off"></label>
+    <label><span>내 연락처 (선택)</span><input id="mPhone" type="tel" placeholder="예: 010-7635-7886" autocomplete="off"></label>
+    <label><span>내 사업 페이지 — 지인에게 보낼 링크의 주인</span>
+      <select id="mSite">
+        <option value="/">zinzino.asia · 김효민 (기본)</option>
+        <option value="/kang/">강경아</option>
+        <option value="/tiara/">티아라</option>
+        <option value="/nagyeom/">이나겸</option>
+        <option value="/healing/">HEALING</option>
+        <option value="/mari/">마리</option>
+      </select>
+    </label>
+    <div class="mfoot">
+      <button type="button" class="no" id="mCancel">취소</button>
+      <button type="button" class="ok" id="mSave">저장</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   진지노 지인 명단 해바라기 · 15단계 퍼널
+   저장은 전부 localStorage. 서버로 아무것도 보내지 않는다.
+════════════════════════════════════════════════════════════ */
+'use strict';
+
+var KEY = 'zz_funnel_v1';
+var SHOP = 'https://www.zinzinoshop.co.kr/';
+var YT   = 'https://youtu.be/gRdV4oKLftk';
+
+var DB = { me:{ name:'', phone:'', site:'/' }, contacts:[] };
+/* 링크 주인으로 고를 수 있는 폴더 — 아래 select 와 같아야 한다 */
+var SITES = { '/':1, '/kang/':1, '/tiara/':1, '/nagyeom/':1, '/healing/':1, '/mari/':1 };
+
+/* ── 링크 만들기 (파트너 폴더 반영) ── */
+function siteUrl(rel){
+  var base = (DB.me.site || '/');
+  if (base.charAt(base.length-1) !== '/') base += '/';
+  return 'https://zinzino.asia' + base + (rel||'');
+}
+
+/* ══════════════════════════════════════════════════════════
+   15단계 퍼널
+   {이름} = 지인 이름, {나} = 내 이름
+   casual = 편한 사이 / polite = 예의 갖춰
+   gap = 이 단계를 보낸 뒤 다음 단계까지 권장 대기일
+════════════════════════════════════════════════════════════ */
+var STEPS = [
+{ n:1, part:'1부 · 문을 엽니다', title:'안부 한 통', goal:'아무것도 팔지 않습니다. 문만 엽니다.', gap:2, link:'',
+  tip:'<b>링크도 사진도 넣지 마세요.</b> 오랜만에 연락해서 바로 뭘 보내면 상대는 압니다. 이 한 통은 순수한 안부여야 합니다. 답장이 오면 그때부터가 시작입니다.',
+  casual:'{이름}, 잘 지내지? 문득 생각나서 연락했어. 별일 없고? 요즘 어떻게 지내는지 궁금하네.',
+  polite:'{이름}님, 안녕하세요. 문득 생각이 나서 안부 여쭙니다. 잘 지내고 계시지요? 요즘 어떻게 지내시는지 궁금합니다.' },
+
+{ n:2, part:'1부 · 문을 엽니다', title:'내 근황 알리기', goal:'권유가 아니라 통보. "나 이거 한다"까지만.', gap:3, link:'',
+  tip:'<b>같이 하자는 말을 넣지 마세요.</b> 사람은 권유받으면 방어하고, 소식을 들으면 궁금해합니다. 궁금해진 사람이 먼저 묻습니다.',
+  casual:'나는 요즘 건강 쪽으로 하나 시작했어. 오메가3인데, 그냥 먹는 게 아니라 피 한 방울로 지금 내 몸 상태를 재고 시작하는 방식이야. 내가 먼저 해보는 중인데 생각보다 재밌더라.',
+  polite:'저는 요즘 건강 쪽으로 하나 시작했습니다. 오메가3인데 그냥 먹는 게 아니라, 피 한 방울로 지금 제 상태를 재고 시작하는 방식이에요. 제가 먼저 해보는 중인데 생각보다 흥미롭더라고요.' },
+
+{ n:3, part:'1부 · 문을 엽니다', title:'가벼운 질문 던지기', goal:'상대를 말하게 만듭니다.', gap:3, link:'',
+  tip:'<b>질문으로 끝내세요.</b> 설명을 붙이면 광고가 되고, 질문으로 끝나면 대화가 됩니다. 답이 안 와도 괜찮습니다. 3~4일 뒤 4단계를 그냥 보내면 됩니다.',
+  casual:'{이름}, 하나만 물어볼게. 혹시 영양제나 오메가3 챙겨 먹어? 먹는다면 그게 진짜 몸에 채워졌는지 확인해본 적 있어? 나도 몰랐는데 그걸 재보는 방법이 있더라고.',
+  polite:'{이름}님, 하나만 여쭤볼게요. 혹시 영양제나 오메가3 챙겨 드시나요? 드신다면 그게 실제로 몸에 채워졌는지 확인해 보신 적 있으세요? 저도 몰랐는데 그걸 재보는 방법이 있더라고요.' },
+
+{ n:4, part:'2부 · 문제를 보여줍니다', title:'숫자 하나 던지기', goal:'"나도 그럴 수 있겠네"를 만듭니다.', gap:3, link:SHOP+'#problem',
+  tip:'<b>숫자는 하나만.</b> 100명 중 3명 — 이것만 기억시키면 됩니다. 두 개 넣으면 하나도 안 남습니다.',
+  casual:'저번에 말한 검사 얘기야. 이 회사가 전 세계에서 180만 건을 검사했는데, 시작할 때 오메가 비율이 정상 범위였던 사람이 100명 중 3명이었대. 나머지 97명은 이미 기울어져 있었고. 나도 재보기 전엔 내가 어느 쪽인지 몰랐어.',
+  polite:'지난번에 말씀드린 검사 이야기입니다. 이 회사가 전 세계에서 180만 건을 검사했는데, 시작할 때 오메가 비율이 정상 범위였던 분이 100명 중 3명이었다고 합니다. 나머지 97명은 이미 기울어져 있었고요. 저도 재보기 전에는 제가 어느 쪽인지 몰랐습니다.' },
+
+{ n:5, part:'2부 · 문제를 보여줍니다', title:'몸의 신호 4가지 · 자가진단', goal:'남 이야기를 내 이야기로 바꿉니다.', gap:3, link:SHOP+'blood-age.html',
+  tip:'<b>여기가 첫 번째 관문입니다.</b> 링크를 눌러본 사람은 관심이 있는 겁니다. "해봤어?"라고 한 번 더 물어보세요. 결과를 보내오면 거의 넘어온 겁니다.',
+  casual:'{이름}, 이 중에 하나라도 있어? ① 건강검진 때 중성지방이 신경 쓰인다 ② 모니터 보면 눈이 뻑뻑하다 ③ 요즘 깜빡하는 게 늘었다 ④ 손발이 차다. 하나라도 있으면 1분짜리 자가진단 한번 해봐. 결과 나오면 나한테 보내줘.',
+  polite:'{이름}님, 이 중에 하나라도 해당되시나요? ① 건강검진 때 중성지방이 신경 쓰인다 ② 모니터를 보면 눈이 뻑뻑하다 ③ 요즘 깜빡하는 일이 늘었다 ④ 손발이 차다. 하나라도 있으시면 1분짜리 자가진단 한번 해보세요. 결과 나오면 저한테 보내주시고요.' },
+
+{ n:6, part:'2부 · 문제를 보여줍니다', title:'영양제, 정말 효과 있나', goal:'파는 사람이 아니라 같은 편이 됩니다.', gap:3, link:SHOP+'#question',
+  tip:'<b>이 단계는 파는 게 아니라 편에 서는 겁니다.</b> "나도 뜨끔했어"가 핵심 문장입니다. 이 말을 빼면 그냥 남 욕하는 문자가 됩니다.',
+  casual:'영양제 먹으면서도 이게 진짜 효과가 있나 싶을 때 있잖아. KBS 추적60분에서 이런 말이 나오더라 — "건강을 파는 시장이 아니라 불안을 파는 시장"이라고. 보면서 좀 뜨끔했어. 그래서 나는 좋다니까 먹는 대신, 재보고 먹기로 한 거야.',
+  polite:'영양제를 챙겨 먹으면서도 이게 정말 효과가 있나 싶을 때가 있잖아요. KBS 추적60분에서 이런 말이 나오더라고요 — "건강을 파는 시장이 아니라 불안을 파는 시장"이라고요. 보면서 저도 좀 뜨끔했습니다. 그래서 좋다니까 먹는 대신, 재보고 먹기로 한 거예요.' },
+
+{ n:7, part:'2부 · 문제를 보여줍니다', title:'의사가 설명한 세 가지', goal:'"왜 하필 오메가3인가"를 정리해 줍니다.', gap:4, link:SHOP+'#doctor',
+  tip:'질문을 <b>"먹느냐 마느냐"에서 "얼마나 있느냐"로</b> 옮기는 단계입니다. 이 전환이 되면 검사 이야기가 자연스러워집니다.',
+  casual:'오메가3가 왜 중요한지 의사가 설명한 게 있는데 이게 제일 이해가 잘 됐어. ① 뇌의 절반이 지방이고 오메가3가 거기 들어간다 ② 세포를 감싼 막에서 문지기 역할을 한다 ③ 몸이 스스로 못 만들어서 먹어야만 채워진다. 듣고 나니까 질문이 바뀌더라. "먹느냐 마느냐"가 아니라 "지금 내 몸에 얼마나 있느냐"로.',
+  polite:'오메가3가 왜 중요한지 의사가 설명한 내용이 있는데 이게 제일 이해가 잘 됐습니다. ① 뇌의 절반이 지방이고 오메가3가 거기 들어간다 ② 세포를 감싼 막에서 문지기 역할을 한다 ③ 몸이 스스로 못 만들어서 먹어야만 채워진다. 듣고 나니 질문이 바뀌더군요. "먹느냐 마느냐"가 아니라 "지금 내 몸에 얼마나 있느냐"로요.' },
+
+{ n:8, part:'3부 · 답을 보여줍니다', title:'5분 영상 하나', goal:'말로 못 하는 설명을 대신 시킵니다.', gap:4, link:YT,
+  tip:'<b>영상은 딱 하나만.</b> 두 개 보내면 하나도 안 봅니다. 그리고 반드시 "보고 나서 어땠는지 알려줘"를 붙이세요. 숙제가 있어야 봅니다.',
+  casual:'말로 하는 것보다 이게 나을 것 같아. 5분짜리야. 왜 오메가3만 먹어서는 잘 안 채워지는지, 올리브가 왜 같이 들어가야 하는지 나와. 한국어 자막 있어. 보고 나서 어땠는지만 알려줘.',
+  polite:'제가 말로 설명하는 것보다 이게 나을 것 같습니다. 5분짜리예요. 왜 오메가3만 먹어서는 잘 안 채워지는지, 올리브가 왜 함께 들어가야 하는지 나옵니다. 한국어 자막 있습니다. 보시고 어떠셨는지만 알려주세요.' },
+
+{ n:9, part:'3부 · 답을 보여줍니다', title:'한 병에 담긴 세 가지', goal:'"뭐가 들었냐"에 정직하게 답합니다.', gap:3, link:SHOP+'#composition',
+  tip:'성분을 다 나열하지 마세요. <b>세 개가 전부라는 것</b>이 이 제품의 자랑입니다. 넣은 게 적다는 게 메시지입니다.',
+  casual:'내가 먹는 거 뭐 들었냐고 했지. 세 개가 전부야. 북해 자연산 어유 60%(정어리·고등어·멸치), 조기 수확 올리브오일 40%, 천연 비타민D3. 색소·향료·방부제는 안 넣었고. 하루 12ml에 오메가3 2,000mg 들어가.',
+  polite:'제가 먹는 게 뭐가 들었냐고 물으셨죠. 세 가지가 전부입니다. 북해 자연산 어유 60%(정어리·고등어·멸치), 조기 수확 올리브오일 40%, 천연 비타민D3. 색소·향료·방부제는 넣지 않았고요. 하루 12ml에 오메가3 2,000mg 들어갑니다.' },
+
+{ n:10, part:'3부 · 답을 보여줍니다', title:'다른 오메가3와 뭐가 다른가', goal:'가격 비교를 성분 비교로 옮깁니다.', gap:3, link:SHOP+'#compare',
+  tip:'"비싸다"는 말이 나오면 <b>거의 다 온 겁니다.</b> 가격 이야기를 피하지 말고, 이 표를 보내서 비교 기준을 바꿔 주세요.',
+  casual:'"딴 오메가3랑 뭐가 다른데?" 했지. 네 가지가 달라. ① 캡슐이 아니라 흡수 잘 되는 액상 ② 올리브 폴리페놀이 산화를 막아줌 ③ 대형어가 아니라 북해 소형 자연산 ④ 결과를 느낌이 아니라 혈액검사로 확인. 표로 정리된 거 보내줄게.',
+  polite:'"다른 오메가3랑 뭐가 다르냐" 물으셨죠. 네 가지가 다릅니다. ① 캡슐이 아니라 흡수가 잘 되는 액상 ② 올리브 폴리페놀이 산화를 막아줌 ③ 대형어가 아니라 북해 소형 자연산 ④ 결과를 느낌이 아니라 혈액검사로 확인. 표로 정리된 것 보내드릴게요.' },
+
+{ n:11, part:'3부 · 답을 보여줍니다', title:'믿지 말고 재보세요', goal:'가장 강한 한 방. 3% → 95%.', gap:3, link:SHOP+'#test',
+  tip:'<b>이 퍼널 전체에서 제일 센 카드입니다.</b> 앞 단계를 건너뛰고 이것부터 보내지 마세요. 앞에서 문제를 인정한 사람에게만 힘이 있습니다.',
+  casual:'이게 내가 이걸 고른 진짜 이유야. 검사 전엔 100명 중 3명만 정상 범위였는데, 120일 뒤 다시 재니까 95명이 3:1 근처로 돌아왔대. 검사는 노르웨이 독립 연구소가 하고 회사는 결과에 손을 못 대. "믿지 말고 재보세요"가 이 회사 슬로건이야. 물론 사람마다 차이는 있어.',
+  polite:'이게 제가 이걸 고른 진짜 이유입니다. 검사 전에는 100명 중 3명만 정상 범위였는데, 120일 뒤 다시 재니 95명이 3:1 근처로 돌아왔다고 합니다. 검사는 노르웨이 독립 연구소가 하고 회사는 결과에 손을 못 댑니다. "믿지 말고 재보세요"가 이 회사 슬로건이에요. 물론 개인차는 있습니다.' },
+
+{ n:12, part:'4부 · 손을 내밉니다', title:'회사가 어떤 곳인가', goal:'마지막 불안을 지웁니다.', gap:2, link:'ASIA',
+  tip:'"그거 다단계 아니야?"가 나올 자리입니다. 피하지 말고 <b>상장사라 재무제표가 공개된다</b>는 사실로 답하세요. 숨길 게 없는 회사라는 게 답입니다.',
+  casual:'회사가 어떤 덴지도 궁금할 것 같아서. 2005년 스웨덴에서 시작했고 20년 동안 한 해도 매출이 꺾인 적이 없어. 나스닥(스톡홀름)에 상장돼 있어서 재무제표가 다 공개돼. 100개국 넘게 들어가 있고, 한국은 2026년 7월에 막 열렸어.',
+  polite:'회사가 어떤 곳인지도 궁금하실 것 같아서요. 2005년 스웨덴에서 시작했고 20년 동안 한 해도 매출이 꺾인 적이 없습니다. 나스닥(스톡홀름)에 상장되어 있어서 재무제표가 모두 공개됩니다. 100개국 넘게 진출해 있고, 한국은 2026년 7월에 막 열렸습니다.' },
+
+{ n:13, part:'4부 · 손을 내밉니다', title:'시작해 보자고 말하기', goal:'구매 제안. 이 퍼널의 목적지입니다.', gap:4, link:SHOP+'order.html',
+  tip:'<b>가장 중요한 단계입니다.</b> 링크만 보내고 끝내지 마세요. 마지막의 <b>"한번 해볼래?"</b>라는 질문이 있어야 답이 옵니다. 답을 안 하면 그것도 답입니다 — 재촉하지 말고 3~4일 기다리세요.',
+  casual:'{이름}, 이제 한번 해볼래? 시작할 때랑 120일 뒤에 검사가 들어간 세트로 시작하는 걸 추천해. 그래야 변화가 숫자로 남거든. 하루로 나누면 커피 한 잔 값도 안 돼. 구성이랑 가격은 내가 바로 알려줄게. 궁금한 거 있으면 편하게 물어봐.',
+  polite:'{이름}님, 이제 한번 해보시겠어요? 시작할 때와 120일 뒤에 검사가 들어간 세트로 시작하시길 권합니다. 그래야 변화가 숫자로 남거든요. 하루로 나누면 커피 한 잔 값도 안 됩니다. 구성이랑 가격은 제가 바로 알려드릴게요. 궁금하신 것 있으면 편하게 물어보세요.' },
+
+{ n:14, part:'5부 · 함께 갑니다', title:'부업 이야기 꺼내기', goal:'고객을 파트너로. 부담 없이 문만 열어둡니다.', gap:4, link:'CALC',
+  tip:'<b>절대 "얼마 번다"고 말하지 마세요.</b> 방문판매법상 소득 보장은 금지이고, 무엇보다 사이가 상합니다. "구조가 이렇다"까지만 보여주고 판단은 상대에게 맡기세요.',
+  casual:'{이름}, 이건 부담 갖지 말고 그냥 들어봐. 나는 이걸 먹기만 하는 게 아니라 소개도 같이 하고 있어. 한국이 2026년 7월에 막 열려서 아직 앞선 사람이 거의 없거든. 조건을 넣으면 구조가 어떻게 되는지 보여주는 계산기가 있는데 재미 삼아 한번 눌러봐. 하라는 게 아니라 어떤 구조인지만 보라고. 결과는 사람마다 다르고 보장된 수입은 아니야.',
+  polite:'{이름}님, 이건 부담 갖지 마시고 그냥 들어봐 주세요. 저는 이걸 먹기만 하는 게 아니라 소개도 같이 하고 있습니다. 한국이 2026년 7월에 막 열려서 아직 앞선 사람이 거의 없거든요. 조건을 넣으면 구조가 어떻게 되는지 보여주는 계산기가 있는데 재미 삼아 한번 눌러보세요. 하시라는 게 아니라 어떤 구조인지만 보시라고요. 결과는 사람마다 다르고 보장된 수입은 아닙니다.' },
+
+{ n:15, part:'5부 · 함께 갑니다', title:'만나자고 하기', goal:'글을 끝내고 사람을 만납니다.', gap:7, link:'',
+  tip:'<b>마지막은 링크가 아니라 만남입니다.</b> "언제 시간 돼?"라고 열어두면 답이 안 옵니다. <b>날짜를 두 개</b> 주세요. 그리고 "아니라고 해도 된다"는 말을 꼭 넣으세요. 이 한 줄이 관계를 지킵니다.',
+  casual:'{이름}, 글로 설명하는 건 한계가 있더라. 커피 한 잔 하면서 30분만 얘기하자. 듣고 아니다 싶으면 그냥 아니라고 하면 돼. 그걸로 서운해할 사이 아니잖아. 이번 주 목요일이랑 토요일 중에 언제가 편해?',
+  polite:'{이름}님, 글로 설명하는 건 한계가 있더라고요. 커피 한 잔 하면서 30분만 이야기 나누고 싶습니다. 들어보시고 아니다 싶으면 그냥 아니라고 하셔도 됩니다. 그걸로 서운해할 사이 아니잖아요. 이번 주 목요일이나 토요일 중에 언제가 편하세요?' }
+];
+
+/* 이름 떠올리기 질문 30 */
+var JOG = [
+'같이 사는 가족 — 배우자, 부모님, 자녀',
+'형제·자매와 그 배우자',
+'배우자 쪽 가족 — 장인·장모, 시부모, 처남·시누이',
+'명절에 만나는 친척 — 사촌, 삼촌, 이모, 고모',
+'초등학교·중학교 동창',
+'고등학교 동창과 그때 선생님',
+'대학 동기·선배·후배',
+'군대 동기·선임·후임',
+'첫 직장에서 친했던 사람',
+'지금 직장 동료',
+'예전 직장 상사와 부하 직원',
+'거래처·고객·협력업체 사장님',
+'같은 아파트·같은 동네 이웃',
+'아이 학교 학부모, 같은 반 엄마·아빠',
+'아이가 다니는 학원·과외 선생님',
+'운동 모임 — 헬스, 골프, 등산, 자전거, 축구',
+'취미 동호회 — 낚시, 사진, 음악, 독서',
+'교회·성당·절에서 만나는 분',
+'봉사단체·모임에서 아는 분',
+'단골 미용실·네일샵',
+'자주 가는 식당·카페 사장님',
+'단골 병원·약국에서 얼굴 아는 분',
+'자동차 정비소, 세탁소, 부동산 사장님',
+'단톡방에서 자주 보는 사람',
+'SNS에서 서로 좋아요 누르는 사람',
+'최근 6개월 통화목록을 위에서부터',
+'카톡 친구 목록을 ㄱ부터 천천히',
+'내 결혼식에 와준 사람',
+'건강 이야기를 한 적 있는 사람',
+'부업이나 돈 이야기를 한 적 있는 사람'
+];
+
+var STATUS = {
+  'new':   { t:'아직 안 보냄', c:'#EFE8F9', b:'' },
+  'talking':{ t:'대화 중',    c:'#FFE9A8', b:'' },
+  'customer':{t:'고객이 됨',  c:'#3C8C5A', b:'🛒' },
+  'partner':{ t:'파트너가 됨', c:'#C9A94E', b:'⭐' },
+  'later': { t:'나중에 · 보류', c:'#CFC9D9', b:'💤' }
+};
+
+/* ══════════════ 저장 ══════════════ */
+function load(){
+  try{
+    var raw = localStorage.getItem(KEY);
+    if(raw){ var d = JSON.parse(raw); if(d && d.contacts){ DB = d; } }
+  }catch(e){ /* 저장소를 못 읽어도 앱은 돈다 */ }
+  normalize();
+}
+/* 옛 파일·손댄 파일이 들어와도 화면이 깨지지 않게 빈칸을 채운다 */
+function normalize(){
+  DB = DB || {};
+  DB.me = DB.me || {};
+  if(typeof DB.me.name !== 'string')  DB.me.name = '';
+  if(typeof DB.me.phone !== 'string') DB.me.phone = '';
+  if(typeof DB.me.site !== 'string')  DB.me.site = '/';
+  if(!SITES[DB.me.site]) DB.me.site = '/';
+  if(!Array.isArray(DB.contacts)) DB.contacts = [];
+  for(var i=0;i<DB.contacts.length;i++){
+    var c = DB.contacts[i] || {};
+    c.id    = c.id || uid();
+    c.name  = String(c.name || '');
+    c.rel   = String(c.rel || '');
+    c.phone = String(c.phone || '');
+    c.memo  = String(c.memo || '');
+    c.tone  = (c.tone === 'casual') ? 'casual' : 'polite';
+    if(!STATUS[c.status]) c.status = 'new';
+    if(!c.steps || typeof c.steps !== 'object') c.steps = {};
+    c.created = c.created || today();
+    DB.contacts[i] = c;
+  }
+}
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify(DB)); }
+  catch(e){ toast('저장 공간이 가득 찼습니다. 명단을 내보내 두세요'); }
+}
+
+/* ══════════════ 유틸 ══════════════ */
+function $(s){ return document.querySelector(s); }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function today(){ var d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function daysBetween(a,b){ return Math.floor((new Date(b) - new Date(a)) / 86400000); }
+function uid(){ return 'c' + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+
+var _tt;
+function toast(msg){
+  var t = $('#toast'); t.textContent = msg; t.classList.add('on');
+  clearTimeout(_tt); _tt = setTimeout(function(){ t.classList.remove('on'); }, 2800);
+}
+
+/* 진행 단계 수 */
+function progressOf(c){ return Object.keys(c.steps||{}).length; }
+/* 다음에 보낼 단계 (1~15, 다 보냈으면 0) */
+function nextStepOf(c){
+  for(var i=1;i<=15;i++){ if(!(c.steps && c.steps[i])) return i; }
+  return 0;
+}
+/* 마지막 발송일 */
+function lastSentOf(c){
+  var last = '', s = c.steps||{};
+  for(var k in s){ if(s[k] > last) last = s[k]; }
+  return last;
+}
+/* 지금 보낼 때가 됐나 */
+function dueInfo(c){
+  var nx = nextStepOf(c);
+  if(!nx) return { due:false, nx:0, txt:'15단계 모두 보냈습니다' };
+  if(c.status==='later') return { due:false, nx:nx, txt:'보류 중' };
+  var last = lastSentOf(c);
+  if(!last) return { due:true, nx:nx, txt:'1단계부터 시작하세요', wait:9999 };
+  var prev = STEPS[nx-2];
+  var gap = prev ? prev.gap : 3;
+  var passed = daysBetween(last, today());
+  if(passed >= gap) return { due:true, nx:nx, txt:passed+'일 지났습니다 · '+nx+'단계 보낼 때', wait:passed-gap };
+  return { due:false, nx:nx, txt:(gap-passed)+'일 뒤에 '+nx+'단계', wait:-(gap-passed) };
+}
+
+/* 메시지 만들기 */
+function linkOf(st){
+  if(!st.link) return '';
+  if(st.link === 'ASIA') return siteUrl('');
+  if(st.link === 'CALC') return siteUrl('calculator.html');
+  return st.link;
+}
+function msgOf(c, st){
+  var body = (c.tone === 'casual') ? st.casual : st.polite;
+  body = body.split('{이름}').join(c.name || '').split('{나}').join(DB.me.name || '');
+  var lk = linkOf(st);
+  return lk ? (body + '\n\n' + lk) : body;
+}
+
+/* ══════════════ 보내기 ══════════════ */
+function smsHref(phone, body){
+  var num = String(phone||'').replace(/[^0-9+]/g,'');
+  var ios = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  return 'sms:' + num + (ios ? '&' : '?') + 'body=' + encodeURIComponent(body);
+}
+function copyText(txt, okMsg){
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){ toast(okMsg || '📋 복사했습니다. 카톡에 붙여넣기 하세요'); },
+      function(){ fallbackCopy(txt); });
+  } else { fallbackCopy(txt); }
+}
+function fallbackCopy(txt){
+  var ta = document.createElement('textarea');
+  ta.value = txt; ta.setAttribute('readonly','');
+  ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+  document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, 99999);
+  var ok = false;
+  try{ ok = document.execCommand('copy'); }catch(e){}
+  document.body.removeChild(ta);
+  toast(ok ? '📋 복사했습니다. 카톡에 붙여넣기 하세요' : '복사가 안 됩니다. 글을 길게 눌러 복사하세요');
+}
+function shareText(txt){
+  if(navigator.share){
+    navigator.share({ text: txt }).catch(function(e){
+      if(e && e.name === 'AbortError') return;
+      copyText(txt);
+    });
+  } else {
+    copyText(txt, '📋 복사했습니다. 카톡을 열어 붙여넣기 하세요');
+  }
+}
+
+/* ══════════════ 해바라기 그리기 ══════════════ */
+function petalColor(c){
+  if(c.status && c.status !== 'new' && c.status !== 'talking') return STATUS[c.status].c;
+  var p = progressOf(c);
+  if(p === 0) return '#EFE8F9';
+  if(p <= 5)  return '#FFE9A8';
+  if(p <= 11) return '#F5B942';
+  return '#E07C2A';
+}
+function renderFlower(){
+  var box = $('#flower');
+  var list = DB.contacts;
+  $('#flowerEmpty').hidden = list.length > 0;
+
+  var S = box.clientWidth || 340;
+  var R = S / 2;
+  var n = list.length;
+  var slots = n + 1;                      /* 마지막은 「+ 추가」 */
+  var rHead = R * 0.820;                  /* 씨방(가운데 갈색 원) */
+  var rIn  = R * 0.300;
+  var rOut = R * 0.680;
+
+  /* 씨앗 하나 지름: 고리 면적을 슬롯 수로 나눠 잡는다 */
+  var d = 2 * Math.sqrt(0.68 * (rOut*rOut - rIn*rIn) / Math.max(slots, 5));
+  d = Math.max(27, Math.min(d, R * 0.260));
+
+  var html = '';
+  /* 뒤에 깔리는 노란 꽃잎 (장식) — 씨방 밑으로 밀어 넣는다 */
+  var pet = 22, pr = R * 0.885, pw = (2 * Math.PI * pr / pet) * 0.58, ph = R * 0.125;
+  var svg = '<svg id="flowerSvg" viewBox="0 0 '+S+' '+S+'" aria-hidden="true">';
+  svg += '<defs>'
+       + '<linearGradient id="pg" x1="0" y1="0" x2="0" y2="1">'
+       + '<stop offset="0" stop-color="#F9DE86"/><stop offset="1" stop-color="#D99F22"/></linearGradient>'
+       + '<radialGradient id="hd" cx="38%" cy="32%">'
+       + '<stop offset="0" stop-color="#6E4B22"/><stop offset="1" stop-color="#3F2A11"/></radialGradient>'
+       + '</defs>';
+  for(var p = 0; p < pet; p++){
+    var a = (p / pet) * 360;
+    svg += '<ellipse cx="'+R+'" cy="'+(R - pr).toFixed(1)+'" rx="'+pw.toFixed(1)+'" ry="'+ph.toFixed(1)+'" '
+         + 'fill="url(#pg)" opacity=".95" transform="rotate('+a.toFixed(1)+' '+R+' '+R+')"/>';
+  }
+  svg += '<circle cx="'+R+'" cy="'+R+'" r="'+rHead.toFixed(1)+'" fill="url(#hd)"/>';
+  svg += '<circle cx="'+R+'" cy="'+R+'" r="'+rHead.toFixed(1)+'" fill="none" stroke="#2A1B0A" stroke-opacity=".35" stroke-width="2"/>';
+  svg += '</svg>';
+  html += svg;
+
+  /* 씨앗 = 지인 (해바라기 씨 배열 = 황금각 137.5°) */
+  for(var i = 0; i < slots; i++){
+    var t = slots === 1 ? 0 : i / (slots - 1);
+    var rad = rIn + (rOut - rIn) * Math.sqrt(t);
+    var ang = i * 137.508 * Math.PI / 180 - Math.PI / 2;
+    var x = R + rad * Math.cos(ang);
+    var y = R + rad * Math.sin(ang);
+    var fs = Math.max(9, Math.min(13.5, d * 0.29));
+
+    if(i === n){
+      html += '<button type="button" class="pet add" data-add="1" title="이름 추가" '
+            + 'style="left:'+x.toFixed(1)+'px;top:'+y.toFixed(1)+'px;width:'+d.toFixed(1)+'px;height:'+d.toFixed(1)+'px;'
+            + 'font-size:'+(d*0.44).toFixed(1)+'px">+</button>';
+    } else {
+      var c = list[i];
+      var nm = c.name || '?';
+      var show = d >= 41 ? nm.slice(0,3) : (d >= 33 ? nm.slice(0,2) : nm.slice(0,1));
+      var bd = (c.status && STATUS[c.status] && STATUS[c.status].b) ? STATUS[c.status].b : '';
+      var dk = (c.status === 'customer' || c.status === 'partner');
+      html += '<button type="button" class="pet" data-id="'+c.id+'" title="'+esc(nm)+'" '
+            + 'style="left:'+x.toFixed(1)+'px;top:'+y.toFixed(1)+'px;width:'+d.toFixed(1)+'px;height:'+d.toFixed(1)+'px;'
+            + 'background:'+petalColor(c)+';font-size:'+fs.toFixed(1)+'px'+(dk?';color:#fff':'')+'">'
+            + esc(show) + (bd ? '<span class="bd">'+bd+'</span>' : '') + '</button>';
+    }
+  }
+
+  /* 가운데 = 나 */
+  var cd = rIn * 1.05;
+  html += '<div class="center" style="width:'+cd.toFixed(1)+'px;height:'+cd.toFixed(1)+'px">'
+        + '<b>' + esc(DB.me.name || '나') + '</b><span>ZINZINO</span></div>';
+
+  box.innerHTML = html;
+}
+
+/* ══════════════ 통계 · 오늘 할 일 ══════════════ */
+function renderStats(){
+  var list = DB.contacts;
+  var talking = 0, cust = 0, part = 0, due = 0;
+  for(var i=0;i<list.length;i++){
+    var c = list[i];
+    if(c.status === 'customer') cust++;
+    else if(c.status === 'partner') part++;
+    else if(progressOf(c) > 0 && c.status !== 'later') talking++;
+    if(dueInfo(c).due) due++;
+  }
+  $('#s1').textContent = list.length;
+  $('#s2').textContent = talking;
+  $('#s3').textContent = cust;
+  $('#s4').textContent = part;
+  $('#tabDue').textContent = due ? ('보낼 사람 ' + due) : '대기 0';
+  $('#whoLine').innerHTML = DB.me.name
+    ? ('<span>' + esc(DB.me.name) + '</span> 파트너님의 명단')
+    : '내 이름을 먼저 정해 주세요';
+}
+
+function renderToday(){
+  var list = DB.contacts.slice();
+  var rows = [];
+  for(var i=0;i<list.length;i++){
+    var c = list[i];
+    if(c.status === 'customer' || c.status === 'partner') continue;
+    var d = dueInfo(c);
+    if(!d.nx) continue;
+    rows.push({ c:c, d:d });
+  }
+  rows.sort(function(a,b){
+    if(a.d.due !== b.d.due) return a.d.due ? -1 : 1;
+    return (b.d.wait||0) - (a.d.wait||0);
+  });
+
+  var box = $('#todoList');
+  if(!rows.length){
+    box.innerHTML = '<div class="card"><p class="d" style="text-align:center;padding:14px 0">'
+      + (DB.contacts.length ? '보낼 사람이 없습니다. 명단을 더 심어 보세요.' : '아직 명단이 없습니다. 해바라기 탭에서 이름을 심으세요.')
+      + '</p></div>';
+    return;
+  }
+  var h = '';
+  for(var j=0;j<rows.length;j++){
+    var c = rows[j].c, d = rows[j].d;
+    var st = STEPS[d.nx-1];
+    h += '<div class="todo' + (d.due ? ' due' : '') + '" data-id="'+c.id+'">'
+       + '<div class="av" style="background:'+petalColor(c)+(c.status==='customer'||c.status==='partner'?';color:#fff':'')+'">'
+       + esc((c.name||'?').slice(0,2)) + '</div>'
+       + '<div class="tx"><b>' + esc(c.name) + (c.rel ? ' <span style="font-weight:400;color:#8A7FA5;font-size:12.5px">'+esc(c.rel)+'</span>' : '') + '</b>'
+       + '<small>' + d.nx + '단계 · ' + esc(st.title) + ' — ' + esc(d.txt) + '</small></div>'
+       + '<span class="go">' + (d.due ? '보내기' : '대기') + '</span></div>';
+  }
+  box.innerHTML = h;
+}
+
+function renderJog(){
+  var box = $('#jogList');
+  var h = '';
+  for(var i=0;i<JOG.length;i++){
+    h += '<div class="jog"><b>' + (i+1) + '. ' + esc(JOG[i]) + '</b>'
+       + '<div class="row"><input type="text" placeholder="이름을 적으세요" data-jog="'+i+'" autocomplete="off" enterkeyhint="done">'
+       + '<button type="button" data-jogadd="'+i+'">심기</button></div>'
+       + '<div class="got" id="got'+i+'"></div></div>';
+  }
+  box.innerHTML = h;
+}
+
+/* ══════════════ 명단 추가 ══════════════ */
+function addContact(name, rel){
+  name = String(name||'').trim();
+  if(!name){ toast('이름을 적어 주세요'); return null; }
+  var dup = null;
+  for(var i=0;i<DB.contacts.length;i++){ if(DB.contacts[i].name === name) dup = DB.contacts[i]; }
+  if(dup){ toast('「' + name + '」은 이미 명단에 있습니다'); return dup; }
+  var c = { id:uid(), name:name, rel:rel||'', phone:'', memo:'', tone:'polite', status:'new', steps:{}, created:today() };
+  DB.contacts.push(c);
+  save(); renderAll();
+  toast('🌻 「' + name + '」을 심었습니다');
+  return c;
+}
+
+/* ══════════════ 상세 시트 ══════════════ */
+var curId = null;
+
+function openSheet(id){
+  var c = findC(id); if(!c) return;
+  curId = id;
+  $('#shName').textContent = c.name;
+  $('#shSub').textContent = (c.rel ? c.rel + ' · ' : '') + progressOf(c) + '/15단계 · ' + STATUS[c.status||'new'].t;
+  $('#shBody').innerHTML = sheetHtml(c);
+  $('#sheet').classList.add('on');
+  document.body.style.overflow = 'hidden';
+  var nx = nextStepOf(c);
+  setTimeout(function(){
+    var el = document.getElementById('st' + (nx || 15));
+    if(el) el.scrollIntoView({ block:'center' });
+  }, 300);
+}
+function closeSheet(){
+  $('#sheet').classList.remove('on');
+  document.body.style.overflow = '';
+  curId = null;
+  renderAll();
+}
+function findC(id){
+  for(var i=0;i<DB.contacts.length;i++){ if(DB.contacts[i].id === id) return DB.contacts[i]; }
+  return null;
+}
+
+function sheetHtml(c){
+  var p = progressOf(c), nx = nextStepOf(c), d = dueInfo(c);
+  var h = '';
+
+  /* 진행 */
+  h += '<div class="prog"><div class="lbl"><span>진행</span><b>' + p + ' / 15단계</b></div>'
+     + '<div class="bar"><i style="width:' + (p/15*100).toFixed(1) + '%"></i></div><div class="dots">';
+  for(var i=1;i<=15;i++) h += '<s class="' + (c.steps[i] ? 'on' : '') + '"></s>';
+  h += '</div><p style="margin-top:9px;font-size:12.5px;color:' + (d.due ? '#D6417A' : '#7B7091') + ';font-weight:700">'
+     + (d.due ? '📮 ' : '⏳ ') + esc(d.txt) + '</p></div>';
+
+  /* 정보 */
+  h += '<div class="card info"><h3>이 사람 정보</h3>'
+     + '<div class="fr">'
+     + '<label><span>이름</span><input type="text" id="fName" value="' + esc(c.name) + '"></label>'
+     + '<label><span>관계 (예: 고등 동창)</span><input type="text" id="fRel" value="' + esc(c.rel) + '"></label>'
+     + '</div><div class="fr">'
+     + '<label><span>휴대폰 번호 — 넣으면 문자 버튼이 바로 열립니다</span>'
+     + '<input type="tel" id="fPhone" inputmode="numeric" placeholder="010-0000-0000" value="' + esc(c.phone) + '"></label>'
+     + '</div><div class="fr">'
+     + '<label><span>메모 — 나눈 이야기, 건강 고민, 가족 관계</span><textarea id="fMemo">' + esc(c.memo) + '</textarea></label>'
+     + '</div>'
+     + '<div class="fr" style="margin-top:12px"><label><span>말투</span><div class="segs" id="segTone">'
+     + '<button type="button" data-tone="polite" class="' + (c.tone!=='casual'?'on':'') + '">예의 갖춰</button>'
+     + '<button type="button" data-tone="casual" class="' + (c.tone==='casual'?'on':'') + '">편한 사이</button>'
+     + '</div></label></div>'
+     + '<div class="fr" style="margin-top:10px"><label><span>지금 상태</span><div class="segs five" id="segStat">'
+     + '<button type="button" data-stat="new" class="' + (c.status==='new'?'on':'') + '">시작 전</button>'
+     + '<button type="button" data-stat="talking" class="' + (c.status==='talking'?'on':'') + '">대화 중</button>'
+     + '<button type="button" data-stat="customer" class="' + (c.status==='customer'?'on':'') + '">🛒 고객</button>'
+     + '<button type="button" data-stat="partner" class="' + (c.status==='partner'?'on':'') + '">⭐ 파트너</button>'
+     + '<button type="button" data-stat="later" class="' + (c.status==='later'?'on':'') + '">💤 보류</button>'
+     + '</div></label></div></div>';
+
+  /* 15단계 */
+  var part = '';
+  for(var s=0;s<STEPS.length;s++){
+    var st = STEPS[s];
+    if(st.part !== part){
+      part = st.part;
+      h += '<div class="parthd"><b>' + esc(part) + '</b><i></i></div>';
+    }
+    var done = !!c.steps[st.n];
+    var isNext = (st.n === nx);
+    var msg = msgOf(c, st);
+    var lk = linkOf(st);
+    var bodyTxt = lk ? msg.slice(0, msg.length - lk.length - 2) : msg;
+
+    h += '<div class="st' + (done?' done':'') + (isNext?' next':'') + (isNext?' open':'') + '" id="st'+st.n+'" data-n="'+st.n+'">'
+       + '<div class="hd" data-toggle="'+st.n+'">'
+       + '<span class="no">' + (done ? '✓' : st.n) + '</span>'
+       + '<span class="ti"><b>' + esc(st.title) + '</b><small>' + esc(st.goal) + '</small>'
+       + (done ? '<span class="ck">' + esc(c.steps[st.n]) + ' 보냄</span>' : '') + '</span>'
+       + '<span class="arw">▼</span></div>'
+       + '<div class="bd"' + (isNext ? '' : ' hidden') + '>'
+       + '<div class="msg">' + esc(bodyTxt) + (lk ? '<span class="lk">' + esc(lk) + '</span>' : '') + '</div>'
+       + '<div class="mlen">' + msg.length + '자</div>'
+       + '<div class="tip">💡 ' + st.tip + '</div>'
+       + '<div class="acts">'
+       + '<button type="button" class="b-copy" data-act="copy" data-n="'+st.n+'">📋 복사</button>'
+       + '<button type="button" class="b-sms"  data-act="sms"  data-n="'+st.n+'">✉️ 문자</button>'
+       + '<button type="button" class="b-share" data-act="share" data-n="'+st.n+'">💬 카톡</button>'
+       + '</div>'
+       + '<div class="sentrow"><button type="button" class="' + (done?'on':'') + '" data-act="mark" data-n="'+st.n+'">'
+       + (done ? '✓ ' + esc(c.steps[st.n]) + ' 보냈습니다 — 취소하려면 누르세요' : '보냈으면 여기를 누르세요') + '</button></div>'
+       + '</div></div>';
+  }
+
+  h += '<div class="note" style="margin-top:22px"><b>한 사람에게 15단계를 다 보내는 게 목표가 아닙니다.</b> '
+     + '중간에 "그거 얼마야?"라고 물으면 거기서 13단계로 건너뛰세요. 퍼널은 순서를 지키라는 규칙이 아니라, '
+     + '무슨 말을 할지 막혔을 때 꺼내 쓰는 서랍입니다.</div>';
+  return h;
+}
+
+/* ══════════════ 이벤트 ══════════════ */
+function renderAll(){ renderStats(); renderFlower(); renderToday(); }
+
+/* 탭 */
+document.querySelector('.tabs').addEventListener('click', function(e){
+  var b = e.target.closest('button[data-v]'); if(!b) return;
+  var v = b.getAttribute('data-v');
+  var tabs = document.querySelectorAll('.tabs button');
+  for(var i=0;i<tabs.length;i++) tabs[i].classList.toggle('on', tabs[i] === b);
+  $('#viewFlower').hidden = v !== 'flower';
+  $('#viewToday').hidden  = v !== 'today';
+  $('#viewJog').hidden    = v !== 'jog';
+  if(v === 'flower') renderFlower();
+  if(v === 'today')  renderToday();
+});
+
+/* 해바라기 클릭 */
+$('#flower').addEventListener('click', function(e){
+  var b = e.target.closest('button'); if(!b) return;
+  if(b.getAttribute('data-add')){ $('#qName').focus(); $('#qName').scrollIntoView({block:'center'}); return; }
+  var id = b.getAttribute('data-id'); if(id) openSheet(id);
+});
+
+/* 빠른 추가 */
+$('#qAdd').addEventListener('click', function(){
+  var el = $('#qName'); if(addContact(el.value)) el.value = ''; el.focus();
+});
+$('#qName').addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); $('#qAdd').click(); } });
+
+/* 오늘 할 일 클릭 */
+$('#todoList').addEventListener('click', function(e){
+  var r = e.target.closest('.todo'); if(!r) return;
+  openSheet(r.getAttribute('data-id'));
+});
+
+/* 이름 떠올리기 */
+$('#jogList').addEventListener('click', function(e){
+  var b = e.target.closest('button[data-jogadd]'); if(!b) return;
+  var i = b.getAttribute('data-jogadd');
+  var inp = document.querySelector('input[data-jog="' + i + '"]');
+  var nm = inp.value.trim(); if(!nm) return;
+  if(addContact(nm, JOG[i].split(' — ')[0])){
+    var got = document.getElementById('got' + i);
+    got.textContent = (got.textContent ? got.textContent + ', ' : '심음: ') + nm;
+    inp.value = ''; inp.focus();
+  }
+});
+$('#jogList').addEventListener('keydown', function(e){
+  if(e.key !== 'Enter') return;
+  var inp = e.target.closest('input[data-jog]'); if(!inp) return;
+  e.preventDefault();
+  document.querySelector('button[data-jogadd="' + inp.getAttribute('data-jog') + '"]').click();
+});
+
+/* 시트 안 동작 */
+$('#shBody').addEventListener('click', function(e){
+  var c = findC(curId); if(!c) return;
+
+  var tg = e.target.closest('[data-toggle]');
+  if(tg){
+    var box = tg.parentElement;
+    var bd = box.querySelector('.bd');
+    bd.hidden = !bd.hidden;
+    box.classList.toggle('open', !bd.hidden);
+    return;
+  }
+  var tn = e.target.closest('[data-tone]');
+  if(tn){
+    c.tone = tn.getAttribute('data-tone'); save();
+    $('#shBody').innerHTML = sheetHtml(c);
+    toast(c.tone === 'casual' ? '편한 사이 말투로 바꿨습니다' : '예의 갖춘 말투로 바꿨습니다');
+    return;
+  }
+  var stt = e.target.closest('[data-stat]');
+  if(stt){
+    c.status = stt.getAttribute('data-stat'); save();
+    $('#shSub').textContent = (c.rel ? c.rel + ' · ' : '') + progressOf(c) + '/15단계 · ' + STATUS[c.status].t;
+    var bs = $('#segStat').querySelectorAll('button');
+    for(var i=0;i<bs.length;i++) bs[i].classList.toggle('on', bs[i] === stt);
+    toast(STATUS[c.status].t + '(으)로 표시했습니다');
+    return;
+  }
+  var ab = e.target.closest('[data-act]');
+  if(!ab) return;
+  var n = parseInt(ab.getAttribute('data-n'), 10);
+  var st = STEPS[n-1];
+  var msg = msgOf(c, st);
+
+  if(ab.getAttribute('data-act') === 'copy'){ copyText(msg); markSuggest(c, n); }
+  else if(ab.getAttribute('data-act') === 'sms'){
+    if(!c.phone){ toast('먼저 위에 휴대폰 번호를 넣어 주세요'); $('#fPhone').focus(); return; }
+    location.href = smsHref(c.phone, msg); markSuggest(c, n);
+  }
+  else if(ab.getAttribute('data-act') === 'share'){ shareText(msg); markSuggest(c, n); }
+  else if(ab.getAttribute('data-act') === 'mark'){
+    if(c.steps[n]) delete c.steps[n]; else c.steps[n] = today();
+    save();
+    $('#shBody').innerHTML = sheetHtml(c);
+    $('#shSub').textContent = (c.rel ? c.rel + ' · ' : '') + progressOf(c) + '/15단계 · ' + STATUS[c.status||'new'].t;
+    var el = document.getElementById('st' + n); if(el) el.scrollIntoView({ block:'center' });
+  }
+});
+/* 이름을 고치면 15개 메시지의 이름도 그 자리에서 바꾼다 (입력칸 포커스는 유지) */
+function refreshMsgs(c){
+  for(var i=0;i<STEPS.length;i++){
+    var st = STEPS[i];
+    var box = document.getElementById('st' + st.n); if(!box) continue;
+    var m = box.querySelector('.msg'), ln = box.querySelector('.mlen'); if(!m) continue;
+    var full = msgOf(c, st), lk = linkOf(st);
+    var body = lk ? full.slice(0, full.length - lk.length - 2) : full;
+    m.innerHTML = esc(body) + (lk ? '<span class="lk">' + esc(lk) + '</span>' : '');
+    if(ln) ln.textContent = full.length + '자';
+  }
+}
+
+/* 보낸 뒤 체크를 권한다 */
+function markSuggest(c, n){
+  if(c.steps[n]) return;
+  setTimeout(function(){
+    if(curId !== c.id || c.steps[n]) return;
+    toast('보내셨으면 아래 「보냈으면 여기를 누르세요」를 눌러 주세요');
+  }, 1400);
+}
+
+/* 정보 입력 저장 */
+$('#shBody').addEventListener('input', function(e){
+  var c = findC(curId); if(!c) return;
+  var id = e.target.id;
+  if(id === 'fName'){ c.name = e.target.value.trim(); $('#shName').textContent = c.name || '이름'; refreshMsgs(c); }
+  else if(id === 'fRel')  c.rel  = e.target.value.trim();
+  else if(id === 'fPhone')c.phone= e.target.value.trim();
+  else if(id === 'fMemo') c.memo = e.target.value;
+  else return;
+  save();
+});
+
+/* 시트 닫기 · 삭제 */
+$('#shX').addEventListener('click', closeSheet);
+$('#shClose').addEventListener('click', closeSheet);
+$('#shDel').addEventListener('click', function(){
+  var c = findC(curId); if(!c) return;
+  if(!confirm('「' + c.name + '」을 명단에서 지웁니다. 되돌릴 수 없습니다.')) return;
+  DB.contacts = DB.contacts.filter(function(x){ return x.id !== curId; });
+  save(); closeSheet(); toast('명단에서 지웠습니다');
+});
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && curId) closeSheet(); });
+
+/* 설정 */
+function openSetup(){
+  $('#mName').value  = DB.me.name || '';
+  $('#mPhone').value = DB.me.phone || '';
+  $('#mSite').value  = DB.me.site || '/';
+  $('#setup').classList.add('on');
+  setTimeout(function(){ $('#mName').focus(); }, 60);
+}
+$('#btnSetup').addEventListener('click', openSetup);
+$('#mCancel').addEventListener('click', function(){ $('#setup').classList.remove('on'); });
+$('#mSave').addEventListener('click', function(){
+  DB.me.name  = $('#mName').value.trim();
+  DB.me.phone = $('#mPhone').value.trim();
+  DB.me.site  = $('#mSite').value;
+  save(); $('#setup').classList.remove('on'); renderAll();
+  toast('저장했습니다');
+});
+$('#setup').addEventListener('click', function(e){ if(e.target === this) this.classList.remove('on'); });
+
+/* 백업 */
+$('#btnExport').addEventListener('click', function(){
+  if(!DB.contacts.length){ toast('명단이 비어 있습니다'); return; }
+  var blob = new Blob([JSON.stringify(DB, null, 2)], { type:'application/json' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = '진지노-지인명단-' + today() + '.json';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(a.href); }, 1500);
+  toast('명단 파일을 내려받았습니다');
+});
+$('#btnImport').addEventListener('click', function(){ $('#fileIn').click(); });
+$('#fileIn').addEventListener('change', function(e){
+  var f = e.target.files[0]; if(!f) return;
+  var fr = new FileReader();
+  fr.onload = function(){
+    try{
+      var d = JSON.parse(fr.result);
+      if(!d || !Array.isArray(d.contacts)) throw new Error('형식이 맞지 않습니다');
+      if(DB.contacts.length && !confirm('지금 명단 ' + DB.contacts.length + '명을 불러온 명단으로 바꿉니다. 계속할까요?')) return;
+      DB = { me: d.me, contacts: d.contacts };
+      normalize(); save(); renderAll();
+      toast(DB.contacts.length + '명을 불러왔습니다');
+    }catch(err){ toast('파일을 읽지 못했습니다'); }
+  };
+  fr.readAsText(f);
+  e.target.value = '';
+});
+
+/* 화면 크기 바뀌면 다시 그린다 */
+var _rz;
+window.addEventListener('resize', function(){ clearTimeout(_rz); _rz = setTimeout(renderFlower, 180); });
+
+/* 자료실에서 ?p=kang 처럼 넘어오면 그 파트너 폴더를 미리 골라 둔다 */
+function applyParam(){
+  var m = /[?&]p=([a-z]+)/.exec(location.search);
+  if(!m) return;
+  var f = '/' + m[1] + '/';
+  var ok = false, opts = document.querySelectorAll('#mSite option');
+  for(var i=0;i<opts.length;i++){ if(opts[i].value === f) ok = true; }
+  if(ok && DB.me.site === '/'){ DB.me.site = f; save(); }
+}
+
+/* 시작 */
+load();
+applyParam();
+renderJog();
+renderAll();
+if(!DB.me.name) setTimeout(openSetup, 500);
+</script>
+</body>
+</html>
