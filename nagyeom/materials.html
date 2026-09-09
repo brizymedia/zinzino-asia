@@ -141,7 +141,7 @@ footer .z{font-family:'Noto Serif KR';font-weight:900;letter-spacing:.28em;color
 
   <!-- 제품 자료 -->
   <section class="sec">
-    <div class="sec-h"><span class="ic">🧴</span><h2>제품 자료</h2><span class="cnt">3</span></div>
+    <div class="sec-h"><span class="ic">🧴</span><h2>제품 자료</h2><span class="cnt">4</span></div>
     <div class="grid" id="products"></div>
   </section>
 
@@ -275,6 +275,8 @@ document.getElementById('products').innerHTML = [
     acts:[{t:'open',label:'📱 바로보기',href:'deck.html?d=company'},{t:'share',label:'카톡',fn:`shareLink(url("deck.html?d=company"),"진지노 회사소개 자료")`}] },
   { title:'진지노 보상플랜', img:'/slides/comp/s01.jpg', badge:'42장', desc:'수당 구조와 직급 체계를 슬라이드로. 클릭하면 바로 열립니다.', fmt:'📱 슬라이드 보기 (다운로드 없이)',
     acts:[{t:'open',label:'📱 바로보기',href:'deck.html?d=comp'},{t:'share',label:'카톡',fn:`shareLink(url("deck.html?d=comp"),"진지노 보상플랜 자료")`}] },
+  { title:'지두근 다이아몬드 사업세미나', img:'/slides/jidugeun/s01.jpg', badge:'46장', desc:'다이아몬드 지두근의 사업설명 세미나 자료 (2026년 7월). 클릭하면 바로 열립니다.', fmt:'📱 슬라이드 보기 (다운로드 없이)',
+    acts:[{t:'open',label:'📱 바로보기',href:'deck.html?d=jidugeun'},{t:'share',label:'카톡',fn:`shareLink(url("deck.html?d=jidugeun"),"지두근 다이아몬드 사업세미나 자료")`}] },
   { title:'밸런스오일 제품 리플렛', img:'/files/photos/thumbs/01_밸런스오일-솔루션.jpg', badge:'PDF+사진', desc:'제품 리플렛(PDF)과 제품 사진 8장을 보고 다운로드', fmt:'📄 PDF · 📸 사진 8장',
     acts:[{t:'open',label:'자료 보기',href:'leaflet.html'},{t:'share',label:'카톡',fn:`shareLink(url("leaflet.html"),"진지노 밸런스오일 제품 자료")`}] },
 ].map(card).join('');
