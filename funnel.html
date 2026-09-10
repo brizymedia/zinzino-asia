@@ -81,7 +81,7 @@ header p.sub{margin-top:11px;font-size:14px;color:#CBBFE3;max-width:600px}
   box-shadow:var(--sh);position:relative;overflow:hidden}
 .flowerbox::before{content:"";position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(ellipse 70% 50% at 50% 45%,rgba(201,169,78,.10),transparent 72%)}
-#flower{position:relative;width:min(94vw,540px);aspect-ratio:1;margin:0 auto;touch-action:manipulation}
+#flower{position:relative;width:min(100%,540px);aspect-ratio:1;margin:0 auto;touch-action:manipulation}
 #flowerSvg{position:absolute;inset:0;width:100%;height:100%}
 .pet{position:absolute;transform:translate(-50%,-50%);border-radius:50%;border:2.5px solid #fff;
   display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;
@@ -255,6 +255,19 @@ header p.sub{margin-top:11px;font-size:14px;color:#CBBFE3;max-width:600px}
 .modal .mfoot .ok{background:var(--plum);color:#fff}
 .modal .mfoot .no{background:var(--lav);color:var(--plum)}
 
+/* 명단 한 번에 넣기 */
+.imp .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.imp .btns button{flex:1;min-width:136px;background:var(--lav);color:var(--plum);border:none;
+  border-radius:11px;padding:13px 10px;font-weight:700;font-size:13.5px;cursor:pointer}
+.imp .btns button#btnPick{background:var(--plum);color:#fff}
+.imp .btns button:active{transform:scale(.97)}
+.imp .hint{margin-top:12px;font-size:12.3px;color:#7B7091;line-height:1.7}
+.imp .hint b{color:var(--plum)}
+.modal textarea{width:100%;min-height:160px;border:1.5px solid var(--line);border-radius:11px;
+  padding:11px 12px;font-size:15px;font-family:inherit;resize:vertical;line-height:1.75}
+.modal textarea:focus{outline:none;border-color:var(--violet)}
+.modal .ex{margin-top:9px;font-size:12px;color:#8A7FA5;line-height:1.65}
+
 /* 안내 · 백업 */
 .note{margin-top:16px;background:#F4F0FA;border:1.5px solid #E2D8F2;border-radius:14px;padding:14px 15px;
   font-size:12.8px;color:#5B4C77;line-height:1.7}
@@ -339,6 +352,18 @@ footer a{color:var(--plum);font-weight:700}
       </div>
     </div>
 
+    <div class="card imp">
+      <h3>명단 한 번에 넣기</h3>
+      <p class="d">한 명씩 치지 않아도 됩니다. 주소록에서 고르거나, 어디선가 복사해 둔 목록을 통째로 붙여넣으세요.</p>
+      <div class="btns">
+        <button type="button" id="btnPick" hidden>📇 주소록에서 고르기</button>
+        <button type="button" id="btnPaste">📋 여러 명 붙여넣기</button>
+        <button type="button" id="btnVcf">📁 연락처 파일(.vcf)</button>
+        <input type="file" id="vcfIn" accept=".vcf,text/vcard,text/x-vcard" hidden>
+      </div>
+      <p class="hint" id="impHint"></p>
+    </div>
+
     <div class="note">
       <b>명단은 이 기기에만 저장됩니다.</b> 서버로 보내지 않고, 이 브라우저 안에만 남습니다.
       휴대폰을 바꾸거나 브라우저를 지우면 사라지니, 명단이 쌓이면 <b>내보내기</b>로 파일 하나 받아 두세요.
@@ -411,6 +436,23 @@ footer a{color:var(--plum);font-weight:700}
     <div class="mfoot">
       <button type="button" class="no" id="mCancel">취소</button>
       <button type="button" class="ok" id="mSave">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── 여러 명 붙여넣기 ── -->
+<div class="modal" id="paste">
+  <div class="in">
+    <h3>여러 명 붙여넣기</h3>
+    <p class="d">한 줄에 한 사람씩. 이름만 있어도 되고, 번호가 같이 있으면 번호까지 들어갑니다.</p>
+    <textarea id="pasteTx" placeholder="김민수 010-1234-5678
+박영희
+정대호, 010-2222-3333
+010-4444-5555 이수진"></textarea>
+    <p class="ex">엑셀에서 복사한 표, 메모장에 적어 둔 목록, 문자 목록 — 그대로 붙여넣으면 알아서 이름과 번호를 갈라 놓습니다.</p>
+    <div class="mfoot">
+      <button type="button" class="no" id="pCancel">취소</button>
+      <button type="button" class="ok" id="pOk">넣기</button>
     </div>
   </div>
 </div>
@@ -851,6 +893,183 @@ function addContact(name, rel){
   return c;
 }
 
+/* ══════════════════════════════════════════════════════════
+   명단 한 번에 넣기 — 주소록 / 붙여넣기 / 연락처 파일
+════════════════════════════════════════════════════════════ */
+/* 주소록 고르기는 안드로이드 크롬(보안 연결)에서만 열린다 */
+var HAS_PICKER = ('contacts' in navigator) && ('ContactsManager' in window) && window.isSecureContext;
+var PICK_PROPS = null;
+if(HAS_PICKER && navigator.contacts.getProperties){
+  navigator.contacts.getProperties().then(function(p){ PICK_PROPS = p; }, function(){});
+}
+
+function isIOS(){
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+
+/* 전화번호를 010-1234-5678 꼴로 */
+function normTel(t){
+  var s = String(t == null ? '' : t).replace(/[^0-9+]/g, '');
+  if(!s) return '';
+  if(s.indexOf('+82') === 0) s = '0' + s.slice(3);
+  else if(s.indexOf('82') === 0 && s.length >= 11) s = '0' + s.slice(2);
+  var m = /^(01[0-9])(\d{3,4})(\d{4})$/.exec(s);
+  if(m) return m[1] + '-' + m[2] + '-' + m[3];
+  m = /^(0\d{1,2})(\d{3,4})(\d{4})$/.exec(s);
+  if(m) return m[1] + '-' + m[2] + '-' + m[3];
+  return s;
+}
+/* 번호가 여러 개면 휴대폰 번호를 고른다 */
+function bestTel(arr){
+  if(!arr || !arr.length) return '';
+  for(var i = 0; i < arr.length; i++){
+    var t = normTel(arr[i]);
+    if(/^01/.test(t)) return t;
+  }
+  return normTel(arr[0]);
+}
+function findByName(nm){
+  for(var i = 0; i < DB.contacts.length; i++){ if(DB.contacts[i].name === nm) return DB.contacts[i]; }
+  return null;
+}
+
+/* 여러 명을 한꺼번에 명단에 넣는다 */
+function bulkAdd(rows){
+  var added = 0, filled = 0, dup = 0;
+  for(var i = 0; i < (rows || []).length; i++){
+    var nm = String(rows[i].name || '').replace(/\s+/g, ' ').trim();
+    var tel = normTel(rows[i].tel);
+    if(!nm && !tel) continue;
+    if(!nm) nm = tel;                       /* 이름이 없으면 번호를 이름 자리에 */
+    var ex = findByName(nm);
+    if(ex){
+      if(tel && !ex.phone){ ex.phone = tel; filled++; } else dup++;
+      continue;
+    }
+    DB.contacts.push({ id:uid(), name:nm, rel:'', phone:tel, memo:'',
+      tone:'polite', status:'new', steps:{}, created:today() });
+    added++;
+  }
+  save(); renderAll();
+  var msg = [];
+  if(added)  msg.push('🌻 ' + added + '명 심었습니다');
+  if(filled) msg.push('번호만 채운 사람 ' + filled + '명');
+  if(dup)    msg.push('이미 있던 사람 ' + dup + '명');
+  toast(msg.length ? msg.join(' · ') : '넣을 사람을 찾지 못했습니다');
+}
+
+/* 1) 주소록에서 고르기 — 고른 사람만 넘어온다 */
+function pickFromPhone(){
+  var want = ['name'];
+  if(!PICK_PROPS || PICK_PROPS.indexOf('tel') >= 0) want.push('tel');
+  navigator.contacts.select(want, { multiple:true }).then(function(picked){
+    if(!picked || !picked.length) return;
+    bulkAdd(picked.map(function(c){
+      return { name:(c.name && c.name[0]) || '', tel:bestTel(c.tel) };
+    }));
+  }, function(e){
+    if(e && e.name === 'AbortError') return;
+    toast('주소록을 열지 못했습니다. 붙여넣기로 넣어 주세요');
+  });
+}
+
+/* 2) 붙여넣은 글에서 이름과 번호를 갈라낸다 */
+function parseLines(txt){
+  var out = [];
+  String(txt == null ? '' : txt).split(/[\r\n]+/).forEach(function(line){
+    var s = line.trim();
+    if(!s) return;
+    s = s.replace(/^\s*\d+[.)]\s*/, '').replace(/^[-·•*]\s*/, '');   /* 번호·글머리 떼기 */
+    var m = /(\+?\d[\d\-. ()]{7,})/.exec(s);
+    var tel = '', name = s;
+    if(m){
+      tel = m[1];
+      name = (s.slice(0, m.index) + ' ' + s.slice(m.index + m[1].length)).trim();
+    }
+    name = name.replace(/[,\t;|]+/g, ' ').replace(/\s+/g, ' ').trim();
+    out.push({ name:name, tel:tel });
+  });
+  return out;
+}
+
+/* 3) 연락처 파일(.vcf) — 한글이 =EC=95=88 꼴로 들어오는 것까지 푼다 */
+function qpUtf8(str){
+  var bytes = [];
+  for(var i = 0; i < str.length; i++){
+    if(str.charAt(i) === '=' && /^[0-9A-Fa-f]{2}$/.test(str.substr(i + 1, 2))){
+      bytes.push(parseInt(str.substr(i + 1, 2), 16)); i += 2;
+    } else bytes.push(str.charCodeAt(i) & 0xFF);
+  }
+  try{ return new TextDecoder('utf-8').decode(new Uint8Array(bytes)); }
+  catch(e){ return str; }
+}
+function parseVcf(txt){
+  var t = String(txt == null ? '' : txt).replace(/\r\n/g, '\n')
+            .replace(/=\n/g, '')        /* QP 줄바꿈 */
+            .replace(/\n[ \t]/g, '');   /* 접힌 줄 */
+  var out = [];
+  t.split(/BEGIN:VCARD/i).forEach(function(block){
+    if(!/END:VCARD/i.test(block)) return;
+    var name = '', tels = [];
+    block.split('\n').forEach(function(line){
+      var i = line.indexOf(':');
+      if(i < 0) return;
+      var key = line.slice(0, i).toUpperCase(), val = line.slice(i + 1).trim();
+      if(key.indexOf('QUOTED-PRINTABLE') >= 0) val = qpUtf8(val);
+      if(!name && /^FN(;|$)/.test(key)) name = val;
+      else if(!name && /^N(;|$)/.test(key)) name = val.split(';').slice(0, 2).join('').trim();
+      if(/^TEL(;|$)/.test(key)){
+        /* 집·회사 번호보다 휴대폰을 앞에 둔다 */
+        if(/CELL|MOBILE/.test(key)) tels.unshift(val); else tels.push(val);
+      }
+    });
+    var tel = bestTel(tels);
+    if(name || tel) out.push({ name:name, tel:tel });
+  });
+  return out;
+}
+
+/* 기기에 맞는 안내 문구 */
+function setImpHint(){
+  var h = $('#impHint');
+  if(HAS_PICKER){
+    $('#btnPick').hidden = false;
+    h.innerHTML = '주소록 창에서 <b>고른 사람만</b> 넘어옵니다. 전체 주소록을 읽지 않고, 들어온 명단은 이 기기에만 남습니다.';
+  } else if(isIOS()){
+    h.innerHTML = '<b>아이폰은 사파리가 주소록 열기를 막아 두었습니다.</b> 번호는 붙여넣기로 넣거나 나중에 한 사람씩 채우셔도 됩니다. 번호가 없어도 <b>복사·카톡</b> 버튼은 그대로 씁니다.';
+  } else {
+    h.innerHTML = '주소록에서 바로 고르기는 <b>안드로이드 휴대폰의 크롬</b>에서만 열립니다. 여기서는 붙여넣기나 연락처 파일을 쓰세요.';
+  }
+}
+
+$('#btnPick').addEventListener('click', pickFromPhone);
+$('#btnPaste').addEventListener('click', function(){
+  $('#pasteTx').value = '';
+  $('#paste').classList.add('on');
+  setTimeout(function(){ $('#pasteTx').focus(); }, 60);
+});
+$('#pCancel').addEventListener('click', function(){ $('#paste').classList.remove('on'); });
+$('#paste').addEventListener('click', function(e){ if(e.target === this) this.classList.remove('on'); });
+$('#pOk').addEventListener('click', function(){
+  var rows = parseLines($('#pasteTx').value);
+  $('#paste').classList.remove('on');
+  bulkAdd(rows);
+});
+$('#btnVcf').addEventListener('click', function(){ $('#vcfIn').click(); });
+$('#vcfIn').addEventListener('change', function(e){
+  var f = e.target.files[0];
+  if(!f) return;
+  var fr = new FileReader();
+  fr.onload = function(){
+    var rows = parseVcf(fr.result);
+    if(!rows.length){ toast('연락처 파일에서 사람을 찾지 못했습니다'); return; }
+    bulkAdd(rows);
+  };
+  fr.readAsText(f, 'utf-8');
+  e.target.value = '';
+});
+
 /* ══════════════ 상세 시트 ══════════════ */
 var curId = null;
 
@@ -1165,6 +1384,7 @@ function applyParam(){
 /* 시작 */
 load();
 applyParam();
+setImpHint();
 renderJog();
 renderAll();
 if(!DB.me.name) setTimeout(openSetup, 500);
