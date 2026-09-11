@@ -457,6 +457,18 @@ footer a{color:var(--plum);font-weight:700}
   </div>
 </div>
 
+<!-- ── 나가기 확인 (뒤로 버튼) ── -->
+<div class="modal" id="leave">
+  <div class="in">
+    <h3>해바라기에서 나갈까요?</h3>
+    <p class="d">명단은 이 기기에 저장돼 있어서, 나갔다 다시 들어와도 그대로 남아 있습니다.</p>
+    <div class="mfoot">
+      <button type="button" class="no" id="lvStay">계속 하기</button>
+      <button type="button" class="ok" id="lvGo">나가기</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -1380,6 +1392,63 @@ function applyParam(){
   for(var i=0;i<opts.length;i++){ if(opts[i].value === f) ok = true; }
   if(ok && DB.me.site === '/'){ DB.me.site = f; save(); }
 }
+
+/* ══════════════ 뒤로 버튼 확인 ══════════════
+   뒤로 버튼을 누르면 브라우저가 기록 하나를 되돌린다. 그래서 같은 주소로
+   「방어용 기록」을 하나 더 쌓아 두고, 그게 빠질 때(popstate) 붙잡는다.
+   - 크롬은 사용자가 한 번도 누르지 않은 페이지가 쌓은 기록을 뒤로 버튼에서
+     건너뛴다. 그래서 첫 터치 뒤에 쌓는다. (누르기 전엔 잃을 것도 없다)
+   - 새로고침으로 이미 방어 기록 위에 있으면 또 쌓지 않는다. */
+var guardOn = !!(history.state && history.state.zzGuard);
+var leaving = false;
+
+function armGuard(){
+  if(guardOn || leaving) return;
+  try{ history.pushState({ zzGuard:1 }, '', location.href); guardOn = true; }catch(e){}
+}
+window.addEventListener('pointerdown', armGuard, true);
+window.addEventListener('keydown', armGuard, true);
+
+/* 열린 창이 있으면 하나 닫고 true */
+function closeTopLayer(){
+  if($('#leave').classList.contains('on')){ $('#leave').classList.remove('on'); return true; }
+  if($('#paste').classList.contains('on')){ $('#paste').classList.remove('on'); return true; }
+  if($('#setup').classList.contains('on')){ $('#setup').classList.remove('on'); return true; }
+  if(curId){ closeSheet(); return true; }
+  return false;
+}
+
+window.addEventListener('popstate', function(e){
+  if(e.state && e.state.zzGuard){ guardOn = true; return; }   /* 앞으로 가기로 돌아온 경우 */
+  guardOn = false;
+  if(leaving) return;
+  if(closeTopLayer()){ armGuard(); return; }                  /* 뒤로 = 창 닫기 */
+  armGuard();
+  $('#leave').classList.add('on');                            /* 뒤로 = 나갈까요? */
+});
+
+$('#lvStay').addEventListener('click', function(){ $('#leave').classList.remove('on'); });
+$('#leave').addEventListener('click', function(e){ if(e.target === this) this.classList.remove('on'); });
+$('#lvGo').addEventListener('click', function(){
+  $('#leave').classList.remove('on');
+  leaving = true;
+  if(history.length > 2){
+    history.go(-2);                      /* 방어 기록 + 이 페이지를 한 번에 건너 이전 페이지로 */
+  } else {
+    /* 카톡 링크·홈 화면 바로가기처럼 이 탭의 첫 페이지면 되돌아갈 곳이 없다.
+       방어 기록만 걷어 내서 다음 뒤로 버튼에 바로 나가게 한다. */
+    history.back();
+    toast('뒤로 버튼을 한 번 더 누르면 나갑니다');
+    setTimeout(function(){ leaving = false; }, 400);
+  }
+});
+
+/* 다른 페이지로 갔다가 앞으로 가기로 돌아오면(bfcache) 상태를 다시 맞춘다 */
+window.addEventListener('pageshow', function(e){
+  if(!e.persisted) return;
+  leaving = false;
+  guardOn = !!(history.state && history.state.zzGuard);
+});
 
 /* 시작 */
 load();
